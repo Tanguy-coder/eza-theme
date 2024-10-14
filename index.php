@@ -1,16 +1,5 @@
 <?php get_header(); ?>
 
-<div class="swiper-container">
-    <div class="swiper-wrapper">
-        <div class="swiper-slide">
-            <img src="<?php echo get_template_directory_uri(); ?>/images/slider1.jpg" alt="Slider Image 1">
-        </div>
-        <div class="swiper-slide">
-            <img src="<?php echo get_template_directory_uri(); ?>/images/slider2.jpg" alt="Slider Image 2">
-        </div>
-    </div>
-    <div class="swiper-pagination"></div>
-</div>
 
 <section class="projects-section container">
     <h2>Nos Projets</h2>

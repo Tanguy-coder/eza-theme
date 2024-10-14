@@ -1,21 +1,22 @@
 <!DOCTYPE html>
-<html <?php language_attributes(); ?>>
+<html lang="fr">
 
 <head>
-    <meta charset="<?php bloginfo('charset'); ?>">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="<?php echo esc_url(get_stylesheet_uri()); ?>">
-    <?php wp_head(); ?>
+    <title>Patriarche - Architecture & Design</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="favicon.ico">
 </head>
 
-<body <?php body_class(); ?>>
-
+<body>
+    <!-- Navigation -->
     <header>
         <nav class="navbar">
             <div class="nav-links">
                 <div class="logo">
                     <a href="#">
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/logo.png" alt="Eza-Architecture">
+                        <img src="" alt="Eza-Architecture">
                     </a>
                 </div>
                 <ul class="links">
@@ -24,21 +25,23 @@
                     <li><a href="#">Projets</a></li>
                     <li><a href="#">Agence</a></li>
                     <li><a href="#">Équipe</a></li>
-                    <?php
-                    wp_nav_menu(array(
-                        'theme_location' => 'primary-menu',
-                        'container'      => false,
-                        'menu_class'     => 'nav-menu',
-                    ));
-                    ?>
                 </ul>
             </div>
+            <!-- <div class="language-selector">
+                <div>
+                    <details>
+                        <summary>fr</summary>
+                        <a href="">it</a><a href="">en</a>
+                    </details>
+                </div>
+            </div> -->
             <div class="menu">
                 <img src="/img/icons/menu.svg" alt="">
             </div>
         </nav>
     </header>
-    <section class="hero" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/images/slider1.jpg'); background-position: center; background-repeat: no-repeat; background-size: cover; overflow: hidden;">
+
+    <section class="hero" style="background-image: url('img/img1.jpg'); background-position: center; background-repeat: no-repeat; background-size: cover; overflow: hidden;">
         <!-- <img class="hero-bg" src="img/img1.jpg" alt=""> -->
         <div class="social-links">
             <a href="#"><img src="/img/icons/linkedin-original.svg" alt="LinkedIn"></a>
@@ -46,12 +49,8 @@
             <a href="#"><img src="instagram-icon.png" alt="Instagram"></a>
             <a href="#"><img src="/img/icons/twitter-original.svg" alt="X"></a>
             <a href="#"><img src="email-icon.png" alt="Email"></a>
-            <a href="#"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
-                    <rect fill="#3d5a98" x="4.83" y="4.83" width="15" height="15" rx="6.53" ry="6.53" />
-                    <path fill="#fff" d="M86.48 123.17V77.34h15.38l2.3-17.86H86.48v-11.4c0-5.17 1.44-8.7 8.85-8.7h9.46v-16A126.56 126.56 0 0091 22.7c-13.62 0-23 8.3-23 23.61v13.17H52.62v17.86H68v45.83z" />
-                </svg></a>
             <a href="#"><img src="video-icon.png" alt="Video"></a>
-        </div>
+        </div> 
 
         <div class="nav-mobile">
             <span class="close-menu">
@@ -72,39 +71,32 @@
                     <a href="#"><img src="/img/icons/twitter-original.svg" alt="X" width="24" height="24"></a>
                     <a href="#"><img src="email-icon.png" alt="Email" width="24" height="24"></a>
                     <a href="#"><img src="video-icon.png" alt="Video" width="24" height="24"></a>
-                </div>
-
+                </div> 
+                <!-- <div tabindex="0" class="plusButton">
+                    <svg class="plusIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30">
+                      <g mask="url(#mask0_21_345)">
+                        <path d="M13.75 23.75V16.25H6.25V13.75H13.75V6.25H16.25V13.75H23.75V16.25H16.25V23.75H13.75Z"></path>
+                      </g>
+                    </svg>
+                  </div> -->
             </div>
         </div>
     </section>
 
+    
 
-    <script>
-        document.addEventListener('scroll', function() {
-            var header = document.querySelector('.site-header');
-            if (window.scrollY > 100) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
-        });
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Patriarche. Tous droits réservés</p>
+        <div class="footer-links">
+            <a href="#">Glossaire</a>
+            <a href="#">Mentions légales</a>
+            <a href="#">Politique de confidentialité</a>
+            <a href="#">Cookies</a>
+        </div>
+    </footer> 
 
+    <script src="script.js"></script>
+</body>
 
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('Website loaded successfully');
-        });
-
-        let nav_mobile = document.querySelector(".nav-mobile")
-        let menu = document.querySelector('.menu')
-        let close_menu_button = document.querySelector('.close-menu')
-
-        menu.addEventListener('click', function() {
-            nav_mobile.classList.toggle("nav-mobile-apparition")
-        })
-
-
-        close_menu_button.addEventListener('click', function() {
-            nav_mobile.classList.toggle("nav-mobile-apparition")
-
-        })
-    </script>
+</html>
