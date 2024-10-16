@@ -1,16 +1,16 @@
 <?php get_header(); ?>
 
-<div class="container">
-    <?php
-    if (have_posts()) :
-        while (have_posts()) : the_post(); ?>
-            <h1><?php the_title(); ?></h1>
-            <div><?php the_content(); ?></div>
-        <?php endwhile;
-    else :
-        echo '<p>Aucun article trouvé.</p>';
-    endif;
-    ?>
-</div>
+    <main id="main-content" class="site-main">
+        <?php
+        while (have_posts()) :
+            the_post();
+            get_template_part('template-parts/content', 'single');
+
+            if (comments_open() || get_comments_number()) :
+                comments_template();
+            endif;
+        endwhile;
+        ?>
+    </main>
 
 <?php get_footer(); ?>

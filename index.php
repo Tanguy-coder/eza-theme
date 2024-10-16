@@ -1,25 +1,18 @@
 <?php get_header(); ?>
 
-
-<section class="projects-section container">
-    <h2>Nos Projets</h2>
-    <div class="grid-container">
+    <main id="main-content" class="site-main">
         <?php
-        $args = array('post_type' => 'projet', 'posts_per_page' => 6);
-        $projects = new WP_Query($args);
-        if ($projects->have_posts()) :
-            while ($projects->have_posts()) : $projects->the_post(); ?>
-                <div class="grid-item">
-                    <a href="<?php the_permalink(); ?>"><?php the_post_thumbnail(); ?></a>
-                    <h3><?php the_title(); ?></h3>
-                </div>
-            <?php endwhile;
+        if (have_posts()) :
+            while (have_posts()) :
+                the_post();
+                get_template_part('template-parts/content', get_post_type());
+            endwhile;
+            the_posts_navigation();
         else :
-            echo '<p>Aucun projet trouvé.</p>';
+            get_template_part('template-parts/content', 'none');
         endif;
-        wp_reset_postdata();
         ?>
-    </div>
-</section>
+
+    </main>
 
 <?php get_footer(); ?>

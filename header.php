@@ -1,110 +1,58 @@
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
-
 <head>
     <meta charset="<?php bloginfo('charset'); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="<?php echo esc_url(get_stylesheet_uri()); ?>">
     <?php wp_head(); ?>
 </head>
-
 <body <?php body_class(); ?>>
-
-    <header>
-        <nav class="navbar">
-            <div class="nav-links">
-                <div class="logo">
-                    <a href="#">
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/logo.png" alt="Eza-Architecture">
-                    </a>
-                </div>
-                <ul class="links">
-                    <li><a href="#">ADN</a></li>
-                    <li><a href="#">Méthode</a></li>
-                    <li><a href="#">Projets</a></li>
-                    <li><a href="#">Agence</a></li>
-                    <li><a href="#">Équipe</a></li>
-                    <?php
-                    wp_nav_menu(array(
-                        'theme_location' => 'primary-menu',
-                        'container'      => false,
-                        'menu_class'     => 'nav-menu',
-                    ));
-                    ?>
-                </ul>
+<?php wp_body_open(); ?>
+<header>
+    <nav class="navbar <?php echo is_front_page() ? 'navbar-home' : 'navbar-inner'; ?>">
+        <div class="nav-links">
+            <div class="logo">
+                <?php
+                if (has_custom_logo()) {
+                    the_custom_logo();
+                } else {
+                    echo '<a href="' . esc_url(home_url('/')) . '">' . get_bloginfo('name') . '</a>';
+                }
+                ?>
             </div>
-            <div class="menu">
-                <img src="/img/icons/menu.svg" alt="">
-            </div>
-        </nav>
-    </header>
-    <section class="hero" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/images/slider1.jpg'); background-position: center; background-repeat: no-repeat; background-size: cover; overflow: hidden;">
-        <!-- <img class="hero-bg" src="img/img1.jpg" alt=""> -->
-        <div class="social-links">
-            <a href="#"><img src="/img/icons/linkedin-original.svg" alt="LinkedIn"></a>
-            <a href="#"><img src="/img/icons/facebook-original.svg" alt="Facebook"></a>
-            <a href="#"><img src="instagram-icon.png" alt="Instagram"></a>
-            <a href="#"><img src="/img/icons/twitter-original.svg" alt="X"></a>
-            <a href="#"><img src="email-icon.png" alt="Email"></a>
-            <a href="#"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
-                    <rect fill="#3d5a98" x="4.83" y="4.83" width="15" height="15" rx="6.53" ry="6.53" />
-                    <path fill="#fff" d="M86.48 123.17V77.34h15.38l2.3-17.86H86.48v-11.4c0-5.17 1.44-8.7 8.85-8.7h9.46v-16A126.56 126.56 0 0091 22.7c-13.62 0-23 8.3-23 23.61v13.17H52.62v17.86H68v45.83z" />
-                </svg></a>
-            <a href="#"><img src="video-icon.png" alt="Video"></a>
+            <?php
+            wp_nav_menu(array(
+                'theme_location' => 'primary-menu',
+                'container'      => false,
+                'menu_class'     => 'links',
+            ));
+            ?>
         </div>
-
-        <div class="nav-mobile">
-            <span class="close-menu">
-                <img src="img/icons/x.svg" alt="" width="30" height="30">
-            </span>
-            <div class="mobile_links">
-                <ul class="mobile-links">
-                    <li><a href="#">ADN</a></li>
-                    <li><a href="#">Méthode</a></li>
-                    <li><a href="#">Projets</a></li>
-                    <li><a href="#">Agence</a></li>
-                    <li><a href="#">Équipe</a></li>
-                </ul>
-                <div class="social-links-mobile-footer">
-                    <a href="#"><img src="/img/icons/linkedin-original.svg" alt="LinkedIn" width="24" height="24"></a>
-                    <a href="#"><img src="/img/icons/facebook-original.svg" alt="Facebook" width="24" height="24"></a>
-                    <a href="#"><img src="instagram-icon.png" alt="Instagram" width="24" height="24"></a>
-                    <a href="#"><img src="/img/icons/twitter-original.svg" alt="X" width="24" height="24"></a>
-                    <a href="#"><img src="email-icon.png" alt="Email" width="24" height="24"></a>
-                    <a href="#"><img src="video-icon.png" alt="Video" width="24" height="24"></a>
-                </div>
-
-            </div>
+        <div class="menu">
+            <img src="<?php echo eza_get_icon_url('menu.svg'); ?>" alt="Menu">
         </div>
-    </section>
+    </nav>
+</header>
 
 
-    <script>
-        document.addEventListener('scroll', function() {
-            var header = document.querySelector('.site-header');
-            if (window.scrollY > 100) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
-        });
-
-
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('Website loaded successfully');
-        });
-
-        let nav_mobile = document.querySelector(".nav-mobile")
-        let menu = document.querySelector('.menu')
-        let close_menu_button = document.querySelector('.close-menu')
-
-        menu.addEventListener('click', function() {
-            nav_mobile.classList.toggle("nav-mobile-apparition")
-        })
-
-
-        close_menu_button.addEventListener('click', function() {
-            nav_mobile.classList.toggle("nav-mobile-apparition")
-
-        })
-    </script>
+<div class="nav-mobile">
+    <span class="close-menu">
+        <img src="<?php echo eza_get_icon_url('x.svg'); ?>" alt="Fermer" width="30" height="30">
+    </span>
+    <div class="mobile_links">
+        <?php
+        wp_nav_menu(array(
+            'theme_location' => 'primary-menu',
+            'container'      => false,
+            'menu_class'     => 'mobile-links',
+        ));
+        ?>
+        <div class="social-links-mobile-footer">
+            <a href="#"><img src="<?php echo eza_get_icon_url('linkedin.svg'); ?>" alt="LinkedIn" width="24" height="24"></a>
+            <a href="#"><img src="<?php echo eza_get_icon_url('facebook.svg'); ?>" alt="Facebook" width="24" height="24"></a>
+            <a href="#"><img src="<?php echo eza_get_icon_url('instagram.svg'); ?>" alt="Instagram" width="24" height="24"></a>
+            <a href="#"><img src="<?php echo eza_get_icon_url('twitter.svg'); ?>" alt="X" width="24" height="24"></a>
+            <a href="#"><img src="<?php echo eza_get_icon_url('mail.svg'); ?>" alt="Email" width="24" height="24"></a>
+            <a href="#"><img src="<?php echo eza_get_icon_url('video.svg'); ?>" alt="Video" width="24" height="24"></a>
+        </div>
+    </div>
+</div>
