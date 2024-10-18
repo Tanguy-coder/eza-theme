@@ -1,42 +1,67 @@
-/* General Reset
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-} */
+/*
+Theme Name: ezaarchitectures
+Theme URI: http://ezaarchitectures.com
+Author: Tanguy MAMBAFEI
+Author URI: https://tanguy-dev.com
+Description: Thème personnalisé pour Eza Architecture
+Version: 1.0
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: eza_architecture
+*/
+
+
 
 @import url(reset.css);
 
 /* Body Styling */
 body {
-    font-family: Arial, sans-serif;
+    font-family: Inconsolata, sans-serif;
     color: #000000;
     background-color: #fff;
 }
 
 /* Navbar Styling */
+
 header {
     width: 100%;
     padding: 3.2rem 5rem 1rem 5rem;
     position: fixed;
-    top: 0%;
-    overflow: hidden;
-    z-index: 5;
-    /* background-color: blueviolet; */
-    background-color: transparent;
-
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000; /* Increase z-index to ensure it's above other elements */
+    transition: background-color 0.3s ease;
 }
+.header-home{
+    background-color: transparent;
+}
+
+.header-inner{
+    background-color: white;
+}
+
 
 .menu {
     display: none;
+    cursor: pointer;
 }
 
+/*.nav-mobile {
+    display: none;
+    color: white;
+}*/
 
 .nav-mobile {
     display: none;
-}
-.nav-mobile {
-    color: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: #000000;
+    z-index: 1000;
+    overflow: hidden;
 }
 
 .nav-mobile .close-menu {
@@ -52,17 +77,9 @@ header {
     justify-content: space-between;
     align-items: flex-end;
     padding-right: 2rem;
-    position: absolute;
-    z-index: 10;
-    background-color: #000000;
-    height: 100%;
-    top: 0%;
-    right: 0%;
-    bottom: 0%;
-    left: 0%;
 }
 
-.mobile_links .mobile-links {
+/*.mobile_links .mobile-links {
     display: flex;
     color: white;
     flex-direction: column;
@@ -71,12 +88,44 @@ header {
     justify-content: space-between;
     height: 300px;
 
+}*/
+.mobile_links {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    width: 100%;
 }
-.mobile_links .mobile-links a {
+
+/*.mobile-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: right;
+}*/
+
+/*.mobile_links .mobile-links a {
     color: white;
     text-decoration: none;
     font-size: 1.5rem
 
+}*/
+
+.mobile-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: right;
+}
+
+.mobile-links li {
+    margin-bottom: 20px;
+}
+
+.mobile-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.5rem;
 }
 
 .social-links-mobile-footer {
@@ -87,18 +136,6 @@ header {
     justify-content: space-between;
     align-items: flex-end;
     width: 210px;
-
-}
-
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: rgba(0, 0, 0, 0.5);
-    /* position: absolute; */
-    width: 100%;
-    top: 0;
-    background: transparent;
 }
 
 .hero-bg {
@@ -121,13 +158,40 @@ header {
 
 }
 
+/* Navbar General Styles */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    top: 0;
+    background: transparent;
+}
+
 .nav-links {
     display: flex;
     width: 35rem;
     justify-content: space-between;
     align-items: center;
-    /* background-color: red; */
 }
+
+/* Styles for menu on the homepage */
+.navbar-home .links a {
+    color: white;
+    text-decoration: none;
+}
+
+/* Styles for menu on other pages */
+.navbar-inner {
+    background-color: white;
+}
+
+.navbar-inner .links a {
+    color: black;
+    text-decoration: none;
+}
+
 
 .links {
     list-style: none;
@@ -137,29 +201,54 @@ header {
     gap: 1rem;
 }
 
-.links li a {
-    text-decoration: none;
-    color: white;
-    font-size: 1.1rem;
-    position: relative;
+.navbar-inner .links li a {
+    list-style: none;
+    width: auto;
+    display: flex;
+    justify-content: flex-start;
+    gap: 1rem;
 }
 
-
+.links li a {
+    text-decoration: none;
+    font-size: 1.1rem;
+    position: relative;
+    color: inherit;
+    transition: color 0.3s ease;
+}
 
 .links li a::before {
+    content: "";
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background-color: currentColor;
+    transform-origin: bottom right;
+    transform: scaleX(0);
+    transition: transform 0.5s ease;
+}
+
+.navbar-inner .links li a::before {
     content: "";
     position: absolute;
     bottom: -5px;
     left: 0;
     right: 0;
-    height: 3px;
-    background-color: #ffffff;
+    height: 1px;
+    background-color: currentColor;
     transform-origin: bottom right;
     transform: scaleX(0);
     transition: transform 0.5s ease;
 }
 
 .links li a:hover::before {
+    transform-origin: bottom left;
+    transform: scaleX(1);
+}
+
+.navbar-inner .links li a:hover::before {
     transform-origin: bottom left;
     transform: scaleX(1);
 }
@@ -179,7 +268,7 @@ header {
 
 /* Social Links */
 .social-links {
-    position: absolute;
+    position: fixed;
     top: 50%;
     right: 0%;
     transform: translateY(-50%);
@@ -192,6 +281,20 @@ header {
     padding: 3px 30px 0px 3px;
 }
 
+.social-links-inner {
+    position: fixed;
+    top: 50%;
+    right: 0%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    width: 80px;
+    background-color: white;
+    padding: 3px 30px 0px 3px;
+}
+
 .social-links a {
     margin: 10px 0;
 }
@@ -201,29 +304,99 @@ header {
     height: 30px;
 }
 
+.social-links-inner a {
+    margin: 10px 0;
+}
 
-/* Footer Styling */
-footer {
+.social-links-inner img{
+    width: 30px;
+    height: 30px;
+    transition: filter 0.3s ease;
+    /*filter: invert(1) brightness(0%)*/
+}
+
+.social-links-inner a:hover img,
+.social-links a:hover img,
+.social-links-mobile-footer a:hover img {
+    filter: invert(0) brightness(0%); /* Cela rendra les icônes bleues au survol */
+}
+
+
+.footer-fixed .footer-links a {
+    margin: 0 10px;
+    color: white;
+    position: relative;
+    text-decoration: none;
+
+}
+
+.footer-black .footer-links a {
+    margin: 0 10px;
+    color: white;
+    position: relative;
+    text-decoration: none;
+
+}
+
+.footer-links a::before {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background-color: #ffffff;
+    transform-origin: bottom right;
+    transform: scaleX(0);
+    transition: transform 0.5s ease;
+}
+
+.footer-links a:hover::before {
+    transform-origin: bottom left;
+    transform: scaleX(1);
+}
+
+/* Footer fixe sur la page d'accueil */
+.footer-fixed {
     padding: 20px;
     width: 100%;
     background-color: rgba(0, 0, 0, 0.4);
     color: white;
-    position: absolute;
-    bottom: 0%;
-    right: 0%;
+    position: fixed;
+    bottom: 0;
+    right: 0;
     display: flex;
     justify-content: flex-end;
-    font-size: 0.8rem;
+    font-size: 0.6rem;
+}
+
+/* Footer normal pour les autres pages */
+.footer-normal {
+    padding: 20px;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    position: relative;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    justify-content: flex-end;
+    font-size: 0.6rem;
+}
+
+/* Spécifique pour le footer noir sur les autres pages */
+.footer-black {
+    background-color: black;
+    text-decoration: none;
 }
 
 .footer-links a {
     margin: 0 10px;
     color: white;
     position: relative;
+    font-weight: lighter;
 
 }
-
-
 
 
 .footer-links a:hover::before {
@@ -288,6 +461,9 @@ footer {
     }
 
     .social-links{
+        display: none;
+    }
+    .social-links-inner{
         display: none;
     }
     .hero{
@@ -447,77 +623,7 @@ h2{
     margin-bottom: 20px;
 }
 
-/* Styles pour le menu de la page d'accueil */
-.navbar-home .links a {
-    color: white;
-}
 
-/* Styles pour le menu des autres pages */
-.navbar-inner .links a {
-    color: black;
-    text-decoration: none;
-}
-
-.navbar-inner .links a:hover {
-    text-decoration: underline;
-}
-
-/* Footer fixe sur la page d'accueil */
-.footer-fixed {
-    padding: 20px;
-    width: 100%;
-    background-color: rgba(0, 0, 0, 0.4);
-    color: white;
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    display: flex;
-    justify-content: flex-end;
-    font-size: 0.8rem;
-}
-
-/* Footer normal pour les autres pages */
-.footer-normal {
-    padding: 20px;
-    width: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
-    color: white;
-    position: relative;
-    bottom: 0;
-    right: 0;
-    display: flex;
-    justify-content: flex-end;
-    font-size: 0.8rem;
-}
-
-/* Spécifique pour le footer noir sur les autres pages */
-.footer-black {
-    background-color: black;
-}
-
-.footer-links a {
-    margin: 0 10px;
-    color: white;
-    position: relative;
-}
-
-.footer-links a::before {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background-color: #ffffff;
-    transform-origin: bottom right;
-    transform: scaleX(0);
-    transition: transform 0.5s ease;
-}
-
-.footer-links a:hover::before {
-    transform-origin: bottom left;
-    transform: scaleX(1);
-}
 
 
 

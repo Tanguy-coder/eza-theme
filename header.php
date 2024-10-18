@@ -3,11 +3,12 @@
 <head>
     <meta charset="<?php bloginfo('charset'); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet">
     <?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
-<header>
+<header class="<?php echo is_front_page() ? 'header-home' : 'header-inner'; ?>">
     <nav class="navbar <?php echo is_front_page() ? 'navbar-home' : 'navbar-inner'; ?>">
         <div class="nav-links">
             <div class="logo">
@@ -32,6 +33,7 @@
         </div>
     </nav>
 </header>
+
 
 
 <div class="nav-mobile">

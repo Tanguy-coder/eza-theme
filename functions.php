@@ -66,7 +66,7 @@ function eza_customize_register($wp_customize) {
     ));
 
     // Ajouter les contrôles pour les 5 images de bannière
-    for ($i = 1; $i <= 100; $i++) {
+    for ($i = 1; $i <= 5; $i++) {
         $wp_customize->add_setting("hero_background_image_$i", array(
             'default' => '',
             'sanitize_callback' => 'esc_url_raw',
