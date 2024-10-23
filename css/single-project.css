@@ -1,0 +1,144 @@
+/* Fullscreen slider */
+.swiper-container {
+    width: 100vw;  /* Occupe toute la largeur de l'écran */
+    height: 100vh; /* Occupe toute la hauteur de l'écran */
+    position: relative; /* Positionnement relatif pour le slider */
+    overflow: hidden;
+}
+
+.swiper-slide img {
+    width: 100vw;  /* Image prend toute la largeur */
+    height: 100vh; /* Image prend toute la hauteur */
+    object-fit: cover; /* S'assure que l'image couvre bien l'espace */
+}
+
+/* Pagination et boutons du slider */
+.swiper-pagination {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    color: #fff;
+}
+
+.swiper-button-prev, .swiper-button-next {
+    color: #fff;
+    z-index: 10;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.swiper-button-prev {
+    left: 20px;
+}
+
+.swiper-button-next {
+    right: 20px;
+}
+
+/* After the slider, content starts */
+.project-content {
+    margin-top: 50px; /* Pour espacer le contenu après le slider */
+    padding: 50px 0;
+    width: 85%;
+    margin: 0 auto;
+}
+
+.project-title {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    color: #333;
+    font-weight: 700;
+    text-align: center;
+}
+
+/* Project description and sidebar layout */
+.project-main {
+    width: 65%;
+    float: left;
+    padding-right: 20px;
+}
+
+.project-sidebar {
+    width: 30%;
+    float: right;
+    background-color: #f4f4f4;
+    padding: 20px;
+}
+
+/* Clear floats */
+/* Section Projets Similaires */
+.related-projects {
+    margin-top: 50px;
+}
+
+.related-projects h2 {
+    text-align: center;
+    font-size: 2em;
+    margin-bottom: 40px;
+}
+
+/* Grille de 3 colonnes */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Grille de 3 colonnes */
+    gap: 30px; /* Espace entre les projets */
+}
+
+/* Stylisation des projets */
+.project-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 5px;
+}
+
+.project-item a {
+    display: block;
+    color: inherit; /* Ne pas changer la couleur du texte au survol */
+    text-decoration: none; /* Supprimer le soulignement */
+}
+
+/* Image du projet */
+.project-thumbnail {
+    width: 100%;
+    height: auto;
+    transition: transform 0.3s ease;
+    display: block;
+}
+
+/* Animation de zoom au survol de l'image */
+.project-item:hover .project-thumbnail {
+    transform: scale(1.05);
+}
+
+/* Titre du projet superposé sur l'image */
+.project-item h3 {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 15px;
+    font-size: 1.5em;
+    color: white; /* Texte en blanc */
+    background: rgba(0, 0, 0, 0.6); /* Fond noir semi-transparent */
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin: 0;
+    transition: background-color 0.3s ease;
+}
+
+/* Fond plus sombre au survol */
+.project-item:hover h3 {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+
+
+
+
+
+
+

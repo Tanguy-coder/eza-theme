@@ -18,7 +18,7 @@
         ?>
     </div>
 
-    <section class="hero" style="background-image: url('<?php echo esc_url($random_hero_image); ?>'); background-position: center; background-repeat: no-repeat; background-size: cover; overflow: hidden;">
+    <section >
         <div class="social-links-inner">
             <a href="<?php echo esc_url(get_theme_mod('linkedin_url')); ?>"><img src="<?php echo eza_get_icon_url('linkedin.svg'); ?>" alt="LinkedIn"></a>
             <a href="<?php echo esc_url(get_theme_mod('facebook_url')); ?>"><img src="<?php echo eza_get_icon_url('facebook.svg'); ?>" alt="Facebook"></a>
