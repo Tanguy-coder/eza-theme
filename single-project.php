@@ -32,69 +32,94 @@
     <div class="project-content">
         <h1 class="project-title"><?php the_title(); ?></h1>
 
-        <div class="project-main">
-            <div class="project-description">
-                <?php the_field('project_description'); ?>
+        <div class="main_part">
+            <div class="project-main">
+                <div class="project-description">
+                    <?php the_field('project_description'); ?>
+                </div>
             </div>
+
+            <aside class="project-sidebar">
+                <div class="sidebar-content">
+                    <!-- Sidebar fields (Location, Client, Year, etc.) -->
+                    <div class="projects_infos">
+                        <?php if (get_field('project_location')) : ?>
+                            <div class="sidebar-item">
+                                <span>Localisation</span> :
+                                <span><b><?php the_field('project_location'); ?></b></span>
+                            </div>
+                        <?php endif; ?>
+                        <?php if (get_field('project_client')) : ?>
+                            <div class="sidebar-item">
+                                <span>Client</span> :
+                                <span> <b><?php the_field('project_client'); ?></b></span>
+                            </div>
+                        <?php endif; ?>
+                        <?php if (get_field('project_year')) : ?>
+                            <div class="sidebar-item">
+                                <span>Année</span> :
+                                <span> <b><?php the_field('project_year'); ?></b></span>
+                            </div>
+                        <?php endif; ?>
+                        <?php if (get_field('project_surface')) : ?>
+                            <div class="sidebar-item">
+                                <span>Surface</span> :
+                                <span> <b><?php the_field('project_surface'); ?></b></span>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                    <?php
+                    $themes = get_the_terms(get_the_ID(), 'project_theme');
+                    if ($themes && !is_wp_error($themes)) : ?>
+                        <div class="theme">
+                            <div class="sidebar-item">
+                                <h3>Thèmes</h3>
+                                <ul class="theme-list">
+                                    <?php foreach ($themes as $theme) : ?>
+                                        <li><?php echo esc_html($theme->name); ?></li>
+                                    <?php endforeach; ?>
+                                </ul>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+                    <span class="separator"></span>
+                    <?php
+                    $file = get_field('project_file');
+                    if ($file) : ?>
+                        <div class="sidebar-item">
+                            <div class="download_link">
+                                <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="24"
+                                        height="24"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="1.5"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        class="icon icon-tabler icons-tabler-outline icon-tabler-download"
+                                >
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                    <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" />
+                                    <path d="M7 11l5 5l5 -5" />
+                                    <path d="M12 4l0 12" />
+                                </svg>
+                                <a href="<?php echo esc_url($file['url']); ?>" class="download-button" target="_blank">
+                                    Télécharger la fiche projet
+                                </a>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+                </div>
+            </aside>
         </div>
-
-        <aside class="project-sidebar">
-            <div class="sidebar-content">
-                <!-- Sidebar fields (Location, Client, Year, etc.) -->
-                <?php if (get_field('project_location')) : ?>
-                    <div class="sidebar-item">
-                        <h3>Localisation</h3>
-                        <p><?php the_field('project_location'); ?></p>
-                    </div>
-                <?php endif; ?>
-                <?php if (get_field('project_client')) : ?>
-                    <div class="sidebar-item">
-                        <h3>Client</h3>
-                        <p><?php the_field('project_client'); ?></p>
-                    </div>
-                <?php endif; ?>
-                <?php if (get_field('project_year')) : ?>
-                    <div class="sidebar-item">
-                        <h3>Année</h3>
-                        <p><?php the_field('project_year'); ?></p>
-                    </div>
-                <?php endif; ?>
-                <?php if (get_field('project_surface')) : ?>
-                    <div class="sidebar-item">
-                        <h3>Surface</h3>
-                        <p><?php the_field('project_surface'); ?></p>
-                    </div>
-                <?php endif; ?>
-                <?php
-                $themes = get_the_terms(get_the_ID(), 'project_theme');
-                if ($themes && !is_wp_error($themes)) : ?>
-                    <div class="sidebar-item">
-                        <h3>Thèmes</h3>
-                        <ul class="theme-list">
-                            <?php foreach ($themes as $theme) : ?>
-                                <li><?php echo esc_html($theme->name); ?></li>
-                            <?php endforeach; ?>
-                        </ul>
-                    </div>
-                <?php endif; ?>
-
-                <?php
-                $file = get_field('project_file');
-                if ($file) : ?>
-                    <div class="sidebar-item">
-                        <a href="<?php echo esc_url($file['url']); ?>" class="download-button" target="_blank">
-                            Télécharger la fiche projet
-                        </a>
-                    </div>
-                <?php endif; ?>
-            </div>
-        </aside>
     </div>
 
     <!-- Related Projects Section -->
     <section class="related-projects">
         <div class="container">
-            <h2>Projets similaires</h2>
+            <h2 class="similar_project_title">Projets similaires</h2>
             <div class="projects-grid">
                 <!-- Loop through related projects -->
                 <?php
@@ -116,7 +141,7 @@
                                     echo get_the_post_thumbnail($project->ID, 'large', array('class' => 'project-thumbnail'));
                                 endif;
                                 ?>
-                                <h3><?php echo get_the_title($project->ID); ?></h3>
+                                <h3 class="project_title"><?php echo get_the_title($project->ID); ?> Moi auss</h3>
                             </a>
                         </article>
                     <?php endforeach;

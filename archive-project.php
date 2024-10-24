@@ -3,46 +3,71 @@ get_header();
 ?>
 
 <div class="project-archive-container">
-
-    <!-- Barre de recherche -->
-    <div class="search-bar">
-        <form action="<?php echo esc_url(home_url('/')); ?>" method="get" id="search-form">
-            <input type="text" name="s" id="search-input" placeholder="Rechercher un projet..." value="<?php the_search_query(); ?>" />
-            <input type="hidden" name="post_type" value="project" />
-        </form>
-    </div>
-
-    <!-- Filtres -->
-    <div class="filters">
-        <form method="get" id="filters-form">
-            <div class="filter-item">
-                <label for="theme">Thème</label>
-                <?php
-                $themes = get_terms(array('taxonomy' => 'project_theme', 'hide_empty' => false));
-                if (!empty($themes)) {
-                    echo '<select name="theme" id="theme">';
-                    echo '<option value="">Tous les thèmes</option>';
-                    foreach ($themes as $theme) {
-                        echo '<option value="' . esc_attr($theme->slug) . '">' . esc_html($theme->name) . '</option>';
-                    }
-                    echo '</select>';
-                }
-                ?>
+    <div class="project-archive-header">
+        <div class="forms">
+            <!-- Barre de recherche -->
+            <div class="search-bar">
+                <form action="<?php echo esc_url(home_url('/')); ?>" method="get" id="search-form">
+                    <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"/>
+                        <path d="M21 21l-6 -6"/>
+                    </svg>
+                    <input type="text" name="s" id="search-input" placeholder="Rechercher un projet..."
+                           value="<?php the_search_query(); ?>"/>
+                    <input type="hidden" name="post_type" value="project"/>
+                </form>
             </div>
-        </form>
-    </div>
-    <!-- Vue mosaïque ou carte -->
-    <div class="view-switcher">
-        <button id="view-grid" class="active">Mosaïque</button>
-        <button id="view-map">Vue sur carte</button>
-    </div>
 
+            <!-- Filtres -->
+            <div class="filters">
+                <form method="get" id="filters-form">
+                    <div class="filter-item">
+                        <label for="theme">Thème</label>
+                        <?php
+                        $themes = get_terms(array('taxonomy' => 'project_theme', 'hide_empty' => false));
+                        if (!empty($themes)) {
+                            echo '<select name="theme" id="theme">';
+                            echo '<option value="">Tous les thèmes</option>';
+                            foreach ($themes as $theme) {
+                                echo '<option value="' . esc_attr($theme->slug) . '">' . esc_html($theme->name) . '</option>';
+                            }
+                            echo '</select>';
+                        }
+                        ?>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- Vue mosaïque ou carte -->
+        <div class="view-switcher">
+            <!--                  <button id="view-grid" class="active">Mosaïque</button>-->
+            <!--                  <button id="view-map">Vue sur carte</button>-->
+            <label for=view-grid"">
+                Mosaïque
+                <input type="radio" id="view-grid" class="active" name="vue"/>
+            </label>
+            <label for="view-map">
+                Vue sur carte
+                <input type="radio" id="view-map" name="vue"/>
+            </label>
+        </div>
+    </div>
     <!-- Conteneur des projets en mosaïque -->
     <div id="project-grid" class="project-grid view-active">
         <?php if (have_posts()) : ?>
             <?php while (have_posts()) : the_post(); ?>
                 <div class="project-item">
-                    <a href="<?php the_permalink(); ?>">
+                    <a href="<?php the_permalink(); ?>" class="project-link">
                         <?php if (has_post_thumbnail()) : ?>
                             <?php the_post_thumbnail('medium'); ?>
                         <?php endif; ?>

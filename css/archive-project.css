@@ -1,117 +1,168 @@
-.project-archive-container {
-    padding: 40px;
-    margin-top: 100px;
-}
+/*@import url('../reset.css');*/
 
-.search-bar {
-    margin-bottom: 20px;
-    text-align: center;
-}
+/*.project-archive-container {*/
+/*    padding: 40px;*/
+/*    margin-top: 100px;*/
+/*}*/
 
-.search-bar input[type="text"] {
-    padding: 10px;
-    width: 300px;
-    border: 1px solid #ddd;
-}
+/*.search-bar {*/
+/*    margin-bottom: 20px;*/
+/*    text-align: center;*/
+/*}*/
 
-.search-bar button {
-    padding: 10px 20px;
-    background-color: #333;
-    color: white;
-    border: none;
-    cursor: pointer;
-}
+/*.search-bar input[type="text"] {*/
+/*    padding: 10px;*/
+/*    width: 300px;*/
+/*    border: 1px solid #ddd;*/
+/*}*/
 
-.filters {
+/*.search-bar button {*/
+/*    padding: 10px 20px;*/
+/*    background-color: #333;*/
+/*    color: white;*/
+/*    border: none;*/
+/*    cursor: pointer;*/
+/*}*/
+
+/*.filters {*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    margin-bottom: 20px;*/
+/*}*/
+
+/*.filter-item {*/
+/*    margin-right: 20px;*/
+/*}*/
+
+/*.filter-item label {*/
+/*    display: block;*/
+/*    margin-bottom: 5px;*/
+/*}*/
+
+/*.filter-item select,*/
+/*.filter-item input {*/
+/*    padding: 8px;*/
+/*    width: 200px;*/
+/*    border: 1px solid #ddd;*/
+/*}*/
+
+/*.filter-item button {*/
+/*    padding: 10px 20px;*/
+/*    background-color: #333;*/
+/*    color: white;*/
+/*    border: none;*/
+/*    cursor: pointer;*/
+/*}*/
+
+/*.view-switcher {*/
+/*    text-align: center;*/
+/*    margin-bottom: 20px;*/
+/*}*/
+
+/*.view-switcher button {*/
+/*    padding: 10px 20px;*/
+/*    margin-right: 10px;*/
+/*    background-color: #f1f1f1;*/
+/*    border: 1px solid #ddd;*/
+/*    cursor: pointer;*/
+/*}*/
+
+/*.view-switcher button.active {*/
+/*    background-color: #333;*/
+/*    color: white;*/
+/*}*/
+
+
+/*.project-map {*/
+/*    width: 100%;*/
+/*    height: 600px;*/
+/*    background-color: #e0e0e0;*/
+/*}*/
+
+/*.view-hidden {*/
+/*    display: none;*/
+/*}*/
+
+/*.view-active {*/
+/*    display: block;*/
+/*}*/
+.project-archive-container{
+    padding: 0px 80px;
+}
+.project-archive-header {
+    width: 100%;
+    /*position: relative;*/
+    position: sticky;
+    z-index: 5;
     display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
+    margin-top: 2rem;
+    margin-bottom: 3rem;
+    justify-content: space-between;
+    align-items: center;
+    height: 50px;
 }
 
-.filter-item {
-    margin-right: 20px;
+
+.project-archive-header .view-switcher {
+    order: 0;
 }
 
-.filter-item label {
-    display: block;
-    margin-bottom: 5px;
+.forms {
+    order: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
 }
 
-.filter-item select,
-.filter-item input {
-    padding: 8px;
-    width: 200px;
-    border: 1px solid #ddd;
+.forms #search-form {
+    display: flex;
+    width: 220px;
+    padding-bottom: 0.3rem;
+    border-bottom: black solid 2px;
+
 }
 
-.filter-item button {
-    padding: 10px 20px;
-    background-color: #333;
-    color: white;
+.forms #search-input {
     border: none;
-    cursor: pointer;
+    outline: none;
+    /*height: ;*/
 }
 
-.view-switcher {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.view-switcher button {
-    padding: 10px 20px;
-    margin-right: 10px;
-    background-color: #f1f1f1;
-    border: 1px solid #ddd;
-    cursor: pointer;
-}
-
-.view-switcher button.active {
-    background-color: #333;
-    color: white;
-}
 
 .project-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    margin-bottom: 40px;
+    /*display: flex;*/
+    /*flex-wrap: wrap;*/
+    /*gap: 8px;*/
+    columns: 430px;
 }
 
-.project-item {
+.project-grid .project-item{
     position: relative;
-    transition: transform 0.3s ease;
 }
 
-.project-item:hover {
-    transform: scale(1.05);
-}
-
-.project-item img {
+.project-grid .project-item img{
     width: 100%;
-    height: auto;
     display: block;
+    object-fit: cover;
+    margin-bottom: 1em;
 }
 
-.project-item h3 {
+.project-grid .project-item h3{
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: absolute;
-    bottom: 10px;
-    left: 10px;
+    inset: 0;
+    font-size: 1.5rem;
+    background-color: black;
+    opacity: 0;
     color: white;
-    background-color: rgba(0, 0, 0, 0.6);
-    padding: 10px;
-    font-size: 18px;
 }
 
-.project-map {
-    width: 100%;
-    height: 600px;
-    background-color: #e0e0e0;
+.project-grid .project-item:hover h3{
+    opacity: 0.6;
+    transition: opacity 0.8s ease-out 2s;
+
 }
 
-.view-hidden {
-    display: none;
-}
-
-.view-active {
-    display: block;
-}

@@ -1,3 +1,5 @@
+/*@import url('../reset.css');*/
+
 /* Fullscreen slider */
 .swiper-container {
     width: 100vw;  /* Occupe toute la largeur de l'écran */
@@ -25,6 +27,7 @@
 .swiper-button-prev, .swiper-button-next {
     color: #fff;
     z-index: 10;
+    width: calc(44px /  30*27);
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -38,107 +41,123 @@
     right: 20px;
 }
 
-/* After the slider, content starts */
-.project-content {
-    margin-top: 50px; /* Pour espacer le contenu après le slider */
-    padding: 50px 0;
-    width: 85%;
-    margin: 0 auto;
-}
+/*Content style*/
+.related-projects .container .similar_project_title{
+    margin: 30px;
+    font-size: 2rem;
+    font-weight: bold;
 
-.project-title {
-    font-size: 2.5em;
-    margin-bottom: 20px;
-    color: #333;
-    font-weight: 700;
     text-align: center;
 }
-
-/* Project description and sidebar layout */
-.project-main {
-    width: 65%;
-    float: left;
-    padding-right: 20px;
+.related-projects .container .projects-grid {
+    display: flex;
+    width: 100%;
+}
+.related-projects .container .projects-grid .project-item {
+    position: relative;
+}
+.related-projects .container .projects-grid .project-item .project_title{
+    position: absolute;
+    color: white;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: black;
+    opacity: 0;
+    transition: opacity 0.1s ease-out;
+    font-size: 1.2rem;
+}
+.related-projects .container .projects-grid .project-item:hover .project_title{
+    opacity: 0.8;
+    transition: opacity 0.1s ease-out;
 }
 
-.project-sidebar {
-    width: 30%;
-    float: right;
-    background-color: #f4f4f4;
-    padding: 20px;
+.project-content{
+    padding: 0px 80px;
+    margin: 80px 0px;
 }
 
-/* Clear floats */
-/* Section Projets Similaires */
-.related-projects {
+.project-content .project-title{
+    font-weight: bold;
+    font-size: 2rem;
+    text-align: left;
+    margin-bottom: 50px;
+}
+
+.project-content .main_part{
+    display: flex;
+    width: 100%;
+}
+.project-content .main_part .project-main{
+    width: calc(100% - (400px));
+    font-size: 1.2rem;
+}
+.project-content .main_part .project-sidebar .sidebar-content .projects_infos{
+    padding: 10px 50px;
+}
+.project-content .main_part .project-sidebar .sidebar-content .theme{
+    padding: 10px 50px;
+}
+.project-content .main_part .project-sidebar{
+    margin-left: 100px;
+    width: 400px;
+    background-color: black;
+    color: white;
+    font-size: 18px;
+    line-height: 1.55555555;
+    letter-spacing: 1px;
+}
+.sidebar-content .separator::before{
+    content: '';
+    color: white;
+    display: block;
+    width: 100%;
+    height: 1px;
+    border: dashed white 1px;
+
+}
+.project-content .main_part .project-sidebar .sidebar-item {
+    margin-bottom: 10px;
+    margin-top: 8px;
+}
+.project-content .main_part .project-sidebar .sidebar-item .download-button {
+    text-decoration: none;
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.project-content .main_part .project-sidebar .sidebar-item .download_link {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
     margin-top: 50px;
-}
-
-.related-projects h2 {
-    text-align: center;
-    font-size: 2em;
     margin-bottom: 40px;
 }
 
-/* Grille de 3 colonnes */
-.projects-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* Grille de 3 colonnes */
-    gap: 30px; /* Espace entre les projets */
+@media (width <= 1024px) {
+    .project-content .main_part{
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        width: 100%;
+    }
+
+    .project-content .main_part .project-main{
+        width: 100%;
+        font-size: 1.2rem;
+    }
+    .project-content .main_part .project-sidebar{
+        width: 100%;
+        margin-left: 0px;
+    }
 }
-
-/* Stylisation des projets */
-.project-item {
-    position: relative;
-    overflow: hidden;
-    border-radius: 5px;
-}
-
-.project-item a {
-    display: block;
-    color: inherit; /* Ne pas changer la couleur du texte au survol */
-    text-decoration: none; /* Supprimer le soulignement */
-}
-
-/* Image du projet */
-.project-thumbnail {
-    width: 100%;
-    height: auto;
-    transition: transform 0.3s ease;
-    display: block;
-}
-
-/* Animation de zoom au survol de l'image */
-.project-item:hover .project-thumbnail {
-    transform: scale(1.05);
-}
-
-/* Titre du projet superposé sur l'image */
-.project-item h3 {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 15px;
-    font-size: 1.5em;
-    color: white; /* Texte en blanc */
-    background: rgba(0, 0, 0, 0.6); /* Fond noir semi-transparent */
-    text-align: center;
-    text-transform: uppercase;
-    font-weight: bold;
-    margin: 0;
-    transition: background-color 0.3s ease;
-}
-
-/* Fond plus sombre au survol */
-.project-item:hover h3 {
-    background-color: rgba(0, 0, 0, 0.8);
-}
-
-
-
-
-
 
 
 
