@@ -105,6 +105,7 @@
 .project-content .main_part .project-sidebar{
     margin-left: 100px;
     width: 400px;
+    height: fit-content;
     background-color: black;
     color: white;
     font-size: 18px;

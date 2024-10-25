@@ -21,7 +21,7 @@ body {
     background-color: #fff;
     font-weight: 900;
     width: 100%;
-    overflow-x: hidden;
+    overflow-x: clip;
 }
 
 /* Navbar Styling */
