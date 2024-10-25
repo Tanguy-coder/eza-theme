@@ -22,8 +22,7 @@ get_header();
                         <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"/>
                         <path d="M21 21l-6 -6"/>
                     </svg>
-                    <input type="text" name="s" id="search-input" placeholder="Rechercher un projet..."
-                           value="<?php the_search_query(); ?>"/>
+                    <input type="text" name="s" id="search-input" placeholder="Rechercher un projet..." value="<?php the_search_query(); ?>"/>
                     <input type="hidden" name="post_type" value="project"/>
                 </form>
             </div>
@@ -48,20 +47,20 @@ get_header();
                 </form>
             </div>
         </div>
+
         <!-- Vue mosaïque ou carte -->
         <div class="view-switcher">
-            <!--                  <button id="view-grid" class="active">Mosaïque</button>-->
-            <!--                  <button id="view-map">Vue sur carte</button>-->
-            <label for=view-grid"">
+            <label for="view-grid">
                 Mosaïque
-                <input type="radio" id="view-grid" class="active" name="vue"/>
+                <input type="radio" id="view-grid" name="vue" checked />
             </label>
             <label for="view-map">
                 Vue sur carte
-                <input type="radio" id="view-map" name="vue"/>
+                <input type="radio" id="view-map" name="vue" />
             </label>
         </div>
     </div>
+
     <!-- Conteneur des projets en mosaïque -->
     <div id="project-grid" class="project-grid view-active">
         <?php if (have_posts()) : ?>
@@ -87,69 +86,66 @@ get_header();
 
 </div>
 
-<script !src="">
+<script>
     document.addEventListener('DOMContentLoaded', function () {
-        const searchInput = document.getElementById('search-input');
-        const themeSelect = document.getElementById('theme');
-        const searchForm = document.getElementById('search-form');
-        const filtersForm = document.getElementById('filters-form');
-        // Recherche automatique lors de la saisie dans le champ de recherche
-        searchInput.addEventListener('input', function () {
-            searchForm.submit();
-        });
-
-        // Recherche automatique lors de la sélection d'un thème
-        themeSelect.addEventListener('change', function () {
-            filtersForm.submit();
-        });
-        const gridViewBtn = document.getElementById('view-grid');
-        const mapViewBtn = document.getElementById('view-map');
+        const gridViewRadio = document.getElementById('view-grid');
+        const mapViewRadio = document.getElementById('view-map');
         const projectGrid = document.getElementById('project-grid');
         const projectMap = document.getElementById('project-map');
 
-        // Fonction pour activer la vue mosaïque
-        gridViewBtn.addEventListener('click', function () {
-            projectGrid.classList.remove('view-hidden');
-            projectGrid.classList.add('view-active');
-            projectMap.classList.remove('view-active');
-            projectMap.classList.add('view-hidden');
-            gridViewBtn.classList.add('active');
-            mapViewBtn.classList.remove('active');
-        });
+        // Fonction pour basculer entre vue mosaïque et vue carte
+        function switchView() {
+            if (gridViewRadio.checked) {
+                projectGrid.classList.remove('view-hidden');
+                projectGrid.classList.add('view-active');
+                projectMap.classList.remove('view-active');
+                projectMap.classList.add('view-hidden');
+            } else if (mapViewRadio.checked) {
+                projectGrid.classList.remove('view-active');
+                projectGrid.classList.add('view-hidden');
+                projectMap.classList.remove('view-hidden');
+                projectMap.classList.add('view-active');
+            }
+        }
 
-        // Fonction pour activer la vue carte
-        mapViewBtn.addEventListener('click', function () {
-            projectGrid.classList.remove('view-active');
-            projectGrid.classList.add('view-hidden');
-            projectMap.classList.remove('view-hidden');
-            projectMap.classList.add('view-active');
-            mapViewBtn.classList.add('active');
-            gridViewBtn.classList.remove('active');
-        });
+        // Appliquer la fonction lorsque l'utilisateur change de vue
+        gridViewRadio.addEventListener('change', switchView);
+        mapViewRadio.addEventListener('change', switchView);
+
+        // Appel initial pour régler la vue correcte au chargement
+        switchView();
     });
-
 </script>
 
-<script !src="">
+<!-- Script Leaflet pour afficher la carte -->
+<script>
     document.addEventListener('DOMContentLoaded', function () {
-        var map = L.map('project-map').setView([48.8566, 2.3522], 13); // Centré sur Paris
+        var map = L.map('project-map').setView([48.8566, 2.3522], 2); // Centré sur Paris
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 18,
         }).addTo(map);
 
+        setTimeout(function() {
+            map.invalidateSize(); // Cela force Leaflet à recalculer la taille de la carte
+        }, 500);
+
         // Ajouter des marqueurs pour chaque projet
         <?php
         $projects = get_posts(array('post_type' => 'project', 'posts_per_page' => -1));
         foreach ($projects as $project) {
-            $location = get_field('project_location', $project->ID);
-            if ($location) {
-                echo "L.marker([{$location['lat']}, {$location['lng']}]).addTo(map).bindPopup('<a href=\"" . get_permalink($project->ID) . "\">" . get_the_title($project->ID) . "</a>');";
+            $lat = get_field('project_location_lat', $project->ID);
+            $lng = get_field('project_location_lng', $project->ID);
+
+            // Vérifier que les coordonnées existent
+            if ($lat && $lng) {
+                $title = get_the_title($project->ID);
+                $permalink = get_permalink($project->ID);
+                echo "L.marker([$lat, $lng]).addTo(map).bindPopup('<a href=\"$permalink\">$title</a>');";
             }
         }
         ?>
     });
-
 </script>
 
 <?php

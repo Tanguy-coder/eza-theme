@@ -280,6 +280,22 @@ if (function_exists('acf_add_local_field_group')) {
                 'instructions' => 'Entrez la surface du projet (ex: 5000 m²)',
                 'required' => 0,
             ),
+            array(
+                'key' => 'field_project_location_lat',
+                'label' => 'Latitude',
+                'name' => 'project_location_lat',
+                'type' => 'text',
+                'instructions' => 'Entrez la latitude du projet',
+                'required' => 0,
+            ),
+            array(
+                'key' => 'field_project_location_lng',
+                'label' => 'Longitude',
+                'name' => 'project_location_lng',
+                'type' => 'text',
+                'instructions' => 'Entrez la longitude du projet',
+                'required' => 0,
+            ),
         ),
         'location' => array(
             array(

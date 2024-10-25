@@ -54,38 +54,43 @@
 /*    cursor: pointer;*/
 /*}*/
 
-/*.view-switcher {*/
-/*    text-align: center;*/
-/*    margin-bottom: 20px;*/
-/*}*/
+.view-switcher {
+    text-align: center;
+    margin-bottom: 20px;
+}
 
-/*.view-switcher button {*/
-/*    padding: 10px 20px;*/
-/*    margin-right: 10px;*/
-/*    background-color: #f1f1f1;*/
-/*    border: 1px solid #ddd;*/
-/*    cursor: pointer;*/
-/*}*/
+.view-switcher button {
+    padding: 10px 20px;
+    margin-right: 10px;
+    background-color: #f1f1f1;
+    border: 1px solid #ddd;
+    cursor: pointer;
+}
 
-/*.view-switcher button.active {*/
-/*    background-color: #333;*/
-/*    color: white;*/
-/*}*/
+.view-switcher button.active {
+    background-color: #333;
+    color: white;
+}
 
 
 /*.project-map {*/
 /*    width: 100%;*/
-/*    height: 600px;*/
+/*    height: 900px;*/
 /*    background-color: #e0e0e0;*/
 /*}*/
 
-/*.view-hidden {*/
-/*    display: none;*/
-/*}*/
+#project-map {
+    width: 100% !important;
+    height: 500px !important; /* Ajustez cette valeur en fonction de vos besoins */
+}
 
-/*.view-active {*/
-/*    display: block;*/
-/*}*/
+.view-hidden {
+    display: none;
+}
+
+.view-active {
+    display: block;
+}
 .project-archive-container{
     padding: 0px 80px;
 }
@@ -162,7 +167,7 @@
 
 .project-grid .project-item:hover h3{
     opacity: 0.6;
-    transition: opacity 0.8s ease-out 2s;
+    transition: opacity 0.8s ease-out 0.5s;
 
 }
 
