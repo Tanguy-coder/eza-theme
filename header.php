@@ -6,17 +6,16 @@
     <link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet">
     <script src="https://www.youtube.com/iframe_api"></script>
     <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
     <?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
-<header class="<?php echo is_front_page() ? 'header-home' : 'header-inner'; ?>">
-    <nav class="navbar <?php echo is_front_page() ? 'navbar-home' : 'navbar-inner'; ?>">
-        <div class="nav-links">
+<header class="<?php echo is_front_page() || is_singular('project') ? 'header-home' : 'header-inner'; ?>">
+    <nav class="navbar <?php echo is_front_page() || is_singular('project') ? 'navbar-home' : 'navbar-inner'; ?>">
+        <div class="nav-links" style="font-weight: bold">
             <div class="logo">
                 <?php
                 if (has_custom_logo()) {

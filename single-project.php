@@ -64,7 +64,7 @@
                         <?php if (get_field('project_surface')) : ?>
                             <div class="sidebar-item">
                                 <span>Surface</span> :
-                                <span> <b><?php the_field('project_surface'); ?></b></span>
+                                <span> <b><?php the_field('project_surface'); ?> m²</b></span>
                             </div>
                         <?php endif; ?>
                     </div>
@@ -141,7 +141,7 @@
                                     echo get_the_post_thumbnail($project->ID, 'large', array('class' => 'project-thumbnail'));
                                 endif;
                                 ?>
-                                <h3 class="project_title"><?php echo get_the_title($project->ID); ?> Moi auss</h3>
+                                <h3 class="project_title"><?php echo get_the_title($project->ID); ?></h3>
                             </a>
                         </article>
                     <?php endforeach;

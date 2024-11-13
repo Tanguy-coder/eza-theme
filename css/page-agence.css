@@ -1,0 +1,102 @@
+/* Style de base pour la page agence */
+
+.agency-personnel {
+    text-align: center;
+    padding: 50px 0;
+}
+.personnel-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+.personnel-member {
+    width: 280px;
+    text-align: center;
+}
+.personnel-member img {
+    cursor: pointer;
+    border-radius: 5%;
+    width: 250px;
+    height: 250px;
+}
+.personnel-member h3 {
+    font-size: 18px;
+    margin-top: 10px;
+}
+.personnel-modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    padding-top: 50px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+}
+.modal-content {
+    background-color: #fff;
+    margin: auto;
+    padding: 20px;
+    width: 60%;
+    max-width: 700px;
+    text-align: center;
+    position: relative;
+}
+.modal-content img {
+    width: 120px;
+    height: 120px;
+    border-radius: 2%;
+}
+.modal-content h3 {
+    margin-top: 10px;
+    font-size: 24px;
+}
+.modal-content p {
+    font-size: 25px;
+}
+.modal-content .close {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 30px;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+}
+
+/* Slider de l'agence */
+/* Styles pour le slider */
+.agency-slider-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    margin-bottom: 80px; /* Espace sous le slider */
+    z-index: 1; /* Assure que le slider est au-dessus du footer */
+}
+
+.agency-slider .swiper-slide {
+    text-align: center;
+    overflow: hidden;
+}
+
+.agency-slider img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.swiper-pagination {
+    bottom: 20px !important;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+    color: #fff;
+    width: 44px;
+    height: 44px;
+}
+

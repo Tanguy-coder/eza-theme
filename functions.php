@@ -45,6 +45,16 @@ function eza_enqueue_scripts() {
     wp_enqueue_style('eza-animate', get_template_directory_uri() . '/assets/css/animate.css', array(), $theme_version);
     wp_enqueue_script('eza-script', get_template_directory_uri() . '/assets/js/script.js', array('jquery'), $theme_version, true);
     wp_enqueue_style('archive-project-css', get_template_directory_uri() . '/css/archive-project.css', array(), $theme_version);
+    wp_enqueue_style('page-agence', get_template_directory_uri() . '/css/page-agence.css');
+    wp_enqueue_style('swiper-css', 'https://unpkg.com/swiper/swiper-bundle.min.css');
+    wp_enqueue_script('swiper-js', 'https://unpkg.com/swiper/swiper-bundle.min.js', array(), null, true);
+
+    if (is_page_template('page-agence.php')) {
+        // Charger Swiper.js et son CSS
+
+
+        // Charger le CSS de la page agence
+    }
 
     if (is_singular('project')) {
         wp_enqueue_style('single-project-css', get_template_directory_uri() . '/css/single-project.css', array(), $theme_version);
@@ -56,6 +66,7 @@ function eza_enqueue_scripts() {
             'ajaxurl' => admin_url('admin-ajax.php')
         ));
     }
+
 }
 add_action('wp_enqueue_scripts', 'eza_enqueue_scripts');
 
@@ -81,6 +92,75 @@ if (!function_exists('eza_post_thumbnail')) {
         }
     }
 }
+
+function eza_customize_register($wp_customize)
+{
+    // Ajouter une section dédiée pour les images de bannière
+    $wp_customize->add_section('hero_images_section', array(
+        'title' => __('Images de Bannière', 'eza'),
+        'priority' => 30,
+    ));
+
+    // Ajouter les contrôles pour les 5 images de bannière
+    for ($i = 1; $i <= 100; $i++) {
+        for ($i = 1; $i <= 5; $i++) {
+            $wp_customize->add_setting("hero_background_image_$i", array(
+                'default' => '',
+                'sanitize_callback' => 'esc_url_raw',
+            ));
+
+            $wp_customize->add_control(new WP_Customize_Image_Control(
+                $wp_customize,
+                "hero_background_image_$i",
+                array(
+                    'label' => __("Image de bannière $i", 'eza'),
+                    'section' => 'hero_images_section',
+                    'settings' => "hero_background_image_$i"
+                )
+            ));
+        }
+
+        // Ajouter une section pour les logos des partenaires
+        $wp_customize->add_section('partners_section', array(
+            'title' => __('Partenaires', 'eza'),
+            'description' => __('Ajouter les logos et liens des partenaires', 'eza'),
+            'priority' => 30,
+        ));
+
+        // Ajout des logos et des liens pour 5 partenaires
+        for ($i = 1; $i <= 100; $i++) {
+            // Logo du partenaire
+            $wp_customize->add_setting("partner_logo_$i", array(
+                'default' => '',
+                'sanitize_callback' => 'esc_url_raw',
+            ));
+
+            $wp_customize->add_control(new WP_Customize_Image_Control(
+                $wp_customize,
+                "partner_logo_$i",
+                array(
+                    'label' => __("Logo du partenaire $i", 'eza'),
+                    'section' => 'partners_section',
+                    'settings' => "partner_logo_$i",
+                )
+            ));
+
+            // Lien du partenaire
+            $wp_customize->add_setting("partner_link_$i", array(
+                'default' => '',
+                'sanitize_callback' => 'esc_url_raw',
+            ));
+
+            $wp_customize->add_control("partner_link_$i", array(
+                'label' => __("Lien du partenaire $i", 'eza'),
+                'section' => 'partners_section',
+                'type' => 'url',
+            ));
+        }
+    }
+}
+
+add_action('customize_register', 'eza_customize_register');
 
 // Créer le type de contenu personnalisé 'project'
 function create_project_post_type() {
@@ -309,30 +389,157 @@ if (function_exists('acf_add_local_field_group')) {
     ));
 }
 
-function filter_projects($query) {
-    if (!is_admin() && $query->is_main_query() && is_post_type_archive('project')) {
+function filter_projects_ajax() {
+    $theme = isset($_POST['theme']) ? sanitize_text_field($_POST['theme']) : '';
+    $search_term = isset($_POST['search_term']) ? sanitize_text_field($_POST['search_term']) : '';
 
-        // Filtrer par thème
-        if (!empty($_GET['theme'])) {
-            $query->set('tax_query', array(
+    $args = [
+        'post_type' => 'project',
+        'posts_per_page' => -1,
+    ];
+
+    if ($theme) {
+        $args['tax_query'] = [
+            [
+                'taxonomy' => 'project_theme',
+                'field'    => 'slug',
+                'terms'    => $theme,
+            ]
+        ];
+    }
+
+    if ($search_term) {
+        $args['s'] = $search_term;
+    }
+
+    $projects = new WP_Query($args);
+
+    if ($projects->have_posts()) {
+        while ($projects->have_posts()) : $projects->the_post();
+            ?>
+            <div class="project-item">
+                <a href="<?php the_permalink(); ?>" class="project-link">
+                    <?php if (has_post_thumbnail()) : ?>
+                        <?php the_post_thumbnail('medium'); ?>
+                    <?php endif; ?>
+                    <h3><?php the_title(); ?></h3>
+                </a>
+            </div>
+        <?php
+        endwhile;
+        wp_reset_postdata();
+    } else {
+        echo '<p>Aucun projet trouvé.</p>';
+    }
+
+    wp_die();
+}
+
+
+
+// Enregistrer le type de contenu personnalisé "Personnel"
+function register_personnel_post_type() {
+    register_post_type('personnel', array(
+        'labels' => array(
+            'name' => 'Personnel',
+            'singular_name' => 'Membre du Personnel',
+        ),
+        'public' => true,
+        'has_archive' => false,
+        'supports' => array('title', 'thumbnail'),
+        'menu_icon' => 'dashicons-businessperson',
+    ));
+}
+add_action('init', 'register_personnel_post_type');
+
+// Ajouter les champs ACF pour le personnel
+if (function_exists('acf_add_local_field_group')) {
+    acf_add_local_field_group(array(
+        'key' => 'group_personnel_details',
+        'title' => 'Détails du Personnel',
+        'fields' => array(
+            array(
+                'key' => 'field_personnel_function',
+                'label' => 'Fonction',
+                'name' => 'personnel_function',
+                'type' => 'text',
+                'instructions' => 'Entrez le poste de la personne.',
+                'required' => 1,
+            ),
+            array(
+                'key' => 'field_personnel_description',
+                'label' => 'Description',
+                'name' => 'personnel_description',
+                'type' => 'wysiwyg',
+                'instructions' => 'Entrez une brève description de la personne.',
+                'required' => 1,
+            ),
+        ),
+        'location' => array(
+            array(
                 array(
-                    'taxonomy' => 'project_theme',
-                    'field'    => 'slug',
-                    'terms'    => sanitize_text_field($_GET['theme']),
+                    'param' => 'post_type',
+                    'operator' => '==',
+                    'value' => 'personnel',
                 ),
-            ));
-        }
+            ),
+        ),
+    ));
+}
 
-        // Filtrer par année
-        if (!empty($_GET['year'])) {
-            $query->set('meta_query', array(
+if (function_exists('acf_add_local_field_group')) {
+    // Récupération de l'ID de la page "Agence" en fonction de son slug.
+    $page_agence = get_page_by_path('agence'); // Remplacez 'agence' par le slug exact de votre page
+    $page_agence_id = $page_agence ? $page_agence->ID : null;
+
+    if ($page_agence_id) {
+        acf_add_local_field_group(array(
+            'key' => 'group_agency_images',
+            'title' => 'Images de l’agence',
+            'fields' => array(
                 array(
-                    'key' => 'project_year',
-                    'value' => sanitize_text_field($_GET['year']),
-                    'compare' => '='
-                )
-            ));
-        }
+                    'key' => 'field_agency_image_1',
+                    'label' => 'Image 1',
+                    'name' => 'agency_image_1',
+                    'type' => 'image',
+                    'return_format' => 'array',
+                ),
+                array(
+                    'key' => 'field_agency_image_2',
+                    'label' => 'Image 2',
+                    'name' => 'agency_image_2',
+                    'type' => 'image',
+                    'return_format' => 'array',
+                ),
+                array(
+                    'key' => 'field_agency_image_3',
+                    'label' => 'Image 3',
+                    'name' => 'agency_image_3',
+                    'type' => 'image',
+                    'return_format' => 'array',
+                ),
+                array(
+                    'key' => 'field_agency_image_4',
+                    'label' => 'Image 4',
+                    'name' => 'agency_image_4',
+                    'type' => 'image',
+                    'return_format' => 'array',
+                ),
+            ),
+            'location' => array(
+                array(
+                    array(
+                        'param' => 'page',
+                        'operator' => '==',
+                        'value' => $page_agence_id,
+                    ),
+                ),
+            ),
+        ));
     }
 }
-add_action('pre_get_posts', 'filter_projects');
+
+
+
+
+

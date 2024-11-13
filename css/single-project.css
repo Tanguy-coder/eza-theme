@@ -6,6 +6,7 @@
     height: 100vh; /* Occupe toute la hauteur de l'écran */
     position: relative; /* Positionnement relatif pour le slider */
     overflow: hidden;
+    z-index: 1;
 }
 
 .swiper-slide img {
@@ -15,14 +16,14 @@
 }
 
 /* Pagination et boutons du slider */
-.swiper-pagination {
-    position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 10;
-    color: #fff;
-}
+/*.swiper-pagination {*/
+/*    position: absolute;*/
+/*    bottom: 20px;*/
+/*    left: 50%;*/
+/*    transform: translateX(-50%);*/
+/*    z-index: 10;*/
+/*    color: #fff;*/
+/*}*/
 
 .swiper-button-prev, .swiper-button-next {
     color: #fff;
