@@ -20,6 +20,7 @@ body {
     color: #000000;
     background-color: #fff;
     /*font-weight: 400;*/
+    margin: 0;
     width: 100%;
     overflow-x: clip;
 }
@@ -29,18 +30,20 @@ body {
 header {
     width: 100%;
     padding: 3.2rem 5rem 1rem 5rem;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1000; /* Increase z-index to ensure it's above other elements */
+    /* top: 0; */
+    /* left: 0;
+    right: 0; */
+    /* z-index: 1000; Increase z-index to ensure it's above other elements */
     transition: background-color 0.3s ease;
 }
-.header-home{
+
+.header-home {
     position: fixed;
     background-color: transparent;
+    z-index: 1000;
 }
 
-.header-inner{
+.header-inner {
     position: sticky;
     background-color: white;
 }
@@ -71,7 +74,7 @@ header {
 .nav-mobile .close-menu {
     cursor: pointer;
     display: block;
-    padding: 10px 0px 0px 0px;
+    padding: 50px 0px 0px 0px;
     margin-bottom: 2rem;
 }
 
@@ -195,25 +198,25 @@ header {
 }
 
 
-.links {
+.links ul{
     list-style: none;
     width: auto;
     display: flex;
     justify-content: flex-start;
     gap: 1rem;
+    font-size: 1.8rem;
 }
 
 .navbar-inner .links li a {
     list-style: none;
     width: auto;
-    display: flex;
-    justify-content: flex-start;
+    /* display: flex; */
+    /* justify-content: flex-start; */
     gap: 1rem;
 }
 
 .links li a {
     text-decoration: none;
-    font-size: 1.1rem;
     position: relative;
     color: inherit;
     transition: color 0.3s ease;
@@ -301,7 +304,7 @@ header {
     margin: 10px 0;
 }
 
-.social-links img{
+.social-links img {
     width: 30px;
     height: 30px;
 }
@@ -310,7 +313,7 @@ header {
     margin: 10px 0;
 }
 
-.social-links-inner img{
+.social-links-inner img {
     width: 30px;
     height: 30px;
     transition: filter 0.3s ease;
@@ -320,7 +323,8 @@ header {
 .social-links-inner a:hover img,
 .social-links a:hover img,
 .social-links-mobile-footer a:hover img {
-    filter: invert(0) brightness(0%); /* Cela rendra les icônes bleues au survol */
+    filter: invert(0) brightness(0%);
+    /* Cela rendra les icônes bleues au survol */
 }
 
 
@@ -335,7 +339,7 @@ header {
 .footer-black .footer-links a {
     margin: 0 10px;
     color: white;
-    position: relative;
+    /* position: relative; */
     text-decoration: none;
 
 }
@@ -380,9 +384,22 @@ header {
     color: white;
     bottom: 0;
     right: 0;
+    position: fixed;
+    margin-top: 10px;
     display: flex;
     justify-content: flex-end;
     font-size: 0.6rem;
+}
+
+/* Pour ajouter de l'espace pour mieux lire le body car toute la body ne se lit pas par defaut a cause d'un conflit de propriété pas encore trouvé */
+.add-space {
+    width: 100%;
+    height: 30px;
+    margin-bottom: 10px;
+}
+
+.no-space {
+    display: none;
 }
 
 /* Spécifique pour le footer noir sur les autres pages*/
@@ -396,6 +413,7 @@ header {
     color: white;
     position: relative;
     font-weight: lighter;
+    font-size: 0.85rem;
 
 }
 
@@ -419,18 +437,17 @@ header {
 }
 
 
-.nav-mobile .close-menu .mobile_links .social-links-mobile-footer{
-
-}
+.nav-mobile .close-menu .mobile_links .social-links-mobile-footer {}
 
 
 
 /* Media queries */
-@media (width <= 769px) {
-    footer{
+@media (width <=769px) {
+    footer {
         font-size: 0.6rem;
     }
-    .nav-mobile .mobile_links .mobile-links{
+
+    .nav-mobile .mobile_links .mobile-links {
         display: flex;
         height: 250px;
         width: 700px;
@@ -445,8 +462,10 @@ header {
         font-size: 1.4rem;
 
     }
+    
 
 }
+
 @media (width <=1024px) {
     header {
         padding: 1rem 2rem 1rem 2rem;
@@ -461,15 +480,18 @@ header {
         color: black;
     }
 
-    .social-links{
+    .social-links {
         display: none;
     }
-    .social-links-inner{
+
+    .social-links-inner {
         display: none;
     }
-    .hero{
+
+    .hero {
         position: relative;
     }
+
     .links {
         display: none;
     }
@@ -557,21 +579,26 @@ header {
 .partners {
     text-align: center;
     padding: 50px 0;
-    width: 100%;  /* Prendre toute la largeur de l'écran */
+    width: 100%;
+    /* Prendre toute la largeur de l'écran */
 }
 
 .partners-logos {
     display: grid;
-    grid-template-columns: repeat(10, 1fr);  /* 10 colonnes pour les logos */
+    grid-template-columns: repeat(10, 1fr);
+    /* 10 colonnes pour les logos */
     gap: 20px;
     align-items: center;
     justify-content: center;
-    padding: 0 20px;  /* Ajuste le padding à gauche/droite */
+    padding: 0 20px;
+    /* Ajuste le padding à gauche/droite */
 }
 
 .partners-logos a img {
-    width: 100%;  /* Les images prennent la largeur complète de la colonne */
-    max-width: 100px;  /* Limite la largeur pour éviter des images trop grandes */
+    width: 100%;
+    /* Les images prennent la largeur complète de la colonne */
+    max-width: 100px;
+    /* Limite la largeur pour éviter des images trop grandes */
     height: auto;
     transition: transform 0.3s ease;
 }
@@ -583,7 +610,8 @@ header {
 /* Pour les petits écrans */
 @media (max-width: 768px) {
     .partners-logos {
-        grid-template-columns: repeat(5, 1fr);  /* Affiche 5 logos par ligne sur les petits écrans */
+        grid-template-columns: repeat(5, 1fr);
+        /* Affiche 5 logos par ligne sur les petits écrans */
         gap: 10px;
     }
 }
@@ -591,10 +619,12 @@ header {
 /* Pour les très petits écrans */
 @media (max-width: 480px) {
     .partners-logos {
-        grid-template-columns: repeat(3, 1fr);  /* 3 logos par ligne sur mobile */
+        grid-template-columns: repeat(3, 1fr);
+        /* 3 logos par ligne sur mobile */
         gap: 8px;
     }
 }
+
 /*h2{*/
 /*    font-size: 2rem;*/
 /*    font-weight: bold;*/
@@ -627,16 +657,20 @@ header {
 /* Gestion de la vidéo*/
 .video-wrapper {
     position: relative;
-    width: 100%; /* Le wrapper occupe toute la largeur */
+    width: 100%;
+    /* Le wrapper occupe toute la largeur */
     overflow: hidden;
 }
 
 .video-container {
-    width: 80%; /* Vidéo centrée à 80% par défaut */
+    width: 80%;
+    /* Vidéo centrée à 80% par défaut */
     margin: 0 auto;
-    transition: all 0.5s ease-in-out; /* Transition fluide lors du survol */
+    transition: all 0.5s ease-in-out;
+    /* Transition fluide lors du survol */
     position: relative;
-    padding-bottom: 56.25%; /* Ratio 16:9 */
+    padding-bottom: 56.25%;
+    /* Ratio 16:9 */
     height: 0;
 }
 
@@ -678,8 +712,10 @@ header {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Transparence à 50% */
-    z-index: 1; /* Sous le texte, mais devant la vidéo */
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Transparence à 50% */
+    z-index: 1;
+    /* Sous le texte, mais devant la vidéo */
     pointer-events: none;
 }
 
@@ -720,12 +756,3 @@ iframe {
     top: 0;
     left: 0;
 }
-
-
-
-
-
-
-
-
-

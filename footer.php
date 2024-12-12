@@ -1,3 +1,6 @@
+<div class="<?php echo is_front_page() ? 'no-space' : 'add-space'; ?>">
+
+</div>
 <footer class="<?php echo is_front_page() ? 'footer-fixed' : 'footer-normal'; ?>">
     <a>&copy; <?php echo date('Y'); ?> Ezaachitectures. Tous droits réservés</a>
     <div class="footer-links">
