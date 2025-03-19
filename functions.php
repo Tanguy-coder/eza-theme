@@ -1,20 +1,30 @@
 <?php
 
 add_action('admin_notices', 'my_acf_debug_notice');
-function my_acf_debug_notice() {
-    if (current_user_can('manage_options')) {
-        echo '<div class="notice notice-info">';
-        echo '<p>ACF function exists: ' . (function_exists('acf_add_local_field_group') ? 'Yes' : 'No') . '</p>';
-        echo '<p>Post type "project" exists: ' . (post_type_exists('project') ? 'Yes' : 'No') . '</p>';
-        echo '</div>';
-    }
-}
+// function my_acf_debug_notice() {
+//     if (current_user_can('manage_options')) {
+//         echo '<div class="notice notice-info">';
+//         echo '<p>ACF function exists: ' . (function_exists('acf_add_local_field_group') ? 'Yes' : 'No') . '</p>';
+//         echo '<p>Post type "project" exists: ' . (post_type_exists('project') ? 'Yes' : 'No') . '</p>';
+//         echo '</div>';
+//     }
+// }
 // Sécurité : Désactiver l'éditeur de fichiers WordPress
 define('DISALLOW_FILE_EDIT', true);
 
 // Inclure les fichiers nécessaires
 require_once get_template_directory() . '/inc/customizer.php';
 require_once get_template_directory() . '/inc/security.php';
+
+function enqueue_custom_styles() {
+    wp_enqueue_style(
+        'custom-style',
+        get_stylesheet_directory_uri() . '/style.css',
+        array(),
+        filemtime(get_stylesheet_directory() . '/style.css') // Génère une version unique basée sur l'heure de modification
+    );
+}
+add_action('wp_enqueue_scripts', 'enqueue_custom_styles');
 
 // Fonction d'initialisation du thème
 function eza_theme_setup() {
@@ -453,39 +463,64 @@ function register_personnel_post_type() {
 add_action('init', 'register_personnel_post_type');
 
 // Ajouter les champs ACF pour le personnel
+
+// Vérifie si la fonction ACF est disponible avant d'ajouter des champs.
 if (function_exists('acf_add_local_field_group')) {
     acf_add_local_field_group(array(
-        'key' => 'group_personnel_details',
-        'title' => 'Détails du Personnel',
+        'key' => 'group_personnel_details', // Clé unique pour le groupe de champs.
+        'title' => 'Détails du Personnel', // Titre affiché pour le groupe.
         'fields' => array(
+            // Champ : Mention
             array(
-                'key' => 'field_personnel_function',
-                'label' => 'Fonction',
-                'name' => 'personnel_function',
-                'type' => 'text',
-                'instructions' => 'Entrez le poste de la personne.',
-                'required' => 1,
+                'key' => 'field_personnel_mention', // Clé unique pour le champ.
+                'label' => 'Mention', // Étiquette affichée dans l'interface.
+                'name' => 'personnel_mention', // Nom interne du champ.
+                'type' => 'text', // Type de champ : texte simple.
+                'instructions' => 'Entrez la mention.', // Instructions pour l'utilisateur.
+                'required' => 0, // Champ non obligatoire.
             ),
+            // Champ : Fonction
             array(
-                'key' => 'field_personnel_description',
-                'label' => 'Description',
-                'name' => 'personnel_description',
-                'type' => 'wysiwyg',
-                'instructions' => 'Entrez une brève description de la personne.',
-                'required' => 1,
+                'key' => 'field_personnel_function', // Clé unique pour le champ.
+                'label' => 'Fonction', // Étiquette affichée dans l'interface.
+                'name' => 'personnel_function', // Nom interne du champ.
+                'type' => 'text', // Type de champ : texte simple.
+                'instructions' => 'Entrez le poste de la personne.', // Instructions pour l'utilisateur.
+                'required' => 0, // Champ obligatoire.
+            ),
+            // Champ : Description
+            array(
+                'key' => 'field_personnel_description', // Clé unique pour le champ.
+                'label' => 'Description', // Étiquette affichée dans l'interface.
+                'name' => 'personnel_description', // Nom interne du champ.
+                'type' => 'wysiwyg', // Type de champ : éditeur WYSIWYG.
+                'instructions' => 'Entrez une brève description de la personne.', // Instructions pour l'utilisateur.
+                'required' => 0, // Champ obligatoire.
+                'tabs' => 'all', // Permet d'activer tous les onglets (Visuel/Texte).
+                'toolbar' => 'full', // Barre d'outils complète pour l'éditeur.
+                'media_upload' => 0, // Désactive le bouton d'ajout de médias.
             ),
         ),
+        // Localisation du groupe de champs.
         'location' => array(
             array(
                 array(
-                    'param' => 'post_type',
-                    'operator' => '==',
-                    'value' => 'personnel',
+                    'param' => 'post_type', // Appliquer à un type de contenu.
+                    'operator' => '==', // Condition d'égalité.
+                    'value' => 'personnel', // Type de contenu ciblé : "personnel".
                 ),
             ),
         ),
+        'menu_order' => 0, // Ordre d'affichage (0 = premier).
+        'position' => 'normal', // Position dans l'interface (normal, side, etc.).
+        'style' => 'default', // Style de présentation (default, seamless).
+        'label_placement' => 'top', // Placement des étiquettes (top, left).
+        'instruction_placement' => 'label', // Position des instructions (label, field).
+        'active' => true, // Groupe actif.
+        'description' => '', // Description optionnelle du groupe.
     ));
 }
+
 
 if (function_exists('acf_add_local_field_group')) {
     // Récupération de l'ID de la page "Agence" en fonction de son slug.

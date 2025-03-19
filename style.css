@@ -16,13 +16,17 @@ Text Domain: eza_architecture
 
 /* Body Styling */
 body {
-    font-family: Inconsolata, sans-serif;
+    font-family: Century Gothic, sans-serif;
     color: #000000;
     background-color: #fff;
-    /*font-weight: 400;*/
-    margin: 0;
+    font-weight: 400;
     width: 100%;
     overflow-x: clip;
+}
+
+.site-main{
+    margin: 16px 100px;
+    padding: 10px 22px;
 }
 
 /* Navbar Styling */
@@ -30,7 +34,7 @@ body {
 header {
     width: 100%;
     padding: 3.2rem 5rem 1rem 5rem;
-    /* top: 0; */
+    top: 0; 
     /* left: 0;
     right: 0; */
     /* z-index: 1000; Increase z-index to ensure it's above other elements */
@@ -83,7 +87,7 @@ header {
     flex-direction: column;
     justify-content: space-between;
     align-items: flex-end;
-    padding-right: 2rem;
+    padding-right: 0.5rem;
 }
 
 /*.mobile_links .mobile-links {
@@ -160,17 +164,17 @@ header {
 
 .logo {
     margin-right: 5rem;
-    width: 100px;
-
+    width: 150px
 }
 
 /* Navbar General Styles */
 .navbar {
+    margin-top: 0rem;
+    position: fixed;
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    top: 0;
     background: transparent;
 }
 
@@ -181,6 +185,17 @@ header {
     align-items: center;
 }
 
+.pll-parent-menu-item {
+    position: relative; /* Nécessaire pour le sous-menu */
+}
+
+.lang-item {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+
 /* Styles for menu on the homepage */
 .navbar-home .links a {
     color: white;
@@ -190,6 +205,7 @@ header {
 /* Styles for menu on other pages */
 .navbar-inner {
     background-color: white;
+    margin-left : 0;
 }
 
 .navbar-inner .links a {
@@ -203,13 +219,18 @@ header {
     width: auto;
     display: flex;
     justify-content: flex-start;
-    gap: 1rem;
-    font-size: 1.8rem;
+    gap: 1.5rem;
+    font-size: 1.2rem;
+    font-weight: normal;
+}
+
+.links ul li {
+    font-weight:normal;
 }
 
 .navbar-inner .links li a {
     list-style: none;
-    width: auto;
+    width: 2px;
     /* display: flex; */
     /* justify-content: flex-start; */
     gap: 1rem;
@@ -220,6 +241,7 @@ header {
     position: relative;
     color: inherit;
     transition: color 0.3s ease;
+    font-weight: 1rem;
 }
 
 .links li a::before {
@@ -366,7 +388,7 @@ header {
 .footer-fixed {
     padding: 20px;
     width: 100%;
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: black;
     color: white;
     position: fixed;
     bottom: 0;
@@ -413,10 +435,13 @@ header {
     color: white;
     position: relative;
     font-weight: lighter;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
 
 }
 
+footer .signature{
+    font-size: 0.8rem;
+}
 
 .footer-links a:hover::before {
     transform-origin: bottom left;
@@ -443,8 +468,13 @@ header {
 
 /* Media queries */
 @media (width <=769px) {
+    header {
+        padding: 1rem 0rem 1rem 0rem;
+        background-color: white;
+        color: black;
+    }
     footer {
-        font-size: 0.6rem;
+        font-size: 0.4rem;
     }
 
     .nav-mobile .mobile_links .mobile-links {
@@ -463,22 +493,42 @@ header {
 
     }
     
+    .logo {
+        width: 100px
+    }
+    
+    .site-main{
+        margin: 6px 8px;
+        padding: 6px 12px;
+    }
+    
+    .agency-page {
+        /*margin: 5rem 260px 16px; */
+        margin: 16px 260px;
+        padding: 10px 22px;
+    }
+    
+    /*p {*/
+    /*    margin: 8px 10px; */
+    /*    padding: 5px 10px; */
+    /*    font-size: 14px; */
+    /*}*/
 
 }
 
 @media (width <=1024px) {
     header {
-        padding: 1rem 2rem 1rem 2rem;
+        padding: 1rem 0rem 1rem 0rem;
         background-color: white;
         color: black;
-
     }
 
-    .menu {
-        display: block;
-        cursor: pointer;
-        color: black;
-    }
+   .menu {  
+    display: block;  
+    cursor: pointer;  
+    color: black;  
+    margin-left: 5rem; /* Ajustez cette valeur selon vos besoins */  
+}
 
     .social-links {
         display: none;
@@ -494,6 +544,31 @@ header {
 
     .links {
         display: none;
+    }
+    
+    .logo {
+        width: 100px
+        margin-left: 5rem;
+    }
+    
+    /*p {*/
+    /*    font-size: 16px;*/
+    /*    color: #444;*/
+    /*    font-weight: normal;*/
+    /*    text-align: justify;*/
+    /*}*/
+}
+
+@media (width > 1300px) {
+    .site-main{
+        margin: 16px 290px;
+        padding: 10px 22px;
+    }
+    
+    .agency-page {
+        /*margin: 5rem 260px 16px; */
+        margin: 16px 260px;
+        padding: 10px 22px;
     }
 }
 
@@ -580,6 +655,7 @@ header {
     text-align: center;
     padding: 50px 0;
     width: 100%;
+    margin-bottom: 2rem;
     /* Prendre toute la largeur de l'écran */
 }
 

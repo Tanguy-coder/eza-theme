@@ -33,12 +33,6 @@
         <h1 class="project-title"><?php the_title(); ?></h1>
 
         <div class="main_part">
-            <div class="project-main">
-                <div class="project-description">
-                    <?php the_field('project_description'); ?>
-                </div>
-            </div>
-
             <aside class="project-sidebar">
                 <div class="sidebar-content">
                     <!-- Sidebar fields (Location, Client, Year, etc.) -->
@@ -113,6 +107,13 @@
                     <?php endif; ?>
                 </div>
             </aside>
+            <div class="project-main">
+                <div class="project-description">
+                 <p style="text-align: center; margin: 0 100px;"><?php the_field('project_description'); ?></p>
+                </div>
+            </div>
+
+            
         </div>
     </div>
 

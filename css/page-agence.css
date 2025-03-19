@@ -1,22 +1,70 @@
 /* Style de base pour la page agence */
 
+.content-before-personnel p{
+    line-height: 1.6;
+}
+.agency-page {
+    margin: 5rem 100px 16px; 
+    padding: 10px 22px;
+}
+
+@media (width > 1300px) {
+    .agency-page {
+        margin: 5rem 280px 16px; 
+        padding: 0;
+    }
+    
+    /*.over-board{*/
+    /*    margin: -16px -500px;*/
+    /*    padding: 20px 120px;*/
+    /*    display: flex;          */
+    /*    justify-content: center; */
+    /*    align-items: center;     */
+    /*    }*/
+        
+    /*    .personnel-grid {*/
+    /*        margin: 0 auto; */
+    /*        padding: 0 100px;*/
+    /*    }*/
+}
+
+@media (width <=769px) {
+    .agency-page {
+        margin: 5rem 8px 6px;
+        padding: 6px 12px;
+    }
+}
+
+
+.over-board {
+    background-color: black;
+    position: relative;
+}
+
+
+
 .agency-personnel {
     text-align: center;
-    padding: 50px 0;
+    padding: 20px 0;
 }
+
+
 .personnel-grid {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
     justify-content: center;
 }
+
+
 .personnel-member {
+    padding-top:2rem;
     width: 280px;
     text-align: center;
 }
 .personnel-member img {
     cursor: pointer;
-    border-radius: 5%;
+    border-radius: none;
     width: 250px;
     height: 250px;
 }

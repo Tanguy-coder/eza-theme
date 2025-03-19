@@ -103,7 +103,7 @@ function requestFullScreen(element) {
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
 var typed = new Typed("#typed", {
-    strings: ["Nous sommes des bâtisseurs", "Des architectes renommés"],
+    strings: ["une agence d'innovation.", "Un phare de la modernité.","Avant-gardiste de l'architecture contemporaine."],
     typeSpeed: 60,
     backSpeed:50,
     backDelay:1000,

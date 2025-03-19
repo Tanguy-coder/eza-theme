@@ -151,7 +151,7 @@ get_header();
                 if (!mapInitialized) {
                     map = L.map('project-map', {
                         zoomControl: true,
-                        scrollWheelZoom: false,
+                        scrollWheelZoom: true,
                         maxBounds: [[-85, -180], [85, 180]], // Limites géographiques
                         maxBoundsViscosity: 1.0
                     }).setView([20, 0], 2); // Centré sur le monde

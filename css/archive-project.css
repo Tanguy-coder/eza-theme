@@ -55,12 +55,13 @@
 /*}*/
 
 .view-switcher {
+    margin-top: 20px;
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .view-switcher button {
-    padding: 10px 20px;
+    padding: 30px 20px;
     margin-right: 10px;
     background-color: #f1f1f1;
     border: 1px solid #ddd;
@@ -73,10 +74,11 @@
 }
 
 #project-map {
-    height: 500px; /* Ajuste la hauteur selon tes besoins */
+    height: 100vh; /* Ajuste la hauteur selon tes besoins */
     width: 100%;
     position: relative;
     display: block;
+    z-index:0;
 }
 
 
@@ -106,7 +108,7 @@
     display: block;
 }
 .project-archive-container{
-    padding: 0px 80px;
+    padding: 30px 80px;
 }
 .project-archive-header {
     width: 100%;

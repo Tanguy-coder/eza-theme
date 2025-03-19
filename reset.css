@@ -89,10 +89,19 @@ h3 {
     line-height: 1.4;
     color: #333;
 }
+/*p {*/
+/*    font-size: 8px;*/
+/*    color: #444;*/
+/*    margin-bottom: 24px;*/
+/*    font-weight: normal;*/
+/*    text-justify:auto;*/
+/*}*/
+
 p {
-    font-size: 30px;
-    line-height: 1.6;
+    font-size: 18px; /* Taille normale */
     color: #444;
-    margin-bottom: 24px;
-    font-weight: bold;
+    /*margin: 16px 100px;*/
+    /*padding: 10px 22px;*/
+    font-weight: normal;
+    text-align: justify;
 }

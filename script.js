@@ -16,3 +16,4 @@ close_menu_button.addEventListener('click', function (){
     nav_mobile.classList.toggle("nav-mobile-apparition")
 
 })
+

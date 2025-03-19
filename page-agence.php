@@ -24,40 +24,47 @@ get_header();
     ?>
     <!-- Section Personnel -->
     <div class="agency-personnel">
-        <h2>Notre Équipe</h2>
-        <div class="personnel-grid">
-            <?php
-            $personnel = new WP_Query(array('post_type' => 'personnel', 'posts_per_page' => -1));
-            while ($personnel->have_posts()) : $personnel->the_post();
-                $function = get_field('personnel_function');
-                $description = get_field('personnel_description');
-                $image = get_the_post_thumbnail_url(get_the_ID(), 'medium');
-                ?>
-                <div class="personnel-member">
-                    <img src="<?php echo esc_url($image); ?>" alt="<?php the_title(); ?>" class="personnel-photo" onclick="openModal('<?php the_ID(); ?>')">
-                    <h3><?php the_title(); ?></h3>
-
-                    <!-- Modal Content -->
-                    <div id="modal-<?php the_ID(); ?>" class="personnel-modal">
-                        <div class="modal-content">
-                            <span class="close" onclick="closeModal('<?php the_ID(); ?>')">&times;</span>
-                            <img src="<?php echo esc_url($image); ?>" alt="<?php the_title(); ?>" class="modal-photo">
-                            <h3><?php the_title(); ?></h3>
-                            <p class="personnel-function"><?php echo esc_html($function); ?></p>
-                            <div class="personnel-description"><?php echo wp_kses_post($description); ?></div>
+        
+        <br/>
+        <div class="over-board">
+            <section class="content-container">
+                <div class="personnel-grid">
+                    <?php
+                    $personnel = new WP_Query(array(
+                        'post_type' => 'personnel',
+                        'posts_per_page' => -1,
+                        'orderby' => 'date',
+                        'order' => 'ASC', // Ordre croissant : plus ancien en premier
+                    ));
+                    while ($personnel->have_posts()) : $personnel->the_post();
+                        $function = get_field('personnel_function');
+                        $description = get_field('personnel_description');
+                        $mention = get_field('personnel_mention');
+                        $image = get_the_post_thumbnail_url(get_the_ID(), 'medium');
+                        ?>
+                        <div class="personnel-member">
+                            <img src="<?php echo esc_url($image); ?>" alt="<?php the_title(); ?>" class="personnel-photo" onclick="openModal('<?php the_ID(); ?>')">
+                            <span style="color:white"><?php the_title(); ?></span>
+                            <br/>
+                            <span style="color:white"><?php echo esc_html($mention); ?></span>
+                            <!-- Modal Content -->
+                            <div id="modal-<?php the_ID(); ?>" class="personnel-modal">
+                                <div class="modal-content">
+                                    <span class="close" onclick="closeModal('<?php the_ID(); ?>')">&times;</span>
+                                    <img src="<?php echo esc_url($image); ?>" alt="<?php the_title(); ?>" class="modal-photo">
+                                    <h3><?php the_title(); ?></h3>
+                                    <p class="personnel-function"><?php echo esc_html($function); ?></p>
+                                    <div class="personnel-description"><?php echo wp_kses_post($description); ?></div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                    <?php endwhile; wp_reset_postdata(); ?>
                 </div>
-            <?php endwhile; wp_reset_postdata(); ?>
+            </section>  
         </div>
     </div>
 
-    <?php
-    // Contenu avant la section du personnel
-    echo '<div class="content-before-personnel">';
-    the_content();
-    echo '</div>';
-    ?>
+
 
     <!-- Section Slider des Images de l'Agence -->
     <?php
