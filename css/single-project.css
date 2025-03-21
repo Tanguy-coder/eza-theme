@@ -1,34 +1,26 @@
-/*@import url('../reset.css');*/
+@import url('../reset.css');
 
 /* Fullscreen slider */
 .swiper-container {
-    width: 100vw;  /* Occupe toute la largeur de l'écran */
-    height: 100vh; /* Occupe toute la hauteur de l'écran */
-    position: relative; /* Positionnement relatif pour le slider */
+    width: 100vw;
+    height: 100vh;
+    position: relative;
     overflow: hidden;
     z-index: 1;
 }
 
 .swiper-slide img {
-    width: 100vw;  /* Image prend toute la largeur */
-    height: 100vh; /* Image prend toute la hauteur */
-    object-fit: cover; /* S'assure que l'image couvre bien l'espace */
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
 }
 
-/* Pagination et boutons du slider */
-/*.swiper-pagination {*/
-/*    position: absolute;*/
-/*    bottom: 20px;*/
-/*    left: 50%;*/
-/*    transform: translateX(-50%);*/
-/*    z-index: 10;*/
-/*    color: #fff;*/
-/*}*/
-
-.swiper-button-prev, .swiper-button-next {
+/* Slider Navigation */
+.swiper-button-prev, 
+.swiper-button-next {
     color: #fff;
     z-index: 10;
-    width: calc(44px /  30*27);
+    width: calc(44px / 30 * 27);
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -42,69 +34,35 @@
     right: 20px;
 }
 
-/*Content style*/
-.related-projects .container .similar_project_title{
-    margin: 30px;
-    font-size: 2rem;
-    font-weight: bold;
-
-    text-align: center;
-}
-.related-projects .container .projects-grid {
-    display: flex;
-    width: 100%;
-}
-.related-projects .container .projects-grid .project-item {
-    position: relative;
-}
-.related-projects .container .projects-grid .project-item .project_title{
-    position: absolute;
-    color: white;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: black;
-    opacity: 0;
-    transition: opacity 0.1s ease-out;
-    font-size: 1.2rem;
-}
-.related-projects .container .projects-grid .project-item:hover .project_title{
-    opacity: 0.8;
-    transition: opacity 0.1s ease-out;
+/* Project Content */
+.project-content {
+    padding: 0 80px;
+    margin: 80px 0;
 }
 
-.project-content{
-    padding: 0px 80px;
-    margin: 80px 0px;
-}
-
-.project-content .project-title{
+.project-title {
     font-weight: bold;
     font-size: 2rem;
     text-align: left;
     margin-bottom: 50px;
 }
 
-.project-content .main_part{
+.main_part {
     display: flex;
+    justify-content: space-between;
+    gap: 4rem;
     width: 100%;
 }
-.project-content .main_part .project-main{
-    width: calc(100% - (400px));
+
+/* Main Content Area */
+.project-main {
+    flex: 1;
+    width: calc(100% - 400px);
     font-size: 1.2rem;
 }
-.project-content .main_part .project-sidebar .sidebar-content .projects_infos{
-    padding: 10px 50px;
-}
-.project-content .main_part .project-sidebar .sidebar-content .theme{
-    padding: 10px 50px;
-}
-.project-content .main_part .project-sidebar{
-    margin-left: 100px;
+
+/* Sidebar */
+.project-sidebar {
     width: 400px;
     height: fit-content;
     background-color: black;
@@ -113,20 +71,33 @@
     line-height: 1.55555555;
     letter-spacing: 1px;
 }
-.sidebar-content .separator::before{
+
+.sidebar-content .projects_infos,
+.sidebar-content .theme {
+    padding: 10px 50px;
+}
+
+.sidebar-content .separator::before {
     content: '';
-    color: white;
     display: block;
     width: 100%;
     height: 1px;
-    border: dashed white 1px;
+    border: 1px dashed white;
+}
 
+.sidebar-item {
+    margin: 8px 0 10px;
 }
-.project-content .main_part .project-sidebar .sidebar-item {
-    margin-bottom: 10px;
-    margin-top: 8px;
+
+.download_link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin: 50px 0 40px;
 }
-.project-content .main_part .project-sidebar .sidebar-item .download-button {
+
+.download-button {
     text-decoration: none;
     color: white;
     font-size: 1rem;
@@ -134,32 +105,111 @@
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
-.project-content .main_part .project-sidebar .sidebar-item .download_link {
+
+/* Related Projects */
+.similar_project_title {
+    margin: 30px;
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+.projects-grid {
     display: flex;
-    gap: 8px;
+    width: 100%;
+}
+
+.project-item {
+    position: relative;
+}
+
+.project_title {
+    position: absolute;
+    inset: 0;
+    display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 50px;
-    margin-bottom: 40px;
+    background-color: black;
+    color: white;
+    opacity: 0;
+    transition: opacity 0.1s ease-out;
+    font-size: 1.2rem;
 }
 
+.project-item:hover .project_title {
+    opacity: 0.8;
+}
+
+/* Responsive Design */
 @media (width <= 1024px) {
-    .project-content .main_part{
-        display: flex;
+    .main_part {
         flex-direction: column;
         gap: 20px;
+    }
+
+    .project-main,
+    .project-sidebar {
         width: 100%;
     }
 
-    .project-content .main_part .project-main{
-        width: 100%;
-        font-size: 1.2rem;
-    }
-    .project-content .main_part .project-sidebar{
-        width: 100%;
-        margin-left: 0px;
+    .project-sidebar {
+        margin-left: 0;
     }
 }
 
+@media (max-width: 768px) {
+    .main_part {
+        gap: 2rem;
+    }
+    
+    .project-content {
+        padding: 0 20px;
+        margin: 40px 0;
+    }
+}
 
+/* Mise à jour du conteneur principal pour bien gérer la séparation */
+.main_part {
+    display: flex;
+    justify-content: flex-start;
+    align-items: stretch;
+    gap: 0;
+    width: 100%;
+}
 
+/* Style du séparateur */
+.separator {
+    width: 1px;
+    align-self: stretch;
+    background-color: #000;
+    margin: 0 4rem;
+    flex-shrink: 0;
+}
+
+/* Ajustement des éléments principaux */
+.project-sidebar {
+    flex: 0 0 400px;
+    margin-left: 0;
+}
+
+.project-main {
+    flex: 1;
+}
+
+/* Adaptation mobile */
+@media (width <= 1024px) {
+    .main_part {
+        flex-direction: column;
+    }
+
+    .separator {
+        width: 100%;
+        height: 1px;
+        margin: 2rem 0;
+    }
+
+    .project-sidebar,
+    .project-main {
+        width: 100%;
+    }
+}

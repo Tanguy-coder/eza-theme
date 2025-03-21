@@ -107,11 +107,14 @@
                     <?php endif; ?>
                 </div>
             </aside>
-            <div class="project-main">
+            <div class="separator">
+                
+            </div>
+            <aside class="project-main">
                 <div class="project-description">
                  <p style="text-align: center; margin: 0 100px;"><?php the_field('project_description'); ?></p>
                 </div>
-            </div>
+            </aside>
 
             
         </div>
@@ -152,5 +155,27 @@
     </section>
 
 </article>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const header = document.querySelector(".header");
+        const navbar = document.querySelector(".navbar");
+        const slider = document.querySelector(".project-slider");
+
+        window.addEventListener("scroll", function () {
+            if (window.scrollY > slider.offsetHeight) {
+                navbar.classList.add("navbar-inner");
+                navbar.classList.remove("navbar-home");
+                header.classList.add("header-inner");
+                header.classList.remove("header-home");
+            } else {
+                navbar.classList.remove("navbar-inner");
+                navbar.classList.add("navbar-home");
+                header.classList.remove("header-inner");
+                header.classList.add("header-home");
+            }
+        });
+    });
+</script>
 
 <?php get_footer(); ?>

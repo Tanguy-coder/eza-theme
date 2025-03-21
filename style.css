@@ -38,7 +38,9 @@ header {
     /* left: 0;
     right: 0; */
     /* z-index: 1000; Increase z-index to ensure it's above other elements */
-    transition: background-color 0.3s ease;
+    /*transition: background-color 0.3s ease;*/
+    transition: background 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+
 }
 
 .header-home {
@@ -50,6 +52,7 @@ header {
 .header-inner {
     position: sticky;
     background-color: white;
+    z-index: 1000;
 }
 
 
@@ -206,6 +209,7 @@ header {
 .navbar-inner {
     background-color: white;
     margin-left : 0;
+    z-index: 1000;
 }
 
 .navbar-inner .links a {
@@ -241,7 +245,7 @@ header {
     position: relative;
     color: inherit;
     transition: color 0.3s ease;
-    font-weight: 1rem;
+    font-weight: 1;
 }
 
 .links li a::before {
@@ -547,7 +551,7 @@ footer .signature{
     }
     
     .logo {
-        width: 100px
+        width: 100px;
         margin-left: 5rem;
     }
     

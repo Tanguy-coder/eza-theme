@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="c908d393-4e5e-477a-8e60-a378cb67d919" name="Ezaarchitectures" url="http:// ftp.ezaarchitectures.com">
+        <fileTransfer rootFolder="" host=" ftp.ezaarchitectures.com" port="21">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

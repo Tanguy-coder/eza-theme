@@ -1,14 +1,14 @@
 <?php
 
 add_action('admin_notices', 'my_acf_debug_notice');
-// function my_acf_debug_notice() {
-//     if (current_user_can('manage_options')) {
-//         echo '<div class="notice notice-info">';
-//         echo '<p>ACF function exists: ' . (function_exists('acf_add_local_field_group') ? 'Yes' : 'No') . '</p>';
-//         echo '<p>Post type "project" exists: ' . (post_type_exists('project') ? 'Yes' : 'No') . '</p>';
-//         echo '</div>';
-//     }
-// }
+ function my_acf_debug_notice() {
+     if (current_user_can('manage_options')) {
+         echo '<div class="notice notice-info">';
+         echo '<p>ACF function exists: ' . (function_exists('acf_add_local_field_group') ? 'Yes' : 'No') . '</p>';
+         echo '<p>Post type "project" exists: ' . (post_type_exists('project') ? 'Yes' : 'No') . '</p>';
+         echo '</div>';
+     }
+ }
 // Sécurité : Désactiver l'éditeur de fichiers WordPress
 define('DISALLOW_FILE_EDIT', true);
 

@@ -65,54 +65,56 @@ get_header();
         </div>
     </div>
 
-    <!-- Conteneur des projets en mosaïque -->
-    <div id="project-grid" class="project-grid view-active">
-        <?php
-        // Récupérer les paramètres de recherche et de filtre
-        $search_term = isset($_GET['s']) ? sanitize_text_field($_GET['s']) : '';
-        $theme_filter = isset($_GET['theme']) ? sanitize_text_field($_GET['theme']) : '';
-
-        // Définir les arguments de la requête WP
-        $args = array(
-            'post_type' => 'project',
-            'posts_per_page' => -1,
-            's' => $search_term,
-        );
-
-        if ($theme_filter) {
-            $args['tax_query'] = array(
-                array(
-                    'taxonomy' => 'project_theme',
-                    'field'    => 'slug',
-                    'terms'    => $theme_filter,
-                ),
-            );
-        }
-
-        $projects = new WP_Query($args);
-
-        if ($projects->have_posts()) :
-            while ($projects->have_posts()) : $projects->the_post();
-                ?>
-                <div class="project-item">
-                    <a href="<?php the_permalink(); ?>" class="project-link">
-                        <?php if (has_post_thumbnail()) : ?>
-                            <?php the_post_thumbnail('medium'); ?>
-                        <?php endif; ?>
-                        <h3><?php the_title(); ?></h3>
-                    </a>
-                </div>
+    <div class="contenue">
+        <!-- Conteneur des projets en mosaïque -->
+        <div id="project-grid" class="project-grid view-active">
             <?php
-            endwhile;
-            wp_reset_postdata();
-        else :
-            echo '<p>Aucun projet trouvé.</p>';
-        endif;
-        ?>
-    </div>
+            // Récupérer les paramètres de recherche et de filtre
+            $search_term = isset($_GET['s']) ? sanitize_text_field($_GET['s']) : '';
+            $theme_filter = isset($_GET['theme']) ? sanitize_text_field($_GET['theme']) : '';
 
-    <!-- Conteneur pour la vue carte -->
-    <div id="project-map" class="project-map view-hidden"></div>
+            // Définir les arguments de la requête WP
+            $args = array(
+                'post_type' => 'project',
+                'posts_per_page' => -1,
+                's' => $search_term,
+            );
+
+            if ($theme_filter) {
+                $args['tax_query'] = array(
+                    array(
+                        'taxonomy' => 'project_theme',
+                        'field'    => 'slug',
+                        'terms'    => $theme_filter,
+                    ),
+                );
+            }
+
+            $projects = new WP_Query($args);
+
+            if ($projects->have_posts()) :
+                while ($projects->have_posts()) : $projects->the_post();
+                    ?>
+                    <div class="project-item">
+                        <a href="<?php the_permalink(); ?>" class="project-link">
+                            <?php if (has_post_thumbnail()) : ?>
+                                <?php the_post_thumbnail('medium'); ?>
+                            <?php endif; ?>
+                            <h3><?php the_title(); ?></h3>
+                        </a>
+                    </div>
+                <?php
+                endwhile;
+                wp_reset_postdata();
+            else :
+                echo '<p>Aucun projet trouvé.</p>';
+            endif;
+            ?>
+        </div>
+
+        <!-- Conteneur pour la vue carte -->
+        <div id="project-map" class="project-map view-hidden"></div>
+    </div>
 
 </div>
 

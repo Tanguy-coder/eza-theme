@@ -13,7 +13,7 @@
 </head>
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
-<header class="<?php echo is_front_page() || is_singular('project') ? 'header-home' : 'header-inner'; ?>">
+<header class="header <?php echo is_front_page() || is_singular('project') ? 'header-home' : 'header-inner'; ?>">
     <nav class="navbar <?php echo is_front_page() || is_singular('project') ? 'navbar-home' : 'navbar-inner'; ?>">
         <div class="nav-links" style="font-weight: bold">
             <div class="logo">
