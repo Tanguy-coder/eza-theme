@@ -18,7 +18,7 @@
                     <div class="swiper-slide">
                         <img src="<?php echo esc_url($image['url']); ?>" alt="<?php echo esc_attr($image['alt']); ?>">
                     </div>
-                <?php endforeach;
+            <?php endforeach;
             endif;
             ?>
         </div>
@@ -83,18 +83,17 @@
                         <div class="sidebar-item">
                             <div class="download_link">
                                 <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        width="24"
-                                        height="24"
-                                        viewBox="0 0 24 24"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        stroke-width="1.5"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        class="icon icon-tabler icons-tabler-outline icon-tabler-download"
-                                >
-                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="24"
+                                    height="24"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="1.5"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    class="icon icon-tabler icons-tabler-outline icon-tabler-download">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                     <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" />
                                     <path d="M7 11l5 5l5 -5" />
                                     <path d="M12 4l0 12" />
@@ -108,15 +107,15 @@
                 </div>
             </aside>
             <div class="separator">
-                
+
             </div>
             <aside class="project-main">
                 <div class="project-description">
-                 <p style="text-align: center; margin: 0 100px;"><?php the_field('project_description'); ?></p>
+                    <p style="text-align: center; margin: 0 100px;"><?php the_field('project_description'); ?></p>
                 </div>
             </aside>
 
-            
+
         </div>
     </div>
 
@@ -148,7 +147,7 @@
                                 <h3 class="project_title"><?php echo get_the_title($project->ID); ?></h3>
                             </a>
                         </article>
-                    <?php endforeach;
+                <?php endforeach;
                 endif; ?>
             </div>
         </div>
@@ -157,24 +156,53 @@
 </article>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
+    document.addEventListener("DOMContentLoaded", function() {
         const header = document.querySelector(".header");
         const navbar = document.querySelector(".navbar");
         const slider = document.querySelector(".project-slider");
+        const divAnimated = document.querySelector('.animation');
+        const body = document.getElementsByTagName('body');
+        const navlink = document.querySelectorAll('nav .links a');
 
-        window.addEventListener("scroll", function () {
-            if (window.scrollY > slider.offsetHeight) {
-                navbar.classList.add("navbar-inner");
-                navbar.classList.remove("navbar-home");
-                header.classList.add("header-inner");
-                header.classList.remove("header-home");
+
+        window.addEventListener('scroll', function() {
+            console.log(window.scrollY)
+
+
+            if (window.scrollY >= 400) {
+                divAnimated.style.transform = 'translateY(0px)';
+                navlink.forEach(function(elt){
+                    elt.style.color = "#000";
+                });
+                
+                
             } else {
-                navbar.classList.remove("navbar-inner");
-                navbar.classList.add("navbar-home");
-                header.classList.remove("header-inner");
-                header.classList.add("header-home");
+                divAnimated.style.transform = 'translateY(-100px)';
+                navlink.forEach(function(elt){
+                    elt.style.color = "#fff";
+                });
+                
             }
+
         });
+
+
+        // window.addEventListener("scroll", function() {
+        //     if (window.scrollY > slider.offsetHeight) {
+        //         navbar.classList.add("navbar-inner");
+        //         header.classList.add("header-inner");
+        //         navbar.classList.remove("navbar-home");
+        //         header.classList.remove("header-home");
+
+
+        //     } else {
+        //         navbar.classList.remove("navbar-inner");
+        //         header.classList.remove("header-inner");
+        //         navbar.classList.add("navbar-home");
+        //         header.classList.add("header-home");
+
+        //     }
+        // });
     });
 </script>
 

@@ -6,6 +6,7 @@ get_header();
 ?>
 
 <section >
+
     <div class="social-links-inner">
         <a href="<?php echo esc_url(get_theme_mod('linkedin_url')); ?>"><img src="<?php echo eza_get_icon_url('linkedin.svg'); ?>" alt="LinkedIn"></a>
         <a href="<?php echo esc_url(get_theme_mod('facebook_url')); ?>"><img src="<?php echo eza_get_icon_url('facebook.svg'); ?>" alt="Facebook"></a>
@@ -28,7 +29,9 @@ get_header();
         <br/>
         <div class="over-board">
             <section class="content-container">
-                <div class="personnel-grid">
+                <div class="personnel-grid container_image">
+            <div class="bg"></div>
+
                     <?php
                     $personnel = new WP_Query(array(
                         'post_type' => 'personnel',

@@ -47,6 +47,22 @@ header {
     position: fixed;
     background-color: transparent;
     z-index: 1000;
+   
+
+    
+    & .animation{
+        background-color: rgb(255, 255, 255);
+        z-index: -1;
+        right: 0;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        position: absolute;
+        transform: translateY(-100px);
+        transition: transform 500ms;
+
+    }
+
 }
 
 .header-inner {
@@ -61,10 +77,10 @@ header {
     cursor: pointer;
 }
 
-/*.nav-mobile {
+.nav-mobile {
     display: none;
     color: white;
-}*/
+}
 
 .nav-mobile {
     display: none;
@@ -171,7 +187,7 @@ header {
 }
 
 /* Navbar General Styles */
-.navbar {
+/* .navbar {
     margin-top: 0rem;
     position: fixed;
     display: flex;
@@ -179,7 +195,7 @@ header {
     align-items: center;
     width: 100%;
     background: transparent;
-}
+} */
 
 .nav-links {
     display: flex;
@@ -206,11 +222,11 @@ header {
 }
 
 /* Styles for menu on other pages */
-.navbar-inner {
+/* .navbar-inner {
     background-color: white;
     margin-left : 0;
     z-index: 1000;
-}
+} */
 
 .navbar-inner .links a {
     color: black;

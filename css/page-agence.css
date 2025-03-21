@@ -1,19 +1,20 @@
 /* Style de base pour la page agence */
 
-.content-before-personnel p{
+.content-before-personnel p {
     line-height: 1.6;
 }
+
 .agency-page {
-    margin: 5rem 100px 16px; 
+    margin: 5rem 100px 16px;
     padding: 10px 22px;
 }
 
 @media (width > 1300px) {
     .agency-page {
-        margin: 5rem 280px 16px; 
+        margin: 5rem 280px 16px;
         padding: 0;
     }
-    
+
     /*.over-board{*/
     /*    margin: -16px -500px;*/
     /*    padding: 20px 120px;*/
@@ -21,7 +22,7 @@
     /*    justify-content: center; */
     /*    align-items: center;     */
     /*    }*/
-        
+
     /*    .personnel-grid {*/
     /*        margin: 0 auto; */
     /*        padding: 0 100px;*/
@@ -37,8 +38,27 @@
 
 
 .over-board {
-    background-color: black;
+    /* background-color: black; */
     position: relative;
+}
+
+.container_image{
+    position: relative;
+    /* margin: 25px 0; */
+    padding: 12px 0px;
+
+
+    & div.bg{
+        position: absolute;
+        width: 100vw;
+        margin: 0 auto;
+        top: 0;
+        left: 50%;
+        height: 100%;
+        transform: translate(-50%);
+        background-color: black;
+        z-index: -10;
+    }
 }
 
 
@@ -58,20 +78,23 @@
 
 
 .personnel-member {
-    padding-top:2rem;
+    padding-top: 2rem;
     width: 280px;
     text-align: center;
 }
+
 .personnel-member img {
     cursor: pointer;
     border-radius: none;
     width: 250px;
     height: 250px;
 }
+
 .personnel-member h3 {
     font-size: 18px;
     margin-top: 10px;
 }
+
 .personnel-modal {
     display: none;
     position: fixed;
@@ -83,6 +106,7 @@
     height: 100%;
     background-color: black;
 }
+
 .modal-content {
     background-color: #fff;
     margin: auto;
@@ -92,18 +116,22 @@
     text-align: center;
     position: relative;
 }
+
 .modal-content img {
     width: 120px;
     height: 120px;
     border-radius: 2%;
 }
+
 .modal-content h3 {
     margin-top: 10px;
     font-size: 24px;
 }
+
 .modal-content p {
     font-size: 25px;
 }
+
 .modal-content .close {
     position: absolute;
     top: 10px;
@@ -121,8 +149,10 @@
     max-width: 1200px;
     margin: 0 auto;
     position: relative;
-    margin-bottom: 80px; /* Espace sous le slider */
-    z-index: 1; /* Assure que le slider est au-dessus du footer */
+    margin-bottom: 80px;
+    /* Espace sous le slider */
+    z-index: 1;
+    /* Assure que le slider est au-dessus du footer */
 }
 
 .agency-slider .swiper-slide {
@@ -147,4 +177,3 @@
     width: 44px;
     height: 44px;
 }
-
