@@ -262,6 +262,49 @@ add_action('wp_ajax_search_projects', 'search_projects');
 add_action('wp_ajax_nopriv_search_projects', 'search_projects');
 
 // Configuration ACF
+
+// Ajouter cette fonction de formatage
+// function format_coordinates($decimal_degrees) {
+//     if (empty($decimal_degrees)) return '';
+    
+//     // Déterminer si la coordonnée est négative (Ouest/Sud)
+//     $direction = $decimal_degrees < 0 ? 'W' : 'E';
+//     $decimal_degrees = abs($decimal_degrees);
+    
+//     // Calculer les degrés, minutes et secondes
+//     $degrees = floor($decimal_degrees);
+//     $minutes = floor(($decimal_degrees - $degrees) * 60);
+//     $seconds = round((($decimal_degrees - $degrees) * 60 - $minutes) * 60, 1);
+    
+//     return sprintf("%d°%d'%s\"%s", $degrees, $minutes, $seconds, $direction);
+// }
+
+function dms_to_decimal($dms) {
+    // Format attendu: "1°30'55.8"W" ou "1°30'55.8"E"
+    if (empty($dms)) return '';
+
+    // Extraire la direction (N/S/E/W)
+    $direction = substr($dms, -1);
+    
+    // Retirer la direction et séparer les composants
+    $parts = explode('°', substr($dms, 0, -1));
+    $degrees = floatval($parts[0]);
+    
+    $parts = explode("'", $parts[1]);
+    $minutes = floatval($parts[0]);
+    
+    $seconds = floatval(substr($parts[1], 0, -1));
+    
+    // Calculer la valeur décimale
+    $decimal = $degrees + ($minutes/60) + ($seconds/3600);
+    
+    // Ajuster selon la direction
+    if ($direction == 'W' || $direction == 'S') {
+        $decimal = -$decimal;
+    }
+    
+    return $decimal;
+}
 if (function_exists('acf_add_local_field_group')) {
     acf_add_local_field_group(array(
         'key' => 'group_project_details',
@@ -312,15 +355,7 @@ if (function_exists('acf_add_local_field_group')) {
                 'required' => 0,
                 'return_format' => 'array',
             ),
-            array(
-                'key' => 'field_project_featured_image',
-                'label' => 'Image mise en avant',
-                'name' => 'project_featured_image',
-                'type' => 'image',
-                'instructions' => 'Choisissez l\'image principale du projet',
-                'required' => 0,
-                'return_format' => 'array',
-            ),
+            
             array(
                 'key' => 'field_project_description',
                 'label' => 'Description du projet',
@@ -337,6 +372,14 @@ if (function_exists('acf_add_local_field_group')) {
                 'instructions' => 'Téléchargez la fiche du projet (PDF recommandé)',
                 'required' => 0,
                 'return_format' => 'array',
+            ),
+            array(
+                'key' => 'field_project_type',
+                'label' => 'Type de projet',
+                'name' => 'project_type',
+                'type' => 'text',
+                'instructions' => 'Entrez le type de projet',
+                'required' => 0,
             ),
             array(
                 'key' => 'field_project_location',
@@ -367,7 +410,7 @@ if (function_exists('acf_add_local_field_group')) {
                 'label' => 'Surface',
                 'name' => 'project_surface',
                 'type' => 'text',
-                'instructions' => 'Entrez la surface du projet (ex: 5000 m²)',
+                'instructions' => 'Entrez la surface du projet (ex: 5000 )',
                 'required' => 0,
             ),
             array(
@@ -375,16 +418,22 @@ if (function_exists('acf_add_local_field_group')) {
                 'label' => 'Latitude',
                 'name' => 'project_location_lat',
                 'type' => 'text',
-                'instructions' => 'Entrez la latitude du projet',
+                'instructions' => 'Entrez la latitude (ex: 48.8566)',
                 'required' => 0,
+                'wrapper' => array(
+                    'width' => '50'
+                )
             ),
             array(
                 'key' => 'field_project_location_lng',
                 'label' => 'Longitude',
                 'name' => 'project_location_lng',
                 'type' => 'text',
-                'instructions' => 'Entrez la longitude du projet',
+                'instructions' => 'Entrez la longitude (ex: 2.3522)',
                 'required' => 0,
+                'wrapper' => array(
+                    'width' => '50'
+                )
             ),
         ),
         'location' => array(

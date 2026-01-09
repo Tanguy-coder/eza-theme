@@ -43,6 +43,12 @@
                                 <span><b><?php the_field('project_location'); ?></b></span>
                             </div>
                         <?php endif; ?>
+                        <?php if (get_field('project_type')) : ?>
+                            <div class="sidebar-item">
+                                <span>Type</span> :
+                                <span> <b><?php the_field('project_type'); ?></b></span>
+                            </div>
+                        <?php endif; ?>
                         <?php if (get_field('project_client')) : ?>
                             <div class="sidebar-item">
                                 <span>Client</span> :
@@ -58,7 +64,7 @@
                         <?php if (get_field('project_surface')) : ?>
                             <div class="sidebar-item">
                                 <span>Surface</span> :
-                                <span> <b><?php the_field('project_surface'); ?> m²</b></span>
+                                <span> <b><?php the_field('project_surface'); ?> </b></span>
                             </div>
                         <?php endif; ?>
                     </div>
@@ -67,7 +73,7 @@
                     if ($themes && !is_wp_error($themes)) : ?>
                         <div class="theme">
                             <div class="sidebar-item">
-                                <h3>Thèmes</h3>
+                                <h4>Thèmes</h4>
                                 <ul class="theme-list">
                                     <?php foreach ($themes as $theme) : ?>
                                         <li><?php echo esc_html($theme->name); ?></li>
@@ -124,32 +130,32 @@
         <div class="container">
             <h2 class="similar_project_title">Projets similaires</h2>
             <div class="projects-grid">
-                <!-- Loop through related projects -->
-                <?php
-                $related_projects = get_posts(array(
-                    'post_type' => 'project',
-                    'posts_per_page' => 3,
-                    'post__not_in' => array(get_the_ID()),
-                    'orderby' => 'rand'
-                ));
-                if ($related_projects) :
-                    foreach ($related_projects as $project) : ?>
-                        <article class="project-item">
-                            <a href="<?php echo get_permalink($project->ID); ?>">
-                                <?php
-                                $featured_image = get_field('project_featured_image', $project->ID);
-                                if ($featured_image) :
-                                    echo wp_get_attachment_image($featured_image['id'], 'large', false, array('class' => 'project-thumbnail'));
-                                elseif (has_post_thumbnail($project->ID)) :
-                                    echo get_the_post_thumbnail($project->ID, 'large', array('class' => 'project-thumbnail'));
-                                endif;
-                                ?>
-                                <h3 class="project_title"><?php echo get_the_title($project->ID); ?></h3>
-                            </a>
-                        </article>
-                <?php endforeach;
-                endif; ?>
-            </div>
+    <?php
+    $related_projects = get_posts(array(
+        'post_type' => 'project',
+        'posts_per_page' => 3,
+        'post__not_in' => array(get_the_ID()),
+        'orderby' => 'rand'
+    ));
+    
+    if ($related_projects) :
+        foreach ($related_projects as $project) : ?>
+            <article class="project-item">
+                <a href="<?php echo get_permalink($project->ID); ?>">
+                    <?php
+                    $featured_image = get_field('project_featured_image', $project->ID);
+                    if ($featured_image && is_array($featured_image)) : // Check if it's an array
+                        echo wp_get_attachment_image($featured_image['ID'], 'large', false, array('class' => 'project-thumbnail'));
+                    elseif (has_post_thumbnail($project->ID)) :
+                        echo get_the_post_thumbnail($project->ID, 'large', array('class' => 'project-thumbnail'));
+                    endif;
+                    ?>
+                    <h3 class="project_title"><?php echo get_the_title($project->ID); ?></h3>
+                </a>
+            </article>
+        <?php endforeach;
+    endif; ?>
+</div>
         </div>
     </section>
 

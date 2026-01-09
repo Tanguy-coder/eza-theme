@@ -31,24 +31,33 @@ get_header();
 
             <!-- Filtres -->
             <div class="filters">
-                <form action="<?php echo esc_url(home_url('/')); ?>" method="get" id="filters-form">
-                    <input type="hidden" name="post_type" value="project"/>
-                    <div class="filter-item">
-                        <label for="theme">Thème</label>
-                        <?php
-                        $themes = get_terms(array('taxonomy' => 'project_theme', 'hide_empty' => false));
-                        if (!empty($themes)) {
-                            echo '<select name="theme" id="theme" onchange="this.form.submit()">';
-                            echo '<option value="">Tous les thèmes</option>';
-                            foreach ($themes as $theme) {
-                                $selected = (get_query_var('theme') == $theme->slug) ? 'selected' : '';
-                                echo '<option value="' . esc_attr($theme->slug) . '" ' . $selected . '>' . esc_html($theme->name) . '</option>';
+                <div class="filter-theme-wrapper">
+                    <button class="filter-theme-button" id="theme-button">
+                        <span class="current-theme">Tous les thèmes</span>
+                        <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                            <path d="M7 10l5 5 5-5z"/>
+                        </svg>
+                    </button>
+                    <div class="theme-dropdown" id="theme-dropdown">
+                        <form action="<?php echo esc_url(home_url('/')); ?>" method="get" id="filters-form">
+                            <input type="hidden" name="post_type" value="project"/>
+                            <?php
+                            $themes = get_terms(array('taxonomy' => 'project_theme', 'hide_empty' => false));
+                            $current_theme = isset($_GET['theme']) ? get_term_by('slug', $_GET['theme'], 'project_theme') : null;
+                            
+                            echo '<div class="theme-option' . (!$current_theme ? ' active' : '') . '" data-value="">Tous les thèmes</div>';
+                            
+                            if (!empty($themes)) {
+                                foreach ($themes as $theme) {
+                                    $active_class = ($current_theme && $current_theme->slug === $theme->slug) ? ' active' : '';
+                                    echo '<div class="theme-option' . $active_class . '" data-value="' . esc_attr($theme->slug) . '">' . esc_html($theme->name) . '</div>';
+                                }
                             }
-                            echo '</select>';
-                        }
-                        ?>
+                            ?>
+                            <input type="hidden" name="theme" id="theme-input" value="<?php echo isset($_GET['theme']) ? esc_attr($_GET['theme']) : ''; ?>"/>
+                        </form>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
 
@@ -100,7 +109,7 @@ get_header();
                             <?php if (has_post_thumbnail()) : ?>
                                 <?php the_post_thumbnail('medium'); ?>
                             <?php endif; ?>
-                            <h3><?php the_title(); ?></h3>
+                            <h3 style="text-align: center;"><?php the_title(); ?></h3>
                         </a>
                     </div>
                 <?php
@@ -154,44 +163,79 @@ get_header();
                     map = L.map('project-map', {
                         zoomControl: true,
                         scrollWheelZoom: true,
-                        maxBounds: [[-85, -180], [85, 180]], // Limites géographiques
-                        maxBoundsViscosity: 1.0
-                    }).setView([20, 0], 2); // Centré sur le monde
+                        maxBounds: L.latLngBounds(
+                            L.latLng(-90, -180),  // Sud-ouest
+                            L.latLng(90, 180)     // Nord-est
+                        ),
+                        maxBoundsViscosity: 1.0,
+                        bounceAtZoomLimits: true,
+                        worldCopyJump: true
+                    }).setView([20, 0], 2);
 
-                    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-                        maxZoom: 10,
+                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                        maxZoom: 18, // Augmentation du zoom maximum pour voir les rues
                         minZoom: 2,
-                        attribution: '&copy; OpenStreetMap contributors, &copy; CartoDB'
+                        noWrap: true,
+                        bounds: [[-90, -180], [90, 180]],
+                        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     }).addTo(map);
 
                     // Ajouter des marqueurs pour chaque projet
                     <?php
-                    $projects = get_posts(array('post_type' => 'project', 'posts_per_page' => -1));
-                    foreach ($projects as $project) {
-                        $lat = get_field('project_location_lat', $project->ID);
-                        $lng = get_field('project_location_lng', $project->ID);
+                        $projects = get_posts(array('post_type' => 'project', 'posts_per_page' => -1));
+                        $has_markers = false;
 
-                        if ($lat && $lng) {
-                            $title = get_the_title($project->ID);
-                            $permalink = get_permalink($project->ID);
-                            $location = get_field('project_location', $project->ID) . ', ' . get_field('project_location', $project->ID);
-                            $year = get_field('project_year', $project->ID);
-                            $image = get_field('project_thumbnail', $project->ID); // Remplacez par le nom du champ ACF pour l'image
-
-                            // Construire le contenu HTML du popup
-                            $popupContent = "<div style='width: 200px; text-align: center;'>
-                            <img src='$image' alt='$title' style='width: 100%; height: auto; border-radius: 5px;'>
-                            <h3 style='margin: 10px 0 5px;'>$title</h3>
-                            <p style='margin: 0;'>$location - $year</p>
-                            <a href='$permalink' style='color: blue; text-decoration: underline;'>Voir le projet</a>
-                         </div>";
-
-                            // Ajouter le marqueur et le contenu de la popup
-                            echo "L.marker([$lat, $lng]).addTo(map).bindPopup(" . json_encode($popupContent) . ");";
+                        foreach ($projects as $project) {
+                            $lat_dms = get_field('project_location_lat', $project->ID);
+                            $lng_dms = get_field('project_location_lng', $project->ID);
+                            
+                            if ($lat_dms && $lng_dms) {
+                                $lat = $lat_dms;
+                                $lng = $lng_dms;
+                                
+                                if ($lat !== '' && $lng !== '') {
+                                    $has_markers = true;
+                                    $title = get_the_title($project->ID);
+                                    $permalink = get_permalink($project->ID);
+                                    $location = get_field('project_location', $project->ID) ?: '';
+                                    $year = get_field('project_year', $project->ID) ?: '';
+                                    
+                                    // Récupérer l'image mise en avant
+                                    $featured_image = '';
+                                    if (has_post_thumbnail($project->ID)) {
+                                        $featured_image = get_the_post_thumbnail_url($project->ID, 'medium');
+                                    }
+                                    
+                                    // Build popup content
+                                    $popupContent = "<div style='width: 200px; text-align: center;'>";
+                                    
+                                    // Add featured image if available
+                                    if ($featured_image) {
+                                        $popupContent .= "<img src='" . esc_url($featured_image) . "' alt='" . esc_attr($title) . "' style='width: 100%; height: auto; border-radius: 5px; margin-bottom: 10px;'>";
+                                    }
+                                    
+                                    // Add title
+                                    $popupContent .= "<h3 style='margin: 10px 0 5px;'>" . esc_html($title) . "</h3>";
+                                    
+                                    // Add location and year if available
+                                    if ($location || $year) {
+                                        $info = array_filter(array($location, $year));
+                                        $popupContent .= "<p style='margin: 0;'>" . esc_html(implode(' - ', $info)) . "</p>";
+                                    }
+                                    
+                                    // Add link
+                                    $popupContent .= "<a href='" . esc_url($permalink) . "' style='color: blue; text-decoration: underline; display: inline-block; margin-top: 8px;'>Voir le projet</a>";
+                                    $popupContent .= "</div>";
+                                    
+                                    echo "L.marker([$lat, $lng]).addTo(map).bindPopup(" . json_encode($popupContent) . ");";
+                                }
+                            }
                         }
-                    }
-                    ?>
 
+                        if (!$has_markers) {
+                            echo "document.getElementById('project-map').innerHTML = '<h5 style=\"text-align: center;\">Aucun projet avec des coordonnées n\'est disponible.</h5>';";
+                        }
+                    ?>
 
                     map.invalidateSize();
                     mapInitialized = true;
@@ -229,6 +273,55 @@ get_header();
     });
 </script>
 
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const header = document.querySelector('.header');
+    const projectArchiveHeader = document.querySelector('.project-archive-header');
+    const headerHeight = header.offsetHeight;
+
+    window.addEventListener('scroll', function() {
+        if (window.pageYOffset > headerHeight) {
+            projectArchiveHeader.classList.add('fixed');
+        } else {
+            projectArchiveHeader.classList.remove('fixed');
+        }
+    });
+});
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const themeButton = document.getElementById('theme-button');
+    const themeDropdown = document.getElementById('theme-dropdown');
+    const currentThemeSpan = document.querySelector('.current-theme');
+    const themeInput = document.getElementById('theme-input');
+    const filterForm = document.getElementById('filters-form');
+
+    themeButton.addEventListener('click', function(e) {
+        e.stopPropagation();
+        themeDropdown.classList.toggle('show');
+        themeButton.classList.toggle('active');
+    });
+
+    document.querySelectorAll('.theme-option').forEach(option => {
+        option.addEventListener('click', function() {
+            const value = this.dataset.value;
+            const text = this.textContent;
+            
+            currentThemeSpan.textContent = text;
+            themeInput.value = value;
+            filterForm.submit();
+        });
+    });
+
+    document.addEventListener('click', function(e) {
+        if (!themeButton.contains(e.target)) {
+            themeDropdown.classList.remove('show');
+            themeButton.classList.remove('active');
+        }
+    });
+});
+</script>
 
 <?php
 get_footer();

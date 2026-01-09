@@ -100,10 +100,7 @@
     display: none;
 }
 
-.leaflet-pane,.leaflet-map-pane{
-    /*transform: translate3d(770px, 250px, 0px);*/
-    /*background-repeat: no-repeat;*/
-}
+
 
 .view-active {
     display: block;
@@ -122,7 +119,7 @@
     margin-bottom: 3rem;
     justify-content: space-between;
     align-items: center;
-    height: 50px;
+    height: 10px;
 }
 
 
@@ -149,7 +146,7 @@
 .forms #search-input {
     border: none;
     outline: none;
-    /*height: ;*/
+    
 }
 
 
@@ -187,5 +184,25 @@
     opacity: 0.6;
     transition: opacity 0.8s ease-out 0.5s;
 
+}
+
+.project-archive-header {
+    padding: 60px;
+    background: white;
+    transition: all 0.3s ease;
+}
+
+.project-archive-header.fixed {
+    position: fixed;
+    top: 20px; /* Ajustez selon la hauteur de votre header */
+    left: 0;
+    right: 0;
+    z-index: 999;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Ajoutez un espace quand le header est fixe */
+.project-archive-header.fixed + .contenue {
+    margin-top: 150px; /* Ajustez selon la hauteur de votre project-archive-header */
 }
 
