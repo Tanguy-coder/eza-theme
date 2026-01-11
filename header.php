@@ -6,8 +6,7 @@
     <link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet">
     <script src="https://www.youtube.com/iframe_api"></script>
     <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
 
     <?php wp_head(); ?>
 </head>
@@ -56,12 +55,12 @@
         ));
         ?>
         <div class="social-links-mobile-footer">
-            <a href="#"><img src="<?php echo eza_get_icon_url('linkedin.svg'); ?>" alt="LinkedIn" width="24" height="24"></a>
-            <a href="#"><img src="<?php echo eza_get_icon_url('facebook.svg'); ?>" alt="Facebook" width="24" height="24"></a>
-            <a href="#"><img src="<?php echo eza_get_icon_url('instagram.svg'); ?>" alt="Instagram" width="24" height="24"></a>
-            <a href="#"><img src="<?php echo eza_get_icon_url('twitter.svg'); ?>" alt="X" width="24" height="24"></a>
-            <a href="#"><img src="<?php echo eza_get_icon_url('mail.svg'); ?>" alt="Email" width="24" height="24"></a>
-            <a href="#"><img src="<?php echo eza_get_icon_url('video.svg'); ?>" alt="Video" width="24" height="24"></a>
+            <a href="<?php echo esc_url(get_theme_mod('linkedin_url')); ?>"><img src="<?php echo eza_get_icon_url('linkedin.svg'); ?>" alt="LinkedIn" width="24" height="24"></a>
+            <a href="<?php echo esc_url(get_theme_mod('facebook_url')); ?>"><img src="<?php echo eza_get_icon_url('facebook.svg'); ?>" alt="Facebook" width="24" height="24"></a>
+            <a href="<?php echo esc_url(get_theme_mod('instagram_url')); ?>"><img src="<?php echo eza_get_icon_url('instagram.svg'); ?>" alt="Instagram" width="24" height="24"></a>
+            <a href="<?php echo esc_url(get_theme_mod('twitter_url')); ?>"><img src="<?php echo eza_get_icon_url('twitter.svg'); ?>" alt="X" width="24" height="24"></a>
+            <a href="mailto:<?php echo esc_attr(get_theme_mod('email_address')); ?>"><img src="<?php echo eza_get_icon_url('mail.svg'); ?>" alt="Email" width="24" height="24"></a>
+            <a href="<?php echo esc_url(get_theme_mod('video_url')); ?>"><img src="<?php echo eza_get_icon_url('video.svg'); ?>" alt="Video" width="24" height="24"></a>
         </div>
     </div>
 </div>

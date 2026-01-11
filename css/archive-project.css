@@ -74,11 +74,12 @@
 }
 
 #project-map {
-    height: 100vh; /* Ajuste la hauteur selon tes besoins */
+    height: 100vh;
+    /* Ajuste la hauteur selon tes besoins */
     width: 100%;
     position: relative;
     display: block;
-    z-index:0;
+    z-index: 0;
 }
 
 
@@ -96,6 +97,7 @@
 #project-map img {
     max-width: none;
 }
+
 .view-hidden {
     display: none;
 }
@@ -105,10 +107,12 @@
 .view-active {
     display: block;
 }
-.project-archive-container{
+
+.project-archive-container {
     margin-top: 80px;
     padding: 30px 80px;
 }
+
 .project-archive-header {
     width: 100%;
     /*position: relative;*/
@@ -146,45 +150,78 @@
 .forms #search-input {
     border: none;
     outline: none;
-    
+
 }
 
 
 .project-grid {
-    /*display: flex;*/
-    /*flex-wrap: wrap;*/
-    /*gap: 8px;*/
-    columns: 430px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    grid-auto-rows: 300px;
+    grid-auto-flow: dense;
+    gap: 1.5rem;
+    padding: 1rem 0;
 }
 
-.project-grid .project-item{
+.project-grid .project-item {
     position: relative;
+    overflow: hidden;
+    background-color: #f8f8f8;
+    transition: transform 0.5s ease;
 }
 
-.project-grid .project-item img{
+/* Mosaic pattern variations */
+.project-grid .project-item:nth-child(3n) {
+    grid-column: span 2;
+}
+
+.project-grid .project-item:nth-child(5n) {
+    grid-row: span 2;
+}
+
+.project-grid .project-item:hover {
+    transform: scale(1.02);
+    z-index: 2;
+}
+
+.project-grid .project-item a {
+    display: block;
     width: 100%;
+    height: 100%;
+}
+
+.project-grid .project-item img {
+    width: 100%;
+    height: 100%;
     display: block;
     object-fit: cover;
-    margin-bottom: 1em;
+    transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-.project-grid .project-item h3{
+.project-grid .project-item:hover img {
+    transform: scale(1.1);
+}
+
+.project-grid .project-item h3 {
     display: flex;
     justify-content: center;
     align-items: center;
     position: absolute;
     inset: 0;
-    font-size: 1.5rem;
-    background-color: black;
+    font-size: 1.2rem;
+    background-color: rgba(0, 0, 0, 0.8);
     opacity: 0;
     color: white;
+    padding: 20px;
+    text-align: center;
+    transition: opacity 0.4s ease;
+    z-index: 1;
 }
 
-.project-grid .project-item:hover h3{
-    opacity: 0.6;
-    transition: opacity 0.8s ease-out 0.5s;
-
+.project-grid .project-item:hover h3 {
+    opacity: 1;
 }
+
 
 .project-archive-header {
     padding: 60px;
@@ -194,15 +231,16 @@
 
 .project-archive-header.fixed {
     position: fixed;
-    top: 20px; /* Ajustez selon la hauteur de votre header */
+    top: 20px;
+    /* Ajustez selon la hauteur de votre header */
     left: 0;
     right: 0;
     z-index: 999;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 /* Ajoutez un espace quand le header est fixe */
-.project-archive-header.fixed + .contenue {
-    margin-top: 150px; /* Ajustez selon la hauteur de votre project-archive-header */
+.project-archive-header.fixed+.contenue {
+    margin-top: 150px;
+    /* Ajustez selon la hauteur de votre project-archive-header */
 }
-

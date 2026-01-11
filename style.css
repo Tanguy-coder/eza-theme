@@ -16,15 +16,16 @@ Text Domain: eza_architecture
 
 /* Body Styling */
 body {
-    font-family: Century Gothic, sans-serif;
+    font-family: 'Inter', sans-serif;
     color: #000000;
     background-color: #fff;
     font-weight: 400;
     width: 100%;
     overflow-x: clip;
+    line-height: 1.6;
 }
 
-.site-main{
+.site-main {
     margin: 16px 100px;
     padding: 10px 22px;
 }
@@ -34,7 +35,7 @@ body {
 header {
     width: 100%;
     padding: 1.2rem 5rem 1rem 5rem;
-    top: 0; 
+    top: 0;
     /* left: 0;
     right: 0; */
     /* z-index: 1000; Increase z-index to ensure it's above other elements */
@@ -47,10 +48,10 @@ header {
     position: fixed;
     background-color: transparent;
     z-index: 1000;
-   
 
-    
-    & .animation{
+
+
+    & .animation {
         background-color: rgb(255, 255, 255);
         z-index: -1;
         right: 0;
@@ -176,9 +177,24 @@ header {
 
 }
 
-.hero {
+.hero-slider-container {
+    position: relative;
     width: 100dvw;
     height: 100dvh;
+    overflow: hidden;
+}
+
+.hero-slider {
+    width: 100%;
+    height: 100%;
+}
+
+.hero-slider .swiper-slide {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: 100%;
 }
 
 .logo {
@@ -205,7 +221,8 @@ header {
 }
 
 .pll-parent-menu-item {
-    position: relative; /* Nécessaire pour le sous-menu */
+    position: relative;
+    /* Nécessaire pour le sous-menu */
 }
 
 .lang-item {
@@ -234,7 +251,7 @@ header {
 }
 
 
-.links ul{
+.links ul {
     list-style: none;
     width: auto;
     display: flex;
@@ -245,7 +262,7 @@ header {
 }
 
 .links ul li {
-    font-weight:normal;
+    font-weight: normal;
 }
 
 .navbar-inner .links li a {
@@ -459,7 +476,7 @@ header {
 
 }
 
-footer .signature{
+footer .signature {
     font-size: 0.8rem;
 }
 
@@ -482,9 +499,6 @@ footer .signature{
 }
 
 
-.nav-mobile .close-menu .mobile_links .social-links-mobile-footer {}
-
-
 
 /* Media queries */
 @media (width <=769px) {
@@ -493,6 +507,7 @@ footer .signature{
         background-color: white;
         color: black;
     }
+
     footer {
         font-size: 0.4rem;
     }
@@ -512,22 +527,22 @@ footer .signature{
         font-size: 1.4rem;
 
     }
-    
+
     .logo {
         width: 100px
     }
-    
-    .site-main{
+
+    .site-main {
         margin: 6px 8px;
         padding: 6px 12px;
     }
-    
+
     .agency-page {
         /*margin: 5rem 260px 16px; */
         margin: 16px 260px;
         padding: 10px 22px;
     }
-    
+
     /*p {*/
     /*    margin: 8px 10px; */
     /*    padding: 5px 10px; */
@@ -536,7 +551,7 @@ footer .signature{
 
 }
 
-@media (width <= 1024px) {
+@media (width <=1024px) {
     header {
         padding: 1rem 0;
         background-color: white;
@@ -578,11 +593,11 @@ footer .signature{
 }
 
 @media (width > 1300px) {
-    .site-main{
+    .site-main {
         margin: 16px 290px;
         padding: 10px 22px;
     }
-    
+
     .agency-page {
         /*margin: 5rem 260px 16px; */
         margin: 16px 260px;
@@ -979,4 +994,29 @@ iframe {
 
 .leaflet-popup-content a {
     font-size: 11px;
+}
+
+/* Scroll Reveal Animations */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 1.2s cubic-bezier(0.5, 0, 0, 1), transform 1.2s cubic-bezier(0.5, 0, 0, 1);
+}
+
+.reveal-active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Staggered delay for grid items */
+.project-item.reveal:nth-child(2) {
+    transition-delay: 0.1s;
+}
+
+.project-item.reveal:nth-child(3) {
+    transition-delay: 0.2s;
+}
+
+.project-item.reveal:nth-child(4) {
+    transition-delay: 0.3s;
 }

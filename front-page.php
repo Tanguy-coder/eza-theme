@@ -12,15 +12,16 @@ $hero_images = array(
 
 // Filtrer les images vides
 $hero_images = array_filter($hero_images);
-
-// Sélectionner une image aléatoire parmi les images disponibles
-$random_hero_image = '';
-if (!empty($hero_images)) {
-    $random_hero_image = $hero_images[array_rand($hero_images)];
-}
 ?>
 
-<section class="hero" style="background-image: url('<?php echo esc_url($random_hero_image); ?>'); background-position: center; background-repeat: no-repeat; background-size: cover; overflow: hidden;">
+<section class="hero-slider-container">
+    <div class="swiper hero-slider">
+        <div class="swiper-wrapper">
+            <?php foreach ($hero_images as $image_url) : ?>
+                <div class="swiper-slide" style="background-image: url('<?php echo esc_url($image_url); ?>');"></div>
+            <?php endforeach; ?>
+        </div>
+    </div>
     <div class="social-links">
         <a href="<?php echo esc_url(get_theme_mod('linkedin_url')); ?>"><img src="<?php echo eza_get_icon_url('linkedin.svg'); ?>" alt="LinkedIn"></a>
         <a href="<?php echo esc_url(get_theme_mod('facebook_url')); ?>"><img src="<?php echo eza_get_icon_url('facebook.svg'); ?>" alt="Facebook"></a>
@@ -30,6 +31,8 @@ if (!empty($hero_images)) {
         <a href="<?php echo esc_url(get_theme_mod('video_url')); ?>"><img src="<?php echo eza_get_icon_url('video.svg'); ?>" alt="Video"></a>
     </div>
 </section>
+
+
 
 <section class="partners">
     <h2>Nos Partenaires</h2>
