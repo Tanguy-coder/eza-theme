@@ -1,26 +1,66 @@
 <?php
 function eza_customizer_register($wp_customize) {
-    // Section pour l'image de fond du héros
-    $wp_customize->add_section('eza_hero_section', array(
-        'title'    => __('Paramètres du Héros', 'eza_architecture'),
+    // Section pour les images de bannière (Héro)
+    $wp_customize->add_section('hero_images_section', array(
+        'title'    => __('Images de Bannière', 'eza_architecture'),
         'priority' => 30,
     ));
 
-    $wp_customize->add_setting('hero_background_image', array(
-        'default'   => '',
-        'transport' => 'refresh',
+    // Ajouter les contrôles pour les 5 images de bannière
+    for ($i = 1; $i <= 5; $i++) {
+        $wp_customize->add_setting("hero_background_image_$i", array(
+            'default'           => '',
+            'sanitize_callback' => 'esc_url_raw',
+            'transport'         => 'refresh',
+        ));
+
+        $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, "hero_background_image_$i", array(
+            'label'    => __("Image de bannière $i", 'eza_architecture'),
+            'section'  => 'hero_images_section',
+            'settings' => "hero_background_image_$i",
+        )));
+    }
+
+    // Section pour les logos des partenaires
+    $wp_customize->add_section('partners_section', array(
+        'title'       => __('Partenaires', 'eza_architecture'),
+        'description' => __('Ajouter les logos et liens des partenaires', 'eza_architecture'),
+        'priority'    => 35,
     ));
 
-    $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'hero_background_image', array(
-        'label'    => __('Image de fond du héros', 'eza_architecture'),
-        'section'  => 'eza_hero_section',
-        'settings' => 'hero_background_image',
-    )));
+    // Ajout des logos et des liens pour 10 partenaires
+    for ($j = 1; $j <= 10; $j++) {
+        // Logo du partenaire
+        $wp_customize->add_setting("partner_logo_$j", array(
+            'default'           => '',
+            'sanitize_callback' => 'esc_url_raw',
+            'transport'         => 'refresh',
+        ));
+
+        $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, "partner_logo_$j", array(
+            'label'    => __("Logo du partenaire $j", 'eza_architecture'),
+            'section'  => 'partners_section',
+            'settings' => "partner_logo_$j",
+        )));
+
+        // Lien du partenaire
+        $wp_customize->add_setting("partner_link_$j", array(
+            'default'           => '',
+            'sanitize_callback' => 'esc_url_raw',
+            'transport'         => 'refresh',
+        ));
+
+        $wp_customize->add_control("partner_link_$j", array(
+            'label'   => __("Lien du partenaire $j", 'eza_architecture'),
+            'section' => 'partners_section',
+            'type'    => 'url',
+        ));
+    }
 
     // Section pour les liens sociaux
     $wp_customize->add_section('eza_social_links', array(
         'title'    => __('Liens Sociaux', 'eza_architecture'),
-        'priority' => 35,
+        'priority' => 40,
     ));
 
     $social_links = array(
