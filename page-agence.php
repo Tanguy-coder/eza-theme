@@ -37,47 +37,48 @@ get_header();
                         'post_type' => 'personnel',
                         'posts_per_page' => -1,
                         'orderby' => 'date',
-                        'order' => 'ASC', // Ordre croissant : plus ancien en premier
+                        'order' => 'ASC',
                     ));
-                    while ($personnel->have_posts()) : $personnel->the_post();
-                        $function = get_field('personnel_function');
-                        $description = get_field('personnel_description');
-                        $mention = get_field('personnel_mention');
-                        $image = get_the_post_thumbnail_url(get_the_ID(), 'medium');
-                        ?>
-                        <div class="personnel-member">
-                            <img src="<?php echo esc_url($image); ?>" alt="<?php the_title(); ?>" class="personnel-photo" onclick="openModal('<?php the_ID(); ?>')">
-                            <span style="color:white"><?php the_title(); ?></span>
-                            <br/>
-                            <span style="color:white"><?php echo esc_html($mention); ?></span>
-                            <!-- Modal Content -->
-                            <div id="modal-<?php the_ID(); ?>" class="personnel-modal">
-                                <div class="modal-content">
-                                    <span class="close" onclick="closeModal('<?php the_ID(); ?>')">&times;</span>
-                                    <img src="<?php echo esc_url($image); ?>" alt="<?php the_title(); ?>" class="modal-photo">
-                                    <h3><?php the_title(); ?></h3>
-                                    <p class="personnel-function"><?php echo esc_html($function); ?></p>
-                                    <div class="personnel-description"><?php echo wp_kses_post($description); ?></div>
+                    if ($personnel->have_posts()) :
+                        while ($personnel->have_posts()) : $personnel->the_post();
+                            $function = function_exists('get_field') ? get_field('personnel_function') : '';
+                            $description = function_exists('get_field') ? get_field('personnel_description') : '';
+                            $mention = function_exists('get_field') ? get_field('personnel_mention') : '';
+                            $image = get_the_post_thumbnail_url(get_the_ID(), 'medium');
+                            ?>
+                            <div class="personnel-member">
+                                <img src="<?php echo esc_url($image); ?>" alt="<?php the_title(); ?>" class="personnel-photo" onclick="openModal('<?php the_ID(); ?>')">
+                                <span style="color:white"><?php the_title(); ?></span>
+                                <br/>
+                                <span style="color:white"><?php echo esc_html($mention); ?></span>
+                                <!-- Modal Content -->
+                                <div id="modal-<?php the_ID(); ?>" class="personnel-modal">
+                                    <div class="modal-content">
+                                        <span class="close" onclick="closeModal('<?php the_ID(); ?>')">&times;</span>
+                                        <img src="<?php echo esc_url($image); ?>" alt="<?php the_title(); ?>" class="modal-photo">
+                                        <h3><?php the_title(); ?></h3>
+                                        <p class="personnel-function"><?php echo esc_html($function); ?></p>
+                                        <div class="personnel-description"><?php echo wp_kses_post($description); ?></div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    <?php endwhile; wp_reset_postdata(); ?>
+                        <?php endwhile; wp_reset_postdata(); endif; ?>
                 </div>
             </section>  
         </div>
     </div>
 
-
-
     <!-- Section Slider des Images de l'Agence -->
     <?php
-    // Récupération des images de l'agence
-    $image_1 = get_field('agency_image_1');
-    $image_2 = get_field('agency_image_2');
-    $image_3 = get_field('agency_image_3');
-    $image_4 = get_field('agency_image_4');
-    ?>
+    if (function_exists('get_field')) :
+        // Récupération des images de l'agence
+        $image_1 = get_field('agency_image_1');
+        $image_2 = get_field('agency_image_2');
+        $image_3 = get_field('agency_image_3');
+        $image_4 = get_field('agency_image_4');
 
+        if ($image_1 || $image_2 || $image_3 || $image_4) :
+    ?>
     <div class="agency-slider-container">
         <div class="swiper agency-slider">
             <div class="swiper-wrapper">
@@ -100,6 +101,7 @@ get_header();
             <div class="swiper-button-prev"></div>
         </div>
     </div>
+    <?php endif; endif; ?>
 
 
     <!-- Initialisation du slider avec Swiper.js -->

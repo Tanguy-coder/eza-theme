@@ -15,8 +15,26 @@ Text Domain: eza_architecture
 @import url(reset.css);
 
 /* Body Styling */
+body,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+a,
+span,
+div,
+li,
+input,
+textarea,
+button,
+select {
+    font-family: 'Century Gothic', 'AppleGothic', 'URW Gothic L', sans-serif !important;
+}
+
 body {
-    font-family: Inconsolata, sans-serif;
     color: #000000;
     background-color: #fff;
 }
@@ -30,14 +48,16 @@ header {
     top: 0;
     left: 0;
     right: 0;
-    z-index: 1000; /* Increase z-index to ensure it's above other elements */
+    z-index: 1000;
+    /* Increase z-index to ensure it's above other elements */
     transition: background-color 0.3s ease;
 }
-.header-home{
+
+.header-home {
     background-color: transparent;
 }
 
-.header-inner{
+.header-inner {
     background-color: white;
 }
 
@@ -279,6 +299,7 @@ header {
     width: 80px;
     background-color: transparent;
     padding: 3px 30px 0px 3px;
+    z-index: 2000;
 }
 
 .social-links-inner {
@@ -293,13 +314,14 @@ header {
     width: 80px;
     background-color: white;
     padding: 3px 30px 0px 3px;
+    z-index: 2000;
 }
 
 .social-links a {
     margin: 10px 0;
 }
 
-.social-links img{
+.social-links img {
     width: 30px;
     height: 30px;
 }
@@ -308,7 +330,7 @@ header {
     margin: 10px 0;
 }
 
-.social-links-inner img{
+.social-links-inner img {
     width: 30px;
     height: 30px;
     transition: filter 0.3s ease;
@@ -318,7 +340,8 @@ header {
 .social-links-inner a:hover img,
 .social-links a:hover img,
 .social-links-mobile-footer a:hover img {
-    filter: invert(0) brightness(0%); /* Cela rendra les icônes bleues au survol */
+    filter: invert(0) brightness(0%);
+    /* Cela rendra les icônes bleues au survol */
 }
 
 
@@ -418,8 +441,8 @@ header {
 }
 
 
-.languages{
-    color:white;
+.languages {
+    color: white;
     font-size: 1.5rem;
 }
 
@@ -430,7 +453,8 @@ header {
     align-items: center;
     cursor: pointer;
 }
-.chevron{
+
+.chevron {
     margin-left: 5px;
 }
 
@@ -439,65 +463,17 @@ header {
     display: block;
 }
 
-.languages .lang-container:hover .chevron{
-transform: rotate(180deg);
+.languages .lang-container:hover .chevron {
+    transform: rotate(180deg);
     transition: all ease 0.5ms;
 }
 
-.languages .lang-container:hover .languages-choice{
+.languages .lang-container:hover .languages-choice {
     display: none;
 }
 
 
-/* Media queries */
-@media (width <= 769px) {
-    footer{
-        font-size: 0.6rem;
-    }
-    .nav-mobile .mobile_links .mobile-links{
-        display: flex;
-        height: 250px;
-        width: 700px;
-        color: white;
-        flex-direction: column;
-        align-items: center;
-        font-weight: bold;
-        justify-content: space-between;
-    }
 
-    .nav-mobile .mobile_links .mobile-links li a {
-        font-size: 1.4rem;
-
-    }
-
-}
-@media (width <=1024px) {
-    header {
-        padding: 1rem 2rem 1rem 2rem;
-        background-color: white;
-        color: black;
-
-    }
-
-    .menu {
-        display: block;
-        cursor: pointer;
-        color: black;
-    }
-
-    .social-links{
-        display: none;
-    }
-    .social-links-inner{
-        display: none;
-    }
-    .hero{
-        position: relative;
-    }
-    .links {
-        display: none;
-    }
-}
 
 /* animation */
 
@@ -581,21 +557,26 @@ transform: rotate(180deg);
 .partners {
     text-align: center;
     padding: 50px 0;
-    width: 100%;  /* Prendre toute la largeur de l'écran */
+    width: 100%;
+    /* Prendre toute la largeur de l'écran */
 }
 
 .partners-logos {
     display: grid;
-    grid-template-columns: repeat(10, 1fr);  /* 10 colonnes pour les logos */
+    grid-template-columns: repeat(10, 1fr);
+    /* 10 colonnes pour les logos */
     gap: 20px;
     align-items: center;
     justify-content: center;
-    padding: 0 20px;  /* Ajuste le padding à gauche/droite */
+    padding: 0 20px;
+    /* Ajuste le padding à gauche/droite */
 }
 
 .partners-logos a img {
-    width: 100%;  /* Les images prennent la largeur complète de la colonne */
-    max-width: 100px;  /* Limite la largeur pour éviter des images trop grandes */
+    width: 100%;
+    /* Les images prennent la largeur complète de la colonne */
+    max-width: 100px;
+    /* Limite la largeur pour éviter des images trop grandes */
     height: auto;
     transition: transform 0.3s ease;
 }
@@ -605,21 +586,10 @@ transform: rotate(180deg);
 }
 
 /* Pour les petits écrans */
-@media (max-width: 768px) {
-    .partners-logos {
-        grid-template-columns: repeat(5, 1fr);  /* Affiche 5 logos par ligne sur les petits écrans */
-        gap: 10px;
-    }
-}
 
 /* Pour les très petits écrans */
-@media (max-width: 480px) {
-    .partners-logos {
-        grid-template-columns: repeat(3, 1fr);  /* 3 logos par ligne sur mobile */
-        gap: 8px;
-    }
-}
-h2{
+
+h2 {
     font-size: 2rem;
     font-weight: bold;
     margin-top: 0;
@@ -632,23 +602,83 @@ h2{
     padding-right: 20px;
 }
 
-@media (max-width: 768px) {
-    .site-main {
-        padding-top: 100px;
-    }
-}
 
 .site-main p {
     font-size: 1.6rem;
     line-height: 1.8;
 }
 
-.site-main h1, .site-main h2, .site-main h3 {
+.site-main h1,
+.site-main h2,
+.site-main h3 {
     font-size: 2.5rem;
     margin-bottom: 20px;
 }
 
+/* --- CONSOLIDATED MEDIA QUERIES (Priority at the end) --- */
 
+@media (max-width: 1024px) {
+    header {
+        padding: 1rem 2rem 1rem 2rem;
+        background-color: white;
+        color: black;
+    }
 
+    .menu {
+        display: block;
+        cursor: pointer;
+        color: black;
+    }
 
+    .social-links,
+    .social-links-inner,
+    .links {
+        display: none;
+    }
+}
 
+@media (max-width: 769px) {
+    footer {
+        font-size: 0.6rem;
+    }
+
+    .nav-mobile .mobile_links .mobile-links {
+        display: flex;
+        height: 250px;
+        width: 100%;
+        color: white;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .site-main {
+        padding-top: 100px;
+        margin: 16px 20px;
+    }
+
+    .site-main p,
+    .agency-page p,
+    p {
+        font-size: 1.1rem !important;
+        /* Patriarche style (approx 18px) */
+        line-height: 1.6 !important;
+        font-weight: 600 !important;
+        text-align: justify !important;
+        hyphens: auto !important;
+        -webkit-hyphens: auto !important;
+        -ms-hyphens: auto !important;
+    }
+
+    .partners-logos {
+        grid-template-columns: repeat(5, 1fr);
+        gap: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .partners-logos {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+    }
+}

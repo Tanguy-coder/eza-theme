@@ -19,6 +19,25 @@ function my_acf_debug_notice() {
 define('DISALLOW_FILE_EDIT', true);
 
 /**
+ * Sécurité et Robustesse : Fallbacks pour ACF (évite les erreurs fatales si le plugin est désactivé)
+ */
+if (!function_exists('get_field')) {
+    function get_field($selector, $post_id = false, $format_value = true) {
+        return false;
+    }
+}
+if (!function_exists('the_field')) {
+    function the_field($selector, $post_id = false, $format_value = true) {
+        $value = get_field($selector, $post_id, $format_value);
+        if (is_array($value)) {
+            print_r($value);
+        } else {
+            echo $value;
+        }
+    }
+}
+
+/**
  * Inclure les fichiers de configuration et de logique
  */
 require_once get_template_directory() . '/inc/customizer.php';
@@ -27,18 +46,6 @@ require_once get_template_directory() . '/inc/post-types.php';
 require_once get_template_directory() . '/inc/acf-fields.php';
 require_once get_template_directory() . '/inc/ajax-handlers.php';
 
-/**
- * Enregistrer et charger les styles
- */
-function enqueue_custom_styles() {
-    wp_enqueue_style(
-        'custom-style',
-        get_stylesheet_directory_uri() . '/style.css',
-        array(),
-        filemtime(get_stylesheet_directory() . '/style.css')
-    );
-}
-add_action('wp_enqueue_scripts', 'enqueue_custom_styles');
 
 /**
  * Configuration initiale du thème
@@ -67,13 +74,12 @@ add_action('after_setup_theme', 'eza_theme_setup');
 function eza_enqueue_scripts() {
     $theme_version = wp_get_theme()->get('Version');
 
-    wp_enqueue_style('eza-style', get_stylesheet_uri(), array(), $theme_version);
-    wp_enqueue_style('inter-font', 'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap');
+    wp_enqueue_style('eza-style', get_stylesheet_uri(), array(), filemtime(get_stylesheet_directory() . '/style.css'));
     wp_enqueue_style('eza-animate', get_template_directory_uri() . '/assets/css/animate.css', array(), $theme_version);
     wp_enqueue_script('eza-script', get_template_directory_uri() . '/assets/js/script.js', array('jquery'), $theme_version, true);
     wp_enqueue_script('eza-animations', get_template_directory_uri() . '/assets/js/animations.js', array(), $theme_version, true);
-    wp_enqueue_style('archive-project-css', get_template_directory_uri() . '/css/archive-project.css', array(), $theme_version);
-    wp_enqueue_style('page-agence', get_template_directory_uri() . '/css/page-agence.css');
+    wp_enqueue_style('archive-project-css', get_template_directory_uri() . '/css/archive-project.css', array(), filemtime(get_template_directory() . '/css/archive-project.css'));
+    wp_enqueue_style('page-agence', get_template_directory_uri() . '/css/page-agence.css', array(), filemtime(get_template_directory() . '/css/page-agence.css'));
     wp_enqueue_style('swiper-css', 'https://unpkg.com/swiper/swiper-bundle.min.css');
     wp_enqueue_script('swiper-js', 'https://unpkg.com/swiper/swiper-bundle.min.js', array(), null, true);
 
