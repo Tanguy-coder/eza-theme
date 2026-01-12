@@ -8,6 +8,7 @@ function eza_customizer_register($wp_customize) {
 
     // Ajouter les contrôles pour les 5 images de bannière
     for ($i = 1; $i <= 5; $i++) {
+        // Desktop Image
         $wp_customize->add_setting("hero_background_image_$i", array(
             'default'           => '',
             'sanitize_callback' => 'esc_url_raw',
@@ -15,9 +16,22 @@ function eza_customizer_register($wp_customize) {
         ));
 
         $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, "hero_background_image_$i", array(
-            'label'    => __("Image de bannière $i", 'eza_architecture'),
+            'label'    => __("Image de bannière $i (Desktop)", 'eza_architecture'),
             'section'  => 'hero_images_section',
             'settings' => "hero_background_image_$i",
+        )));
+
+        // Mobile Image
+        $wp_customize->add_setting("hero_background_image_mobile_$i", array(
+            'default'           => '',
+            'sanitize_callback' => 'esc_url_raw',
+            'transport'         => 'refresh',
+        ));
+
+        $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, "hero_background_image_mobile_$i", array(
+            'label'    => __("Image de bannière $i (Mobile)", 'eza_architecture'),
+            'section'  => 'hero_images_section',
+            'settings' => "hero_background_image_mobile_$i",
         )));
     }
 

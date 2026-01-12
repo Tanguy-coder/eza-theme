@@ -1,24 +1,26 @@
 <?php get_header(); ?>
 
 <?php
-// Récupérer les 5 images de bannière définies dans le Customizer
-$hero_images = array(
-    get_theme_mod('hero_background_image_1'),
-    get_theme_mod('hero_background_image_2'),
-    get_theme_mod('hero_background_image_3'),
-    get_theme_mod('hero_background_image_4'),
-    get_theme_mod('hero_background_image_5'),
-);
-
-// Filtrer les images vides
-$hero_images = array_filter($hero_images);
+// Récupérer les 5 paires d'images de bannière (Desktop et Mobile)
+$hero_slides = array();
+for ($i = 1; $i <= 5; $i++) {
+    $desktop = get_theme_mod("hero_background_image_$i");
+    $mobile = get_theme_mod("hero_background_image_mobile_$i");
+    
+    if ($desktop || $mobile) {
+        $hero_slides[] = array(
+            'desktop' => $desktop ? $desktop : $mobile,
+            'mobile'  => $mobile ? $mobile : $desktop
+        );
+    }
+}
 ?>
 
 <section class="hero-slider-container">
     <div class="swiper hero-slider">
         <div class="swiper-wrapper">
-            <?php foreach ($hero_images as $image_url) : ?>
-                <div class="swiper-slide" style="background-image: url('<?php echo esc_url($image_url); ?>');"></div>
+            <?php foreach ($hero_slides as $slide) : ?>
+                <div class="swiper-slide" style="--bg-desktop: url('<?php echo esc_url($slide['desktop']); ?>'); --bg-mobile: url('<?php echo esc_url($slide['mobile']); ?>');"></div>
             <?php endforeach; ?>
         </div>
     </div>
