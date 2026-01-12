@@ -18,11 +18,13 @@ deploy_to_cpanel:
     - apk add --no-cache lftp
   script:
     - |
-      if [ -z "$FTP_USER" ] || [ -z "$FTP_PASSWORD" ] || [ -z "$FTP_SERVER" ]; then
-        echo "Error: One or more FTP variables are not set in GitLab CI/CD settings."
-        exit 1
-      fi
-      lftp -e "set sftp:auto-confirm yes; open sftp://$FTP_SERVER; user $FTP_USER $FTP_PASSWORD; cd $FTP_PATH; mirror -R ./ ./ --exclude .git/ --exclude .gitlab-ci.yml --exclude README.md; quit"
+      lftp <<EOF
+      set ftp:ssl-allow no
+      open $FTP_SERVER
+      user "$FTP_USER" "$FTP_PASSWORD"
+      mirror -R ./ $FTP_PATH --exclude .git/ --exclude .gitlab-ci.yml --exclude README.md
+      quit
+      EOF
   only:
     - main
   environment:
