@@ -251,12 +251,13 @@ if (function_exists('acf_add_local_field_group')) {
             'location' => array(
                 array(
                     array(
-                        'param' => 'page',
+                        'param' => 'page_template',
                         'operator' => '==',
-                        'value' => $page_agence_id,
+                        'value' => 'page-agence.php',
                     ),
                 ),
             ),
         ));
     }
 }
+add_action('acf/init', 'eza_register_acf_fields');
