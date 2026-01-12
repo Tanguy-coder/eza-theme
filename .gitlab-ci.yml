@@ -22,7 +22,7 @@ deploy_to_cpanel:
       set ftp:ssl-allow no
       open $FTP_SERVER
       user "$FTP_USER" "$FTP_PASSWORD"
-      mirror -R ./ $FTP_PATH --exclude .git/ --exclude .gitlab-ci.yml --exclude README.md
+      mirror -R ./ public_html/wp-content/themes/ezaarchitectures/ --exclude .git/ --exclude .gitlab-ci.yml --exclude README.md
       quit
       EOF
   only:
