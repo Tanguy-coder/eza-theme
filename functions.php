@@ -21,21 +21,23 @@ define('DISALLOW_FILE_EDIT', true);
 /**
  * Sécurité et Robustesse : Fallbacks pour ACF (évite les erreurs fatales si le plugin est désactivé)
  */
-if (!function_exists('get_field')) {
-    function get_field($selector, $post_id = false, $format_value = true) {
-        return false;
-    }
-}
-if (!function_exists('the_field')) {
-    function the_field($selector, $post_id = false, $format_value = true) {
-        $value = get_field($selector, $post_id, $format_value);
-        if (is_array($value)) {
-            print_r($value);
-        } else {
-            echo $value;
+add_action('after_setup_theme', function() {
+    if (!function_exists('get_field')) {
+        function get_field($selector, $post_id = false, $format_value = true) {
+            return false;
         }
     }
-}
+    if (!function_exists('the_field')) {
+        function the_field($selector, $post_id = false, $format_value = true) {
+            $value = get_field($selector, $post_id, $format_value);
+            if (is_array($value)) {
+                print_r($value);
+            } else {
+                echo $value;
+            }
+        }
+    }
+}, 1);
 
 /**
  * Inclure les fichiers de configuration et de logique
