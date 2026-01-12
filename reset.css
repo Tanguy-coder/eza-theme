@@ -22,8 +22,8 @@ h3,
 h4,
 h5,
 h6 {
-   margin: 0;
-   padding: 0
+    margin: 0;
+    padding: 0
 }
 
 /* h1,
@@ -71,24 +71,29 @@ td,
 th {
     padding: 0
 }
+
 h1 {
     font-size: 56px;
     font-weight: bold;
     line-height: 1.2;
-    color: #333; /* Gris foncé */
+    color: #333;
+    /* Gris foncé */
 }
+
 h2 {
     font-size: 42px;
     font-weight: bold;
     line-height: 1.3;
     color: #333;
 }
+
 h3 {
     font-size: 32px;
     font-weight: 600;
     line-height: 1.4;
     color: #333;
 }
+
 /*p {*/
 /*    font-size: 8px;*/
 /*    color: #444;*/
@@ -98,7 +103,8 @@ h3 {
 /*}*/
 
 p {
-    font-size: 18px; /* Taille normale */
+    font-size: 18px;
+    /* Taille normale */
     color: #444;
     /*margin: 16px 100px;*/
     /*padding: 10px 22px;*/

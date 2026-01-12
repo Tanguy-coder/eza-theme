@@ -15,11 +15,30 @@ Text Domain: eza_architecture
 @import url(reset.css);
 
 /* Body Styling */
+/* Body Styling */
+body,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+a,
+span,
+div,
+li,
+input,
+textarea,
+button,
+select {
+    font-family: 'Century Gothic', 'AppleGothic', 'URW Gothic L', sans-serif !important;
+}
+
 body {
-    font-family: 'Inter', sans-serif;
     color: #000000;
     background-color: #fff;
-    font-weight: 400;
+    font-weight: 600;
     width: 100%;
     overflow-x: clip;
     line-height: 1.6;
@@ -190,11 +209,18 @@ header {
 }
 
 .hero-slider .swiper-slide {
+    background-image: var(--bg-desktop);
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     width: 100%;
     height: 100%;
+}
+
+@media (max-width: 768px) {
+    .hero-slider .swiper-slide {
+        background-image: var(--bg-mobile) !important;
+    }
 }
 
 .logo {
@@ -343,6 +369,7 @@ header {
     width: 80px;
     background-color: transparent;
     padding: 3px 30px 0px 3px;
+    z-index: 2000;
 }
 
 .social-links-inner {
@@ -357,6 +384,7 @@ header {
     width: 80px;
     background-color: white;
     padding: 3px 30px 0px 3px;
+    z-index: 2000;
 }
 
 .social-links a {
@@ -500,110 +528,6 @@ footer .signature {
 
 
 
-/* Media queries */
-@media (width <=769px) {
-    header {
-        padding: 1rem 0rem 1rem 0rem;
-        background-color: white;
-        color: black;
-    }
-
-    footer {
-        font-size: 0.4rem;
-    }
-
-    .nav-mobile .mobile_links .mobile-links {
-        display: flex;
-        height: 250px;
-        width: 700px;
-        color: white;
-        flex-direction: column;
-        align-items: center;
-        font-weight: bold;
-        justify-content: space-between;
-    }
-
-    .nav-mobile .mobile_links .mobile-links li a {
-        font-size: 1.4rem;
-
-    }
-
-    .logo {
-        width: 100px
-    }
-
-    .site-main {
-        margin: 6px 8px;
-        padding: 6px 12px;
-    }
-
-    .agency-page {
-        /*margin: 5rem 260px 16px; */
-        margin: 16px 260px;
-        padding: 10px 22px;
-    }
-
-    /*p {*/
-    /*    margin: 8px 10px; */
-    /*    padding: 5px 10px; */
-    /*    font-size: 14px; */
-    /*}*/
-
-}
-
-@media (width <=1024px) {
-    header {
-        padding: 1rem 0;
-        background-color: white;
-        color: black;
-        position: fixed;
-        width: 100%;
-    }
-
-    .navbar {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .nav-links {
-        width: auto;
-    }
-
-    .menu {
-        display: block;
-        cursor: pointer;
-        color: black;
-        margin: 0;
-    }
-
-    .logo {
-        width: 100px;
-        margin: 0;
-    }
-
-    .links {
-        display: none;
-    }
-
-    .social-links,
-    .social-links-inner {
-        display: none;
-    }
-}
-
-@media (width > 1300px) {
-    .site-main {
-        margin: 16px 290px;
-        padding: 10px 22px;
-    }
-
-    .agency-page {
-        /*margin: 5rem 260px 16px; */
-        margin: 16px 260px;
-        padding: 10px 22px;
-    }
-}
 
 /* animation */
 
@@ -717,22 +641,8 @@ footer .signature {
 }
 
 /* Pour les petits écrans */
-@media (max-width: 768px) {
-    .partners-logos {
-        grid-template-columns: repeat(5, 1fr);
-        /* Affiche 5 logos par ligne sur les petits écrans */
-        gap: 10px;
-    }
-}
 
 /* Pour les très petits écrans */
-@media (max-width: 480px) {
-    .partners-logos {
-        grid-template-columns: repeat(3, 1fr);
-        /* 3 logos par ligne sur mobile */
-        gap: 8px;
-    }
-}
 
 /*h2{*/
 /*    font-size: 2rem;*/
@@ -747,11 +657,6 @@ footer .signature {
     padding-right: 20px;
 }
 
-@media (max-width: 768px) {
-    .site-main {
-        padding-top: 100px;
-    }
-}
 
 .site-main p {
     font-size: 1.6rem;
@@ -1019,4 +924,120 @@ iframe {
 
 .project-item.reveal:nth-child(4) {
     transition-delay: 0.3s;
+}
+
+/* --- CONSOLIDATED MEDIA QUERIES (Priority at the end) --- */
+
+@media (max-width: 1024px) {
+    header {
+        padding: 1rem 0;
+        background-color: white;
+        color: black;
+        position: fixed;
+        width: 100%;
+    }
+
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .nav-links {
+        width: auto;
+    }
+
+    .menu {
+        display: block;
+        cursor: pointer;
+        color: black;
+        margin: 0;
+    }
+
+    .logo {
+        width: 100px;
+        margin: 0;
+    }
+
+    .links,
+    .social-links,
+    .social-links-inner {
+        display: none;
+        z-index: 2000;
+    }
+}
+
+@media (max-width: 769px) {
+    header {
+        padding: 1rem 0;
+    }
+
+    footer {
+        font-size: 0.4rem;
+    }
+
+    .nav-mobile .mobile_links .mobile-links {
+        display: flex;
+        height: 250px;
+        width: 100%;
+        color: white;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .nav-mobile .mobile_links .mobile-links li a {
+        font-size: 1.4rem;
+    }
+
+    .logo {
+        width: 100px
+    }
+
+    .site-main {
+        margin: 16px 20px;
+        padding-top: 100px;
+    }
+
+    .site-main p,
+    .agency-page p,
+    p {
+        font-size: 1.1rem !important;
+        /* Patriarche style (approx 18px) */
+        line-height: 1.6 !important;
+        font-weight: 600 !important;
+        text-align: justify !important;
+        hyphens: auto !important;
+        -webkit-hyphens: auto !important;
+        -ms-hyphens: auto !important;
+    }
+
+    .agency-page {
+        margin: 16px 20px;
+        padding: 10px 22px;
+    }
+
+    .partners-logos {
+        grid-template-columns: repeat(5, 1fr);
+        gap: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .partners-logos {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+    }
+}
+
+@media (min-width: 1301px) {
+    .site-main {
+        margin: 16px 290px;
+        padding: 10px 22px;
+    }
+
+    .agency-page {
+        margin: 16px 260px;
+        padding: 10px 22px;
+    }
 }
