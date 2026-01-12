@@ -18,7 +18,7 @@ deploy_to_cpanel:
     - apk add --no-cache lftp
   script:
     - |
-      lftp -e "set ftp:ssl-allow no; open $FTP_SERVER; user $FTP_USER $FTP_PASSWORD; cd $FTP_PATH; mirror -R ./ ./ --exclude .git/ --exclude .gitlab-ci.yml --exclude README.md; quit"
+      lftp -u "$FTP_USER","$FTP_PASSWORD" -e "set ftp:ssl-allow no; open $FTP_SERVER; cd $FTP_PATH; mirror -R ./ ./ --exclude .git/ --exclude .gitlab-ci.yml --exclude README.md; quit"
   only:
     - main
   environment:
