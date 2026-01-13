@@ -211,36 +211,49 @@ function eza_register_acf_fields() {
             'active' => true,
         ));
 
-        // Groupe de champs : Images de l’agence
+        // Groupe de champs : Page Agence
         // On cible par template plutôt que par ID pour plus de fiabilité
         acf_add_local_field_group(array(
             'key' => 'group_agency_images',
-            'title' => 'Images de l’agence',
+            'title' => 'Configuration Page Agence',
             'fields' => array(
+                // Contenu après le personnel
+                array(
+                    'key' => 'field_content_after_personnel',
+                    'label' => 'Contenu après le personnel',
+                    'name' => 'content_after_personnel',
+                    'type' => 'wysiwyg',
+                    'instructions' => 'Ajoutez du contenu qui s\'affichera après la section personnel (texte, images, etc.)',
+                    'required' => 0,
+                    'tabs' => 'all',
+                    'toolbar' => 'full',
+                    'media_upload' => 1,
+                ),
+                // Images du slider
                 array(
                     'key' => 'field_agency_image_1',
-                    'label' => 'Image 1',
+                    'label' => 'Image Slider 1',
                     'name' => 'agency_image_1',
                     'type' => 'image',
                     'return_format' => 'array',
                 ),
                 array(
                     'key' => 'field_agency_image_2',
-                    'label' => 'Image 2',
+                    'label' => 'Image Slider 2',
                     'name' => 'agency_image_2',
                     'type' => 'image',
                     'return_format' => 'array',
                 ),
                 array(
                     'key' => 'field_agency_image_3',
-                    'label' => 'Image 3',
+                    'label' => 'Image Slider 3',
                     'name' => 'agency_image_3',
                     'type' => 'image',
                     'return_format' => 'array',
                 ),
                 array(
                     'key' => 'field_agency_image_4',
-                    'label' => 'Image 4',
+                    'label' => 'Image Slider 4',
                     'name' => 'agency_image_4',
                     'type' => 'image',
                     'return_format' => 'array',
