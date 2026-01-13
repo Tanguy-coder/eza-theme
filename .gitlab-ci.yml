@@ -28,7 +28,7 @@ deploy_to_cpanel:
       set net:max-retries 3
       set ftp:ssl-allow no
       set ftp:passive-mode yes
-      cd /home/c2728098c/public_html/wp-content/themes/ezaarchitectures
+      cd public_html/wp-content/themes/ezaarchitectures
       mirror -R --verbose --exclude .git/ --exclude .gitlab-ci.yml --exclude README.md --exclude .gitignore ./ ./
       bye
       EOF
