@@ -10,23 +10,40 @@ lint_php:
   script:
     - find . -name "*.php" -exec php -l {} \;
 
-# Déploiement vers le serveur cPanel via SFTP
+# Déploiement vers le serveur cPanel via FTP
 deploy_to_cpanel:
   stage: deploy
   image: alpine:latest
+  timeout: 10 minutes
   before_script:
     - apk add --no-cache lftp
   script:
+    # Test de connexion d'abord
+    - echo "Test de connexion FTP..."
     - |
-      lftp <<EOF
-      set ftp:ssl-allow no
-      open $FTP_SERVER
-      user "$FTP_USER" "$FTP_PASSWORD"
-      mirror -R ./ /home/c2728098c/public_html/wp-content/themes/ezaarchitectures --exclude .git/ --exclude .gitlab-ci.yml --exclude README.md
-      quit
-      EOF
+      lftp -e "
+        set net:timeout 10;
+        set net:max-retries 2;
+        set ftp:ssl-allow no;
+        set ftp:passive-mode yes;
+        open -u $FTP_USER,$FTP_PASSWORD $FTP_SERVER;
+        pwd;
+        bye;
+      " || { echo "ERREUR: Connexion FTP échouée"; exit 1; }
+    # Si connexion OK, déploiement
+    - echo "Connexion OK, déploiement en cours..."
+    - |
+      lftp -e "
+        set net:timeout 30;
+        set net:max-retries 3;
+        set ftp:ssl-allow no;
+        set ftp:passive-mode yes;
+        open -u $FTP_USER,$FTP_PASSWORD $FTP_SERVER;
+        cd /home/c2728098c/public_html/wp-content/themes/ezaarchitectures;
+        mirror -R --verbose --exclude .git/ --exclude .gitlab-ci.yml --exclude README.md --exclude .gitignore ./ ./;
+        bye;
+      "
   only:
     - main
   environment:
     name: production
-    url: http://$FTP_SERVER # À ajuster si nécessaire
