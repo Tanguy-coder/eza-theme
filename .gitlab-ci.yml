@@ -17,32 +17,24 @@ deploy_to_cpanel:
   timeout: 10 minutes
   before_script:
     - apk add --no-cache lftp
+    # Créer le fichier .netrc pour l'authentification (gère les caractères spéciaux)
+    - echo "machine $FTP_SERVER login $FTP_USER password $FTP_PASSWORD" > ~/.netrc
+    - chmod 600 ~/.netrc
   script:
-    # Test de connexion d'abord
-    - echo "Test de connexion FTP..."
+    - echo "Déploiement vers $FTP_SERVER..."
     - |
-      lftp -e "
-        set net:timeout 10;
-        set net:max-retries 2;
-        set ftp:ssl-allow no;
-        set ftp:passive-mode yes;
-        open -u $FTP_USER,$FTP_PASSWORD $FTP_SERVER;
-        pwd;
-        bye;
-      " || { echo "ERREUR: Connexion FTP échouée"; exit 1; }
-    # Si connexion OK, déploiement
-    - echo "Connexion OK, déploiement en cours..."
-    - |
-      lftp -e "
-        set net:timeout 30;
-        set net:max-retries 3;
-        set ftp:ssl-allow no;
-        set ftp:passive-mode yes;
-        open -u $FTP_USER,$FTP_PASSWORD $FTP_SERVER;
-        cd /home/c2728098c/public_html/wp-content/themes/ezaarchitectures;
-        mirror -R --verbose --exclude .git/ --exclude .gitlab-ci.yml --exclude README.md --exclude .gitignore ./ ./;
-        bye;
-      "
+      lftp $FTP_SERVER << EOF
+      set net:timeout 30
+      set net:max-retries 3
+      set ftp:ssl-allow no
+      set ftp:passive-mode yes
+      cd /home/c2728098c/public_html/wp-content/themes/ezaarchitectures
+      mirror -R --verbose --exclude .git/ --exclude .gitlab-ci.yml --exclude README.md --exclude .gitignore ./ ./
+      bye
+      EOF
+  after_script:
+    # Supprimer le fichier .netrc pour la sécurité
+    - rm -f ~/.netrc
   only:
     - main
   environment:
