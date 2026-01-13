@@ -17,25 +17,18 @@ deploy_to_cpanel:
   before_script:
     - apk add --no-cache lftp
   script:
-    # Debug - Afficher les variables (masquer le mot de passe)
-    - echo "=== DEBUG INFO ==="
-    - echo "FTP_SERVER = $FTP_SERVER"
-    - echo "FTP_USER = $FTP_USER"
-    - echo "FTP_PATH = $FTP_PATH"
-    - echo "=================="
-    # Déploiement FTP
+    # Utiliser LFTP_PASSWORD (variable native de lftp qui gère les caractères spéciaux)
+    - export LFTP_PASSWORD="$FTP_PASSWORD"
+    # Connexion et déploiement
     - |
-      lftp -e "
-        set ftp:ssl-allow no;
-        set ftp:passive-mode yes;
-        set net:timeout 30;
-        set net:max-retries 3;
-        debug 3;
-        open -u $FTP_USER,$FTP_PASSWORD $FTP_SERVER;
-        cd $FTP_PATH || mkdir -p $FTP_PATH && cd $FTP_PATH;
-        mirror -R --verbose --exclude .git/ --exclude .gitlab-ci.yml --exclude README.md --exclude .gitignore ./ ./;
-        bye
-      "
+      lftp -u "$FTP_USER" "$FTP_SERVER" << EOF
+      set ftp:ssl-allow no
+      set ftp:passive-mode yes
+      set net:timeout 30
+      cd $FTP_PATH
+      mirror -R --verbose --exclude .git/ --exclude .gitlab-ci.yml --exclude README.md --exclude .gitignore ./ ./
+      bye
+      EOF
   only:
     - main
   environment:
