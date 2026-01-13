@@ -68,6 +68,15 @@ get_header();
         </div>
     </div>
 
+    <!-- Contenu additionnel après le personnel (via champ ACF) -->
+    <?php 
+    $contenu_apres = get_field('content_after_personnel');
+    if ($contenu_apres) : ?>
+        <div class="content-after-personnel">
+            <?php echo wp_kses_post($contenu_apres); ?>
+        </div>
+    <?php endif; ?>
+
     <!-- Section Slider des Images de l'Agence -->
     <?php
     if (function_exists('get_field')) :

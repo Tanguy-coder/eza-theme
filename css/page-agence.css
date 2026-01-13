@@ -186,3 +186,25 @@
     width: 44px;
     height: 44px;
 }
+
+/* Contenu après le personnel */
+.content-after-personnel {
+    padding: 40px 0;
+    margin-top: 20px;
+}
+
+.content-after-personnel p {
+    line-height: 1.6;
+}
+
+.content-after-personnel h2,
+.content-after-personnel h3 {
+    margin-top: 30px;
+    margin-bottom: 15px;
+}
+
+.content-after-personnel img {
+    max-width: 100%;
+    height: auto;
+    margin: 20px 0;
+}
