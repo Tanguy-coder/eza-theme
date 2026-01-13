@@ -10,32 +10,23 @@ lint_php:
   script:
     - find . -name "*.php" -exec php -l {} \;
 
-# Déploiement vers le serveur cPanel via FTP
+# Déploiement vers le serveur cPanel via SFTP
 deploy_to_cpanel:
   stage: deploy
   image: alpine:latest
-  timeout: 10 minutes
   before_script:
     - apk add --no-cache lftp
-    # Créer le fichier .netrc pour l'authentification (gère les caractères spéciaux)
-    - echo "machine $FTP_SERVER login $FTP_USER password $FTP_PASSWORD" > ~/.netrc
-    - chmod 600 ~/.netrc
   script:
-    - echo "Déploiement vers $FTP_SERVER..."
     - |
-      lftp $FTP_SERVER << EOF
-      set net:timeout 30
-      set net:max-retries 3
+      lftp <<EOF
       set ftp:ssl-allow no
-      set ftp:passive-mode yes
-      cd public_html/wp-content/themes/ezaarchitectures
-      mirror -R --verbose --exclude .git/ --exclude .gitlab-ci.yml --exclude README.md --exclude .gitignore ./ ./
-      bye
+      open $FTP_SERVER
+      user "$FTP_USER" "$FTP_PASSWORD"
+      mirror -R ./ $FTP_PATH --exclude .git/ --exclude .gitlab-ci.yml --exclude README.md
+      quit
       EOF
-  after_script:
-    # Supprimer le fichier .netrc pour la sécurité
-    - rm -f ~/.netrc
   only:
     - main
   environment:
     name: production
+    url: http://$FTP_SERVER # À ajuster si nécessaire
