@@ -20,19 +20,15 @@ deploy_to_cpanel:
     - echo "machine $FTP_SERVER login $FTP_USER password $FTP_PASSWORD" > ~/.netrc
     - chmod 600 ~/.netrc
   script:
-    - echo "Déploiement vers $FTP_SERVER"
+    - echo "Déploiement vers $FTP_SERVER dans /public_html/wp-content/themes/ezaarchitectures"
     - |
       lftp $FTP_SERVER << EOF
       set net:timeout 30
       set net:max-retries 3
       set ftp:ssl-allow no
       set ftp:passive-mode yes
-      cd ../..
-      pwd
-      ls
-      cd public_html/wp-content/themes
-      pwd
-      ls
+      cd wp-content/themes/ezaarchitectures
+      mirror -R --verbose --delete --exclude .git/ --exclude .gitlab-ci.yml --exclude README.md --exclude .gitignore ./
       bye
       EOF
   after_script:
