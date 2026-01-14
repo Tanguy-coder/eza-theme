@@ -99,11 +99,11 @@
 }
 
 .view-hidden {
-    display: none !important;
+    display: none;
 }
 
 .view-active {
-    display: block !important;
+    display: block;
 }
 
 .project-archive-container {
