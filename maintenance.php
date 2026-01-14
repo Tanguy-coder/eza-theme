@@ -6,10 +6,14 @@
     <meta charset="<?php bloginfo('charset'); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Maintenance en cours</title>
+    <!-- Google Fonts - Roboto + Montserrat -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
         /* Style de base pour la page de maintenance */
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Roboto', sans-serif;
             color: #333;
             display: flex;
             justify-content: center;
@@ -29,6 +33,7 @@
         }
 
         .maintenance-title {
+            font-family: 'Montserrat', sans-serif;
             font-size: 2em;
             margin-bottom: 0.5em;
             color: #ff5722;
