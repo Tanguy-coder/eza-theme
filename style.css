@@ -14,16 +14,12 @@ Text Domain: eza_architecture
 
 @import url(reset.css);
 
-/* Body Styling */
-/* Body Styling */
+/* Body Styling - Roboto pour le texte, Montserrat pour les titres */
+*,
+*::before,
+*::after,
 body,
 p,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
 a,
 span,
 div,
@@ -31,8 +27,40 @@ li,
 input,
 textarea,
 button,
-select {
-    font-family: 'Century Gothic', 'AppleGothic', 'URW Gothic L', sans-serif !important;
+select,
+label,
+table,
+td,
+th,
+caption,
+strong,
+em,
+b,
+i,
+u,
+small,
+sub,
+sup,
+code,
+pre,
+blockquote,
+cite,
+q,
+abbr,
+address,
+time,
+mark {
+    font-family: 'Roboto', sans-serif !important;
+}
+
+/* Montserrat pour les titres */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: 'Montserrat', sans-serif !important;
 }
 
 body {

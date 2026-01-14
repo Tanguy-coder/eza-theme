@@ -1,6 +1,10 @@
 /* Style de base pour la page agence */
 * {
-    font-family: 'Century Gothic', 'AppleGothic', 'URW Gothic L', sans-serif !important;
+    font-family: 'Roboto', sans-serif !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Montserrat', sans-serif !important;
 }
 
 .content-before-personnel p {
