@@ -20,23 +20,20 @@ deploy_to_cpanel:
     - echo "machine $FTP_SERVER login $FTP_USER password $FTP_PASSWORD" > ~/.netrc
     - chmod 600 ~/.netrc
   script:
-    # Debug - afficher le chemin
     - echo "FTP_PATH = $FTP_PATH"
     - echo "Déploiement vers $FTP_SERVER dans le dossier $FTP_PATH"
-    # Créer le script lftp avec les variables déjà interpolées
+    # Exécuter lftp avec le script via stdin
     - |
-      cat > /tmp/deploy.lftp << EOFSCRIPT
+      lftp $FTP_SERVER << EOF
       set net:timeout 30
       set net:max-retries 3
       set ftp:ssl-allow no
       set ftp:passive-mode yes
       mirror -R --verbose --exclude .git/ --exclude .gitlab-ci.yml --exclude README.md --exclude .gitignore ./ ${FTP_PATH}/
       bye
-      EOFSCRIPT
-    - cat /tmp/deploy.lftp
-    - lftp $FTP_SERVER -f /tmp/deploy.lftp
+      EOF
   after_script:
-    - rm -f ~/.netrc /tmp/deploy.lftp
+    - rm -f ~/.netrc
   only:
     - main
   environment:
