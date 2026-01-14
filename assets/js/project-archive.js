@@ -16,8 +16,11 @@ document.addEventListener('DOMContentLoaded', function () {
         if (!gridViewRadio || !mapViewRadio) return;
 
         if (gridViewRadio.checked) {
+            // Vue mosaïque active
             projectGrid.classList.remove('view-hidden');
             projectGrid.classList.add('view-active');
+            projectGrid.style.display = 'block';
+            
             projectMap.classList.remove('view-active');
             projectMap.classList.add('view-hidden');
             projectMap.style.display = 'none';
@@ -27,9 +30,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 mapInitialized = false;
             }
         } else if (mapViewRadio.checked) {
+            // Vue carte active
             projectGrid.classList.remove('view-active');
             projectGrid.classList.add('view-hidden');
             projectGrid.style.display = 'none';
+            
             projectMap.classList.remove('view-hidden');
             projectMap.classList.add('view-active');
             projectMap.style.display = 'block';
