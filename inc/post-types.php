@@ -75,3 +75,117 @@ function register_personnel_post_type() {
     ));
 }
 add_action('init', 'register_personnel_post_type');
+
+// ================================================
+// Personnalisation des colonnes admin pour les Projets
+// ================================================
+
+// Ajouter les colonnes personnalisées
+function eza_project_admin_columns($columns) {
+    // Réorganiser les colonnes : Image, Titre, Description, Thème, Date
+    $new_columns = array();
+    
+    // Checkbox pour les actions en masse
+    $new_columns['cb'] = $columns['cb'];
+    
+    // Image mise en avant
+    $new_columns['featured_image'] = __('Image', 'eza_architecture');
+    
+    // Titre
+    $new_columns['title'] = $columns['title'];
+    
+    // Description
+    $new_columns['description'] = __('Description', 'eza_architecture');
+    
+    // Thème (taxonomie)
+    $new_columns['project_theme'] = __('Thème', 'eza_architecture');
+    
+    // Date de publication
+    $new_columns['date'] = $columns['date'];
+    
+    return $new_columns;
+}
+add_filter('manage_project_posts_columns', 'eza_project_admin_columns');
+
+// Afficher le contenu des colonnes personnalisées
+function eza_project_admin_column_content($column, $post_id) {
+    switch ($column) {
+        case 'featured_image':
+            if (has_post_thumbnail($post_id)) {
+                $thumbnail = get_the_post_thumbnail($post_id, array(80, 80));
+                echo $thumbnail;
+            } else {
+                echo '<span style="color:#999;">—</span>';
+            }
+            break;
+            
+        case 'description':
+            $description = get_field('project_description', $post_id);
+            if ($description) {
+                // Nettoyer le HTML et limiter à 100 caractères
+                $description = wp_strip_all_tags($description);
+                $description = mb_substr($description, 0, 100);
+                echo esc_html($description);
+                if (mb_strlen($description) >= 100) {
+                    echo '...';
+                }
+            } else {
+                // Fallback sur l'extrait WordPress
+                $excerpt = get_the_excerpt($post_id);
+                if ($excerpt) {
+                    $excerpt = mb_substr($excerpt, 0, 100);
+                    echo esc_html($excerpt);
+                    if (mb_strlen($excerpt) >= 100) {
+                        echo '...';
+                    }
+                } else {
+                    echo '<span style="color:#999;">—</span>';
+                }
+            }
+            break;
+            
+        case 'project_theme':
+            $themes = get_the_terms($post_id, 'project_theme');
+            if ($themes && !is_wp_error($themes)) {
+                $theme_names = array();
+                foreach ($themes as $theme) {
+                    $theme_names[] = esc_html($theme->name);
+                }
+                echo implode(', ', $theme_names);
+            } else {
+                echo '<span style="color:#999;">—</span>';
+            }
+            break;
+    }
+}
+add_action('manage_project_posts_custom_column', 'eza_project_admin_column_content', 10, 2);
+
+// Rendre les colonnes triables (optionnel)
+function eza_project_sortable_columns($columns) {
+    $columns['project_theme'] = 'project_theme';
+    $columns['date'] = 'date';
+    return $columns;
+}
+add_filter('manage_edit-project_sortable_columns', 'eza_project_sortable_columns');
+
+// CSS pour améliorer l'affichage des colonnes dans l'admin
+function eza_project_admin_column_styles() {
+    echo '<style>
+        .column-featured_image {
+            width: 100px;
+        }
+        .column-featured_image img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+        .column-description {
+            max-width: 300px;
+        }
+        .column-project_theme {
+            width: 150px;
+        }
+    </style>';
+}
+add_action('admin_head', 'eza_project_admin_column_styles');
