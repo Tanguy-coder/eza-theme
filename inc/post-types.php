@@ -189,3 +189,109 @@ function eza_project_admin_column_styles() {
     </style>';
 }
 add_action('admin_head', 'eza_project_admin_column_styles');
+
+// ================================================
+// Personnalisation des colonnes admin pour le Personnel
+// ================================================
+
+// Ajouter les colonnes personnalisées pour le personnel
+function eza_personnel_admin_columns($columns) {
+    $new_columns = array();
+    
+    // Checkbox pour les actions en masse
+    $new_columns['cb'] = $columns['cb'];
+    
+    // Image mise en avant
+    $new_columns['featured_image'] = __('Image', 'eza_architecture');
+    
+    // Titre
+    $new_columns['title'] = $columns['title'];
+    
+    // Mention
+    $new_columns['personnel_mention'] = __('Mention', 'eza_architecture');
+    
+    // Fonction
+    $new_columns['personnel_function'] = __('Fonction', 'eza_architecture');
+    
+    // Description
+    $new_columns['personnel_description'] = __('Description', 'eza_architecture');
+    
+    // Date de publication
+    $new_columns['date'] = $columns['date'];
+    
+    return $new_columns;
+}
+add_filter('manage_personnel_posts_columns', 'eza_personnel_admin_columns');
+
+// Afficher le contenu des colonnes personnalisées pour le personnel
+function eza_personnel_admin_column_content($column, $post_id) {
+    switch ($column) {
+        case 'featured_image':
+            if (has_post_thumbnail($post_id)) {
+                $thumbnail = get_the_post_thumbnail($post_id, array(80, 80));
+                echo $thumbnail;
+            } else {
+                echo '<span style="color:#999;">—</span>';
+            }
+            break;
+            
+        case 'personnel_mention':
+            $mention = get_field('personnel_mention', $post_id);
+            if ($mention) {
+                echo esc_html($mention);
+            } else {
+                echo '<span style="color:#999;">—</span>';
+            }
+            break;
+            
+        case 'personnel_function':
+            $function = get_field('personnel_function', $post_id);
+            if ($function) {
+                echo esc_html($function);
+            } else {
+                echo '<span style="color:#999;">—</span>';
+            }
+            break;
+            
+        case 'personnel_description':
+            $description = get_field('personnel_description', $post_id);
+            if ($description) {
+                // Nettoyer le HTML et limiter à 100 caractères
+                $description = wp_strip_all_tags($description);
+                $description = mb_substr($description, 0, 100);
+                echo esc_html($description);
+                if (mb_strlen($description) >= 100) {
+                    echo '...';
+                }
+            } else {
+                echo '<span style="color:#999;">—</span>';
+            }
+            break;
+    }
+}
+add_action('manage_personnel_posts_custom_column', 'eza_personnel_admin_column_content', 10, 2);
+
+// CSS pour améliorer l'affichage des colonnes du personnel dans l'admin
+function eza_personnel_admin_column_styles() {
+    echo '<style>
+        .column-featured_image {
+            width: 100px;
+        }
+        .column-featured_image img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+        .column-personnel_mention {
+            width: 150px;
+        }
+        .column-personnel_function {
+            width: 180px;
+        }
+        .column-personnel_description {
+            max-width: 300px;
+        }
+    </style>';
+}
+add_action('admin_head', 'eza_personnel_admin_column_styles');
