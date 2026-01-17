@@ -14,7 +14,34 @@ Text Domain: eza_architecture
 
 @import url(reset.css);
 
-/* Body Styling - Roboto pour le texte, Montserrat pour les titres */
+/* ================================================
+   Galano Grotesque Font (comme Patriarche) - Hébergé localement
+   ================================================ */
+@font-face {
+    font-family: 'Galano Grotesque';
+    src: url('./fonts/GalanoGrotesque-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Galano Grotesque';
+    src: url('./fonts/GalanoGrotesque-Medium.woff2') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Galano Grotesque';
+    src: url('./fonts/GalanoGrotesque-SemiBold.woff2') format('woff2');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* Body Styling - Galano Grotesque pour tout le site */
 *,
 *::before,
 *::after,
@@ -50,17 +77,17 @@ abbr,
 address,
 time,
 mark {
-    font-family: 'Roboto', sans-serif !important;
+    font-family: 'Galano Grotesque', sans-serif !important;
 }
 
-/* Montserrat pour les titres */
+/* Galano Grotesque pour les titres également */
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
-    font-family: 'Montserrat', sans-serif !important;
+    font-family: 'Galano Grotesque', sans-serif !important;
 }
 
 body {
@@ -153,7 +180,7 @@ header {
 }
 
 .nav-mobile-apparition {
-    display: flex;
+    display: flex !important;
     flex-direction: column;
     justify-content: space-between;
     align-items: flex-end;
@@ -491,33 +518,42 @@ header {
     transform: scaleX(1);
 }
 
-/* Footer fixe sur la page d'accueil */
+/* Footer fixe sur la page d'accueil - Superposé (comme Patriarche) */
 .footer-fixed {
-    padding: 20px;
+    padding: 20px 5rem;
     width: 100%;
-    background-color: black;
+    background-color: rgba(0, 0, 0, 0.8);
     color: white;
     position: fixed;
     bottom: 0;
+    left: 0;
     right: 0;
+    z-index: 1000;
     display: flex;
-    justify-content: flex-end;
-    font-size: 0.6rem;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8rem;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
 
-/* Footer normal pour les autres pages */
+/* Footer normal pour les autres pages - Superposé (comme Patriarche) */
 .footer-normal {
-    padding: 20px;
+    padding: 20px 5rem;
     width: 100%;
-    background-color: black;
+    background-color: rgba(0, 0, 0, 0.8);
     color: white;
-    bottom: 0;
-    right: 0;
     position: fixed;
-    margin-top: 10px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
     display: flex;
-    justify-content: flex-end;
-    font-size: 0.6rem;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8rem;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
 
 /* Pour ajouter de l'espace pour mieux lire le body car toute la body ne se lit pas par defaut a cause d'un conflit de propriété pas encore trouvé */
@@ -537,17 +573,30 @@ header {
 /*    text-decoration: none;*/
 /*}*/
 
+.footer-links {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+}
+
 .footer-links a {
-    margin: 0 10px;
+    margin: 0;
     color: white;
     position: relative;
     font-weight: lighter;
     font-size: 0.8rem;
-
+    text-decoration: none;
+    white-space: nowrap;
 }
 
 footer .signature {
     font-size: 0.8rem;
+    color: white;
+    text-decoration: none;
+    margin: 0;
+    padding: 0;
 }
 
 .footer-links a:hover::before {
@@ -971,22 +1020,46 @@ iframe {
 /* --- CONSOLIDATED MEDIA QUERIES (Priority at the end) --- */
 
 @media (max-width: 1024px) {
+    /* Header mobile - Bande blanche fixe (comme Patriarche) */
     header {
-        padding: 1rem 0;
-        background-color: white;
+        padding: 1rem 2rem;
+        background-color: white !important;
         color: black;
         position: fixed;
         width: 100%;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+        box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05);
+    }
+
+    /* Désactiver l'animation sur mobile */
+    header .animation {
+        display: none;
+    }
+
+    /* Header-home devient blanc sur mobile */
+    .header-home {
+        background-color: white !important;
     }
 
     .navbar {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        width: 100%;
+        background-color: transparent;
+    }
+
+    .navbar-home,
+    .navbar-inner {
+        background-color: transparent;
     }
 
     .nav-links {
         width: auto;
+        display: flex;
+        align-items: center;
     }
 
     .menu {
@@ -994,11 +1067,28 @@ iframe {
         cursor: pointer;
         color: black;
         margin: 0;
+        padding: 0;
+        width: 24px;
+        height: 24px;
+    }
+
+    .menu img {
+        width: 24px;
+        height: 24px;
+        display: block;
     }
 
     .logo {
-        width: 100px;
+        width: auto;
+        max-width: 120px;
         margin: 0;
+        display: flex;
+        align-items: center;
+    }
+
+    .logo img {
+        max-height: 40px;
+        width: auto;
     }
 
     .links,
@@ -1010,12 +1100,37 @@ iframe {
 }
 
 @media (max-width: 769px) {
+    /* Header mobile - Bande blanche (comme Patriarche) */
     header {
-        padding: 1rem 0;
+        padding: 1rem 1.5rem;
+        background-color: white !important;
     }
 
-    footer {
-        font-size: 0.4rem;
+    /* Footer mobile - Superposé (comme Patriarche) */
+    footer,
+    .footer-fixed,
+    .footer-normal {
+        padding: 1rem 1.5rem;
+        font-size: 0.7rem;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    footer .signature {
+        font-size: 0.7rem;
+    }
+
+    .footer-links {
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 8px;
+        white-space: nowrap;
+    }
+
+    .footer-links a {
+        font-size: 0.65rem;
+        margin: 0;
+        white-space: nowrap;
     }
 
     .nav-mobile .mobile_links .mobile-links {

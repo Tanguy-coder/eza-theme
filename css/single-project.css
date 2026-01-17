@@ -1,12 +1,12 @@
 @import url('../reset.css');
 
-/* Font family */
+/* Font family - Galano Grotesque */
 * {
-    font-family: 'Roboto', sans-serif !important;
+    font-family: 'Galano Grotesque', sans-serif !important;
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: 'Montserrat', sans-serif !important;
+    font-family: 'Galano Grotesque', sans-serif !important;
 }
 
 /* Fullscreen slider */

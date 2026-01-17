@@ -13,7 +13,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (close_menu_button) {
         close_menu_button.addEventListener('click', function () {
+            // Animation de sortie
+            nav_mobile.classList.add("slide-out-right");
             nav_mobile.classList.remove("nav-mobile-apparition");
+            // Retirer la classe après l'animation et cacher le menu
+            setTimeout(function() {
+                nav_mobile.classList.remove("slide-out-right");
+            }, 500); // Durée de l'animation
         });
     }
 
