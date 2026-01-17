@@ -8,6 +8,10 @@ document.addEventListener('DOMContentLoaded', function () {
     if (menu) {
         menu.addEventListener('click', function () {
             nav_mobile.classList.add("nav-mobile-apparition");
+            // Empêcher le scroll du body quand le menu est ouvert
+            document.body.style.overflow = 'hidden';
+            document.body.style.position = 'fixed';
+            document.body.style.width = '100%';
         });
     }
 
@@ -16,6 +20,10 @@ document.addEventListener('DOMContentLoaded', function () {
             // Animation de sortie
             nav_mobile.classList.add("slide-out-right");
             nav_mobile.classList.remove("nav-mobile-apparition");
+            // Réactiver le scroll du body quand le menu est fermé
+            document.body.style.overflow = '';
+            document.body.style.position = '';
+            document.body.style.width = '';
             // Retirer la classe après l'animation et cacher le menu
             setTimeout(function() {
                 nav_mobile.classList.remove("slide-out-right");
