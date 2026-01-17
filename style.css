@@ -164,10 +164,12 @@ header {
     left: 0;
     width: 100%;
     height: 100vh;
+    max-height: 100vh;
     background-color: #000000;
-    z-index: 1000;
-    overflow: hidden;
+    z-index: 2000; /* Au-dessus du footer (z-index: 1000) */
+    overflow: hidden !important; /* Pas de scroll dans le menu - FORCER */
     padding: 0;
+    touch-action: none; /* Empêcher le scroll tactile sur mobile */
 }
 
 .nav-mobile .close-menu {
@@ -175,8 +177,8 @@ header {
     display: flex;
     justify-content: flex-end;
     align-items: flex-start;
-    padding: 50px 30px 0px 0px;
-    margin-bottom: 2rem;
+    padding: 20px 30px 0px 0px; /* Réduit padding-top pour remonter */
+    margin-bottom: 0.25rem; /* Encore réduit pour remonter les onglets */
 }
 
 .nav-mobile-apparition {
@@ -200,12 +202,30 @@ header {
 .mobile_links {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: flex-end;
-    height: 100%;
     width: 100%;
     padding-right: 30px;
-    padding-top: 20px;
+    padding-top: 0px;
+    padding-bottom: 20px;
+    overflow: hidden; /* Pas de scroll */
+    height: 100%;
+    max-height: 100vh;
+}
+
+/* S'assurer que le conteneur social est bien à gauche */
+.mobile-social-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start !important; /* Forcer l'alignement à gauche */
+    padding-left: 30px !important;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.mobile-social-container .social-links-mobile-footer {
+    padding-left: 0 !important;
+    justify-content: flex-start !important; /* Forcer à gauche */
 }
 
 /*.mobile-links {
@@ -248,13 +268,27 @@ header {
 
 .social-links-mobile-footer {
     height: 50px;
-    padding: 20px 0px 20px 0px;
-    margin-bottom: 30px;
+    padding: 10px 0px 10px 0px;
+    margin-bottom: 0;
+    margin-top: 0px;
     display: flex;
-    justify-content: flex-end;
-    align-items: flex-end;
+    flex-direction: row; /* Ligne horizontale pour les icônes */
+    justify-content: flex-start; /* Alignés à gauche */
+    align-items: center;
     width: auto;
     gap: 15px;
+    position: relative;
+    z-index: 2001; /* Au-dessus du footer */
+}
+
+/* Titre du site au-dessus des réseaux sociaux */
+.mobile-site-title {
+    color: white;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+    text-align: left;
+    padding-left: 30px; /* Aligné avec les réseaux sociaux */
 }
 
 .hero-bg {
@@ -1133,15 +1167,30 @@ iframe {
         white-space: nowrap;
     }
 
+    /* Menu mobile - Pas de scroll */
+    .nav-mobile {
+        overflow: hidden !important;
+        touch-action: none;
+        -webkit-overflow-scrolling: none;
+    }
+    
+    .mobile_links {
+        overflow: hidden !important;
+        height: auto;
+        max-height: calc(100vh - 150px);
+    }
+
     .nav-mobile .mobile_links .mobile-links {
         display: flex;
-        height: 250px;
+        height: auto;
+        max-height: none;
         width: auto;
         color: white;
         flex-direction: column;
         align-items: flex-end;
         justify-content: flex-start;
         text-align: right;
+        overflow: hidden;
     }
 
     .nav-mobile .mobile_links .mobile-links li a {
