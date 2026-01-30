@@ -1,93 +1,206 @@
-# eza-theme
+# Eza Architectures - Thème WordPress
 
+Thème WordPress personnalisé développé pour **Eza Architecture**, une agence d'architecture moderne et professionnelle.
 
+## 📋 Description
 
-## Getting started
+Ce thème WordPress sur mesure offre une expérience utilisateur optimale pour présenter les projets d'architecture, l'équipe et les informations de l'agence. Il inclut des fonctionnalités avancées telles qu'une carte interactive des projets, des sliders dynamiques, et une interface d'administration personnalisée.
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+## ✨ Fonctionnalités
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+### 🎨 Interface Utilisateur
+- **Slider Hero** : Carrousel d'images avec support desktop et mobile (jusqu'à 5 slides)
+- **Page d'accueil** : Présentation dynamique avec sections partenaires et réseaux sociaux
+- **Archive de projets** : Affichage en grille avec carte interactive Leaflet
+- **Page projet individuelle** : Galerie d'images avec slider Swiper
+- **Page Agence** : Présentation de l'équipe et des informations de l'agence
+- **Design responsive** : Optimisé pour tous les appareils
 
-## Add your files
+### 🛠️ Fonctionnalités Techniques
+- **Types de contenu personnalisés** :
+  - `project` : Gestion des projets d'architecture avec métadonnées (localisation GPS, année, description, etc.)
+  - `personnel` : Gestion des membres de l'équipe
+- **Taxonomies** : Système de thèmes pour catégoriser les projets
+- **Champs personnalisés ACF** : Configuration complète via Advanced Custom Fields
+- **Customizer WordPress** : Personnalisation des images hero, logos partenaires, liens réseaux sociaux
+- **Carte interactive** : Intégration Leaflet pour visualiser les projets sur une carte
+- **Animations** : Animations CSS et JavaScript pour une expérience fluide
+- **Sécurité** : Mesures de sécurité intégrées (désactivation de l'éditeur de fichiers, sanitization)
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+## 🚀 Installation
+
+### Prérequis
+- WordPress 5.0 ou supérieur
+- PHP 7.4 ou supérieur
+- Plugin **Advanced Custom Fields (ACF)** activé
+
+### Étapes d'installation
+
+1. **Télécharger le thème**
+   ```bash
+   cd wp-content/themes/
+   git clone https://gitlab.com/Toor96/eza-theme.git ezaarchitectures
+   ```
+
+2. **Activer le thème**
+   - Aller dans **Apparence > Thèmes** dans l'administration WordPress
+   - Cliquer sur **Activer** pour le thème "ezaarchitectures"
+
+3. **Installer les dépendances**
+   - Le thème utilise des bibliothèques externes chargées via CDN :
+     - Swiper.js (sliders)
+     - Leaflet.js (cartes)
+
+4. **Configurer ACF**
+   - Installer et activer le plugin **Advanced Custom Fields**
+   - Les groupes de champs sont définis dans `inc/acf-fields.php`
+
+5. **Personnaliser le thème**
+   - Aller dans **Apparence > Personnaliser**
+   - Configurer les images de bannière hero (desktop et mobile)
+   - Ajouter les logos et liens des partenaires
+   - Configurer les liens des réseaux sociaux
+
+## 📁 Structure du Projet
 
 ```
-cd existing_repo
-git remote add origin https://gitlab.com/Toor96/eza-theme.git
-git branch -M main
-git push -uf origin main
+ezaarchitectures/
+├── assets/
+│   ├── css/
+│   │   └── animate.css          # Animations CSS
+│   ├── icons/                   # Icônes SVG (réseaux sociaux, etc.)
+│   └── js/
+│       ├── animations.js        # Scripts d'animation
+│       ├── hero-slider.js       # Slider de la page d'accueil
+│       ├── project-archive.js   # Logique de l'archive projets
+│       └── script.js            # Scripts principaux
+├── css/
+│   ├── archive-project.css      # Styles de l'archive projets
+│   ├── page-agence.css          # Styles de la page agence
+│   └── single-project.css       # Styles de la page projet individuel
+├── fonts/
+│   └── GalanoGrotesque-*.woff2  # Polices personnalisées
+├── img/                         # Images du thème
+├── inc/
+│   ├── acf-fields.php           # Configuration des champs ACF
+│   ├── ajax-handlers.php        # Gestionnaires AJAX
+│   ├── customizer.php           # Options du Customizer
+│   ├── post-types.php           # Types de contenu personnalisés
+│   └── security.php             # Fonctions de sécurité
+├── js/
+│   ├── animated.js              # Animations JavaScript
+│   ├── custom-swiper.js         # Configuration Swiper
+│   ├── main.js                  # Script principal
+│   ├── projects.js              # Logique des projets
+│   └── sanitize.js              # Fonctions de sanitization
+├── template-parts/              # Templates partiels
+├── archive-project.php          # Template archive projets
+├── front-page.php               # Template page d'accueil
+├── functions.php                # Fonctions principales du thème
+├── header.php                   # En-tête
+├── footer.php                   # Pied de page
+├── page-agence.php              # Template page agence
+├── single-project.php           # Template projet individuel
+├── style.css                    # Fichier principal CSS (en-tête du thème)
+└── reset.css                    # Reset CSS
 ```
 
-## Integrate with your tools
+## 🎯 Utilisation
 
-- [ ] [Set up project integrations](https://gitlab.com/Toor96/eza-theme/-/settings/integrations)
+### Créer un projet
 
-## Collaborate with your team
+1. Aller dans **Projets > Ajouter un projet**
+2. Remplir les informations :
+   - Titre du projet
+   - Description
+   - Images du projet (jusqu'à 5 images)
+   - Localisation (coordonnées GPS)
+   - Année du projet
+   - Thème (taxonomie)
+   - Autres métadonnées
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Set auto-merge](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+### Gérer le personnel
 
-## Test and Deploy
+1. Aller dans **Personnel > Ajouter un membre**
+2. Ajouter :
+   - Nom
+   - Photo
+   - Fonction
+   - Mention
+   - Description
 
-Use the built-in continuous integration in GitLab.
+### Personnaliser la page d'accueil
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+1. Aller dans **Apparence > Personnaliser**
+2. Section **Images de Bannière** : Ajouter jusqu'à 5 images (desktop et mobile)
+3. Section **Partenaires** : Ajouter logos et liens (jusqu'à 10 partenaires)
+4. Section **Réseaux Sociaux** : Configurer les liens vers les réseaux sociaux
 
-***
+## 🔧 Personnalisation
 
-# Editing this README
+### Modifier les styles
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
+Les fichiers CSS principaux sont :
+- `style.css` : Styles globaux du thème
+- `css/archive-project.css` : Styles de l'archive projets
+- `css/single-project.css` : Styles de la page projet
+- `css/page-agence.css` : Styles de la page agence
 
-## Suggestions for a good README
+### Modifier les scripts
 
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+Les fichiers JavaScript principaux sont dans :
+- `assets/js/` : Scripts généraux
+- `js/` : Scripts spécifiques aux fonctionnalités
 
-## Name
-Choose a self-explaining name for your project.
+### Ajouter des champs ACF
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+Modifier le fichier `inc/acf-fields.php` pour ajouter ou modifier les champs personnalisés.
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+## 🛡️ Sécurité
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+Le thème inclut plusieurs mesures de sécurité :
+- Désactivation de l'éditeur de fichiers WordPress (`DISALLOW_FILE_EDIT`)
+- Sanitization des données utilisateur
+- Fallbacks pour ACF (évite les erreurs si le plugin est désactivé)
+- Échappement des sorties HTML
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+## 📝 Dépendances
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+### Plugins WordPress requis
+- **Advanced Custom Fields (ACF)** : Gestion des champs personnalisés
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+### Bibliothèques externes (chargées via CDN)
+- **Swiper.js** : Sliders et carrousels
+- **Leaflet.js** : Cartes interactives
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+## 👨‍💻 Développement
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+### Auteur
+**Tanguy MAMBAFEI**
+- Site web : https://tanguy-dev.com
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+### Version
+1.0
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+### Licence
+GNU General Public License v2 or later
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+## 📞 Support
 
-## License
-For open source projects, say how it is licensed.
+Pour toute question ou problème, veuillez contacter le développeur ou ouvrir une issue sur le dépôt GitLab.
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+## 🔄 Changelog
+
+### Version 1.0
+- Version initiale du thème
+- Types de contenu personnalisés (Projets, Personnel)
+- Slider hero avec support desktop/mobile
+- Archive projets avec carte interactive
+- Page agence
+- Système de partenaires
+- Intégration réseaux sociaux
+- Animations et effets visuels
+
+---
+
+**Thème développé avec ❤️ pour Eza Architecture**
